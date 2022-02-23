@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ExperimentDesign
@@ -24,6 +22,7 @@ namespace ExperimentDesign
                 var name = fatorAndLevelTable.Rows[0][col + 1].ToString();
                 table.Columns.Add(name, Type.GetType("System.String"));
             }
+            table.Columns.Add("储量", Type.GetType("System.String"));
             for (int i = 0; i < Times; i++)
             {
                 DataRow row = table.NewRow();

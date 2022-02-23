@@ -36,6 +36,7 @@ namespace ExperimentDesign
             this.plackettBurman实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.响应曲面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.模拟ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +47,8 @@ namespace ExperimentDesign
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
-            this.实验ToolStripMenuItem});
+            this.实验ToolStripMenuItem,
+            this.模拟ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1170, 32);
@@ -72,22 +74,23 @@ namespace ExperimentDesign
             // 正交实验ToolStripMenuItem
             // 
             this.正交实验ToolStripMenuItem.Name = "正交实验ToolStripMenuItem";
-            this.正交实验ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
+            this.正交实验ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
             this.正交实验ToolStripMenuItem.Text = "正交实验";
             this.正交实验ToolStripMenuItem.Click += new System.EventHandler(this.正交实验ToolStripMenuItem_Click);
             // 
             // plackettBurman实验ToolStripMenuItem
             // 
             this.plackettBurman实验ToolStripMenuItem.Name = "plackettBurman实验ToolStripMenuItem";
-            this.plackettBurman实验ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
+            this.plackettBurman实验ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
             this.plackettBurman实验ToolStripMenuItem.Text = "Plackett-Burman实验";
             this.plackettBurman实验ToolStripMenuItem.Click += new System.EventHandler(this.plackettBurman实验ToolStripMenuItem_Click);
             // 
             // 响应曲面ToolStripMenuItem
             // 
             this.响应曲面ToolStripMenuItem.Name = "响应曲面ToolStripMenuItem";
-            this.响应曲面ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
-            this.响应曲面ToolStripMenuItem.Text = "响应曲面";
+            this.响应曲面ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
+            this.响应曲面ToolStripMenuItem.Text = "响应曲面(Box-Behnken)";
+            this.响应曲面ToolStripMenuItem.Click += new System.EventHandler(this.响应曲面ToolStripMenuItem_Click);
             // 
             // panelControl1
             // 
@@ -96,6 +99,13 @@ namespace ExperimentDesign
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1170, 518);
             this.panelControl1.TabIndex = 1;
+            // 
+            // 模拟ToolStripMenuItem
+            // 
+            this.模拟ToolStripMenuItem.Name = "模拟ToolStripMenuItem";
+            this.模拟ToolStripMenuItem.Size = new System.Drawing.Size(62, 28);
+            this.模拟ToolStripMenuItem.Text = "模拟";
+            this.模拟ToolStripMenuItem.Click += new System.EventHandler(this.模拟ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -127,6 +137,7 @@ namespace ExperimentDesign
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private System.Windows.Forms.ToolStripMenuItem plackettBurman实验ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 响应曲面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 模拟ToolStripMenuItem;
     }
 }
 

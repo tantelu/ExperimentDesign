@@ -59,6 +59,7 @@ namespace ExperimentDesign
                 var name = pbGrid.Rows[0][col + 1].ToString();
                 table.Columns.Add(name, Type.GetType("System.String"));
             }
+            table.Columns.Add("储量", Type.GetType("System.String"));
             int[,] used = Times == 12 ? table12 : table20;
             for (int i = 0; i < Times; i++)
             {
