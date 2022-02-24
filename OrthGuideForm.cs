@@ -29,6 +29,7 @@ namespace ExperimentDesign
                 row["实验\\因数"] = $"实验{i + 1}";
                 table.Rows.Add(row);
             }
+            bool find = false;
             var file = Path.Combine(Application.StartupPath, "OrthTable.txt");
             StreamReader read = new StreamReader(file);
             while (!read.EndOfStream)
@@ -57,6 +58,7 @@ namespace ExperimentDesign
                                             var info = read.ReadLine().Trim();
                                             for (int col = 0; col < info.Length; col++)
                                             {
+                                                find = true;
                                                 int level = Convert.ToInt32(info[col].ToString());
                                                 var s = fatorAndLevelTable.Rows[level + 1][col + 1].ToString();
                                                 table.Rows[i][col + 1] = s;
@@ -69,7 +71,14 @@ namespace ExperimentDesign
                     }
                 }
             }
-            return table;
+            if (find)
+            {
+                return table;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public int FactorNum { get { return Convert.ToInt32(spinEdit_factor.Value); } }

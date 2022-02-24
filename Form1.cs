@@ -1,11 +1,13 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid;
 using System;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -94,56 +96,82 @@ namespace ExperimentDesign
 
         private void 模拟ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            string exe = Path.Combine(Application.StartupPath, @"sgsim.exe");
-            string _out = Path.Combine(Application.StartupPath, @"sgs.out");
-            if (File.Exists(exe))
+            if (this.panelControl1.Controls.Count > 0 && (this.panelControl1.Controls[0] as GridControl)?.DataSource != null)
             {
-                File.Delete(_out);
-                var process = Process.Start(exe, "sgsim.par");
-                while (!File.Exists(_out))
+                var table = (this.panelControl1.Controls[0] as GridControl)?.DataSource as DataTable;
+                string path = Path.Combine(Application.StartupPath, @"Model\SGS");
+                Directory.Delete(path, true);
+                Thread.Sleep(1000);
+                int seed = 1231234;
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
-                    Thread.Sleep(1000);
+                    var max_range = Convert.ToDouble(table.Rows[i + 1]["max_range"]);
+                    var angel = Convert.ToDouble(table.Rows[i + 1]["angel"]);
+                    var nst = Convert.ToDouble(table.Rows[i + 1]["nst"]);
+                    var nug = Convert.ToDouble(table.Rows[i + 1]["nug"]);
+                    CreateSgsFolder(path, i, seed, max_range, angel, nst, nug);
                 }
-                int xcount = 0;
-                int ycount = 0;
-                int zcount = 0;
-
-                var gslib = ReadGislib(_out, out xcount, out ycount, out zcount);
-                var max = gslib.Max();
-                var min = gslib.Min();
-                var det = max - min;
-                Bitmap map = new Bitmap(xcount, ycount);
-                for (int i = 0; i < xcount; i++)
-                {
-                    for (int j = 0; j < ycount; j++)
-                    {
-                        int index = i * xcount + j;
-                        if (!float.IsNaN(gslib[index]))
-                        {
-                            var gray = (int)Math.Round((gslib[index] - min) / det * 255);
-                            Color color = Color.FromArgb(gray, gray, gray);
-                            map.SetPixel(i, j, color);
-                        }
-                        else
-                        {
-                            map.SetPixel(i, j, Color.Black);
-                        }
-                    }
-                }
-
-                this.panelControl1.Controls.Clear();
-                var pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
-                pictureEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-                pictureEdit1.Location = new System.Drawing.Point(0, 0);
-                pictureEdit1.Name = "pictureEdit1";
-                pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-                pictureEdit1.Size = new System.Drawing.Size(800, 450);
-                pictureEdit1.TabIndex = 0;
-                pictureEdit1.Properties.SizeMode = PictureSizeMode.Zoom;
-                pictureEdit1.Image = map;
-                this.panelControl1.Controls.Add(pictureEdit1);
-                this.Refresh();
             }
+            else
+            {
+                XtraMessageBox.Show("无数据");
+            }
+            //string path = Path.Combine(Application.StartupPath, @"Model\SGS");
+            //string exe = Path.Combine(path, @"sgsim.exe");
+            //string _out = Path.Combine(path, @"sgs.out");
+            //if (File.Exists(exe))
+            //{
+            //    File.Delete(_out);
+            //    ProcessStartInfo info = new ProcessStartInfo();
+            //    info.FileName = exe;
+            //    info.WorkingDirectory = path;
+            //    info.UseShellExecute = false;
+            //    info.Arguments = "sgsim.par";
+            //    var process = Process.Start(info);
+            //    while (!File.Exists(_out))
+            //    {
+            //        Thread.Sleep(1000);
+            //    }
+            //    int xcount = 0;
+            //    int ycount = 0;
+            //    int zcount = 0;
+
+            //    var gslib = ReadGislib(_out, out xcount, out ycount, out zcount);
+            //    var max = gslib.Max();
+            //    var min = gslib.Min();
+            //    var det = max - min;
+            //    Bitmap map = new Bitmap(xcount, ycount);
+            //    for (int i = 0; i < xcount; i++)
+            //    {
+            //        for (int j = 0; j < ycount; j++)
+            //        {
+            //            int index = i * xcount + j;
+            //            if (!float.IsNaN(gslib[index]))
+            //            {
+            //                var gray = (int)Math.Round((gslib[index] - min) / det * 255);
+            //                Color color = Color.FromArgb(gray, gray, gray);
+            //                map.SetPixel(i, j, color);
+            //            }
+            //            else
+            //            {
+            //                map.SetPixel(i, j, Color.Black);
+            //            }
+            //        }
+            //    }
+
+            //    this.panelControl1.Controls.Clear();
+            //    var pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            //    pictureEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
+            //    pictureEdit1.Location = new System.Drawing.Point(0, 0);
+            //    pictureEdit1.Name = "pictureEdit1";
+            //    pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            //    pictureEdit1.Size = new System.Drawing.Size(800, 450);
+            //    pictureEdit1.TabIndex = 0;
+            //    pictureEdit1.Properties.SizeMode = PictureSizeMode.Zoom;
+            //    pictureEdit1.Image = map;
+            //    this.panelControl1.Controls.Add(pictureEdit1);
+            //    this.Refresh();
+            //}
         }
 
         private float[] ReadGislib(string gislibfile, out int xcount, out int ycount, out int zcount)
@@ -171,6 +199,71 @@ namespace ExperimentDesign
             reader.Close();
             reader.Dispose();
             return fs;
+        }
+
+        private void CreateSgsFolder(string folder, int index, int seed, double max_range, double angel, double nst, double nug)
+        {
+            string path = Path.Combine(folder, index.ToString());
+            string par = Path.Combine(path, "sgsim.par");
+            string exe = Path.Combine(path, @"sgsim.exe");
+            string _out = Path.Combine(path, @"sgs.out");
+            Directory.CreateDirectory(path);
+            File.Copy(Path.Combine(Application.StartupPath, "sgsim.exe"), Path.Combine(path, "sgsim.exe"));
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("              Parameters for SGSIM                                         ");
+            sb.AppendLine("              ********************                                         ");
+            sb.AppendLine("                                                                           ");
+            sb.AppendLine("START OF PARAMETER:                                                        ");
+            sb.AppendLine("none                          -file with data                              ");
+            sb.AppendLine("1  2  0  3  5  0              -  columns for X,Y,Z,vr,wt,sec.var.          ");
+            sb.AppendLine("-1.0e21 1.0e21                -  trimming limits                           ");
+            sb.AppendLine("0                             -transform the data (0=no, 1=yes)            ");
+            sb.AppendLine("none.trn                      -  file for output trans table               ");
+            sb.AppendLine("1                             -  consider ref. dist (0=no, 1=yes)          ");
+            sb.AppendLine("none.dat                      -  file with ref. dist distribution          ");
+            sb.AppendLine("1  0                          -  columns for vr and wt                     ");
+            sb.AppendLine("-4.0    4.0                   -  zmin,zmax(tail extrapolation)             ");
+            sb.AppendLine("1      -4.0                   -  lower tail option, parameter              ");
+            sb.AppendLine("1       4.0                   -  upper tail option, parameter              ");
+            sb.AppendLine("0                             -debugging level: 0,1,2,3                    ");
+            sb.AppendLine("nonw.dbg                      -file for debugging output                   ");
+            sb.AppendLine("sgs.out" + "                  -file for simulation output                  ");
+            sb.AppendLine($"{1}" + "                 -number of realizations to generate          ");
+            sb.AppendLine($"{100}" + " " + $"{5.0}" + " " + $"{10}" + "                              ");
+            sb.AppendLine($"{100}" + " " + $"{5.0}" + " " + $"{10}" + "                              ");
+            sb.AppendLine("1 0.0 1.0                     - nz zmn zsiz                                ");
+            sb.AppendLine(seed.ToString() + "                  -random number seed                    ");
+            sb.AppendLine("0     8                       -min and max original data for sim           ");
+            sb.AppendLine("12                            -number of simulated nodes to use            ");
+            sb.AppendLine("0                             -assign data to nodes (0=no, 1=yes)          ");
+            sb.AppendLine("1     3                       -multiple grid search (0=no, 1=yes),num      ");
+            sb.AppendLine("0                             -maximum data per octant (0=not used)        ");
+            sb.AppendLine($"{max_range}" + " " + $"{max_range}" + " 1.0 -maximum search  (hmax,hmin,vert) ");
+            sb.AppendLine($"{angel}" + "   0.0   0.0       -angles for search ellipsoid                 ");
+            sb.AppendLine("101" + " " + "101" + " 1 -size of covariance lookup table        ");
+            sb.AppendLine("0     0.60   1.0              -ktype: 0=SK,1=OK,2=LVM,3=EXDR,4=COLC        ");
+            sb.AppendLine("none.dat                      -  file with LVM, EXDR, or COLC variable     ");
+            sb.AppendLine("4                             -  column for secondary variable             ");
+            sb.AppendLine($"{nst}" + " " + $"{nug}" + "  -nst, nugget effect                          ");
+            sb.AppendLine($"{1}" + " " + $"{1.0}" + " " + $"{0}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
+            sb.AppendLine(" " + $"{500}" + " " + $"{500}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
+            sb.AppendLine($"{1}" + " " + $"{0}" + " " + $"{0}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
+            sb.AppendLine(" " + $"{0}" + " " + $"{1.0}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
+            File.WriteAllText(par, sb.ToString());
+            if (File.Exists(_out))
+            {
+                File.Delete(_out);
+            }
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = exe;
+            info.WorkingDirectory = path;
+            info.UseShellExecute = false;
+            info.Arguments = "sgsim.par";
+            var process = Process.Start(info);
+            //while (!File.Exists(_out))
+            //{
+            //    Thread.Sleep(1000);
+            //}
         }
     }
 }
