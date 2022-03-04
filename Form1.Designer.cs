@@ -35,15 +35,14 @@ namespace ExperimentDesign
             this.正交实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plackettBurman实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.响应曲面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.模拟ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
@@ -92,14 +91,6 @@ namespace ExperimentDesign
             this.响应曲面ToolStripMenuItem.Text = "响应曲面(Box-Behnken)";
             this.响应曲面ToolStripMenuItem.Click += new System.EventHandler(this.响应曲面ToolStripMenuItem_Click);
             // 
-            // panelControl1
-            // 
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 32);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1170, 518);
-            this.panelControl1.TabIndex = 1;
-            // 
             // 模拟ToolStripMenuItem
             // 
             this.模拟ToolStripMenuItem.Name = "模拟ToolStripMenuItem";
@@ -107,11 +98,19 @@ namespace ExperimentDesign
             this.模拟ToolStripMenuItem.Text = "模拟";
             this.模拟ToolStripMenuItem.Click += new System.EventHandler(this.模拟ToolStripMenuItem_Click);
             // 
+            // panelControl1
+            // 
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(0, 32);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(1170, 620);
+            this.panelControl1.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 550);
+            this.ClientSize = new System.Drawing.Size(1170, 652);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

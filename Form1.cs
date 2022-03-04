@@ -2,6 +2,7 @@
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -18,28 +19,51 @@ namespace ExperimentDesign
         public Form1()
         {
             InitializeComponent();
+            //var table = DesignAlgorithm.GenerateOrthGuide(5, 4);
+            //XtraMessageBox.Show(table.ToString());
         }
 
         private void 正交实验ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            using (OrthGuideForm form = new OrthGuideForm())
+            Dictionary<string, Dictionary<object, object>> factormaps = new Dictionary<string, Dictionary<object, object>>()
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    AddTable(form.GetOrthTable());
-                }
-            }
+                {"波长",new Dictionary<object, object>(){ { (uint)0, 500 }, { (uint)1, 700 }, { (uint)2, 900 } } },
+                {"振幅",new Dictionary<object, object>(){ { (uint)0, 1000 }, { (uint)1, 2000 }, { (uint)2, 3000 } } },
+                {"宽度", new Dictionary<object, object>(){ { (uint)0, 700 }, { (uint)1, 1000 }, { (uint)2, 1500 } }},
+                {"厚度",new Dictionary<object, object>(){ { (uint)0, 5 }, { (uint)1, 7 }, { (uint)2, 9 } } }
+            };
+            var orthinfo = new FactorInfo(factormaps);
+            var table = DesignAlgorithm.GenerateOrthGuide(4, 3);
+            AddTable(table.ToDataTable(orthinfo));
+            //using (OrthGuideForm form = new OrthGuideForm())
+            //{
+            //    if (form.ShowDialog() == DialogResult.OK)
+            //    {
+            //        AddTable(form.GetOrthTable());
+            //    }
+            //}
         }
 
         private void plackettBurman实验ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            using (PBForm form = new PBForm())
+            Dictionary<string, Dictionary<object, object>> factormaps = new Dictionary<string, Dictionary<object, object>>()
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    AddTable(form.GetPBTable());
-                }
-            }
+                {"波长",new Dictionary<object, object>(){ { '-', 500 }, { '+', 700 }} },
+                {"振幅",new Dictionary<object, object>(){ { '-', 1000 }, { '+', 2000 } }},
+                {"宽度", new Dictionary<object, object>(){ { '-', 700 }, { '+', 1000 }}},
+                {"厚度",new Dictionary<object, object>(){ { '-', 5 }, { '+', 7 } } },
+                {"方位角",new Dictionary<object, object>(){ { '-', 45 }, { '+', 90 } } }
+            };
+            var orthinfo = new FactorInfo(factormaps);
+            var table = DesignAlgorithm.GeneratePlackettBurman(5);
+            AddTable(table.ToDataTable(orthinfo));
+            //using (PBForm form = new PBForm())
+            //{
+            //    if (form.ShowDialog() == DialogResult.OK)
+            //    {
+            //        AddTable(form.GetPBTable());
+            //    }
+            //}
         }
 
         private void AddTable(DataTable table)
@@ -77,10 +101,10 @@ namespace ExperimentDesign
 
             this.panelControl1.Controls.Add(gridControl1);
             this.Refresh();
-            for (int i = 0; i < gridView1.Columns.Count - 1; i++)
-            {
-                gridView1.Columns[i].OptionsColumn.AllowEdit = false;
-            }
+            //for (int i = 0; i < gridView1.Columns.Count - 1; i++)
+            //{
+            //    gridView1.Columns[i].OptionsColumn.AllowEdit = false;
+            //}
         }
 
         private void 响应曲面ToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -103,75 +127,73 @@ namespace ExperimentDesign
                 Directory.Delete(path, true);
                 Thread.Sleep(1000);
                 int seed = 1231234;
+                List<string> outs = new List<string>();
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
-                    var max_range = Convert.ToDouble(table.Rows[i + 1]["max_range"]);
-                    var angel = Convert.ToDouble(table.Rows[i + 1]["angel"]);
-                    var nst = Convert.ToDouble(table.Rows[i + 1]["nst"]);
-                    var nug = Convert.ToDouble(table.Rows[i + 1]["nug"]);
-                    CreateSgsFolder(path, i, seed, max_range, angel, nst, nug);
+                    var max_range = Convert.ToDouble(table.Rows[i]["max_range"]);
+                    var angel = Convert.ToDouble(table.Rows[i]["angel"]);
+                    var nst = Convert.ToDouble(table.Rows[i]["ktype"]);
+                    var nug = Convert.ToDouble(table.Rows[i]["nug"]);
+                    var _out = CreateSgsFolder(path, i + 1, seed, max_range, angel, nst, nug);
+                    seed += 1000;
+                    outs.Add(_out);
                 }
+                Thread.Sleep(5000);
+                this.panelControl1.Controls.Clear();
+                var pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+                pictureEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
+                pictureEdit1.Location = new System.Drawing.Point(0, 0);
+                pictureEdit1.Name = "pictureEdit1";
+                pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+                pictureEdit1.Size = new System.Drawing.Size(800, 450);
+                pictureEdit1.TabIndex = 0;
+                Bitmap map = new Bitmap(pictureEdit1.DisplayRectangle.Width, pictureEdit1.DisplayRectangle.Height);
+                for (int index = 0; index < outs.Count; index++)
+                {
+                    int xcount = 0;
+                    int ycount = 0;
+                    int zcount = 0;
+                    if (File.Exists(outs[index]))
+                    {
+                        var gslib = ReadGislib(outs[index], out xcount, out ycount, out zcount);
+                        var max = gslib.Max();
+                        var min = gslib.Min();
+                        var det = max - min;
+                        int maxdetx = (pictureEdit1.DisplayRectangle.Width / (xcount + 5));
+                        int dety = index / maxdetx;
+                        int detx = index % maxdetx;
+                        for (int i = 0; i < xcount; i++)
+                        {
+                            for (int j = 0; j < ycount; j++)
+                            {
+                                int index2 = i * xcount + j;
+                                int mapi = i + detx * (xcount + 5);
+                                int mapj = j + dety * (ycount + 5);
+                                if (mapi < pictureEdit1.DisplayRectangle.Width && mapj < pictureEdit1.DisplayRectangle.Height)
+                                {
+                                    if (!float.IsNaN(gslib[index2]))
+                                    {
+                                        var gray = (int)Math.Round((gslib[index2] - min) / det * 255);
+                                        Color color = Color.FromArgb(gray, gray, gray);
+                                        map.SetPixel(mapi, mapj, color);
+                                    }
+                                    else
+                                    {
+                                        map.SetPixel(mapi, mapj, Color.Black);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                pictureEdit1.Image = map;
+                this.panelControl1.Controls.Add(pictureEdit1);
+                this.Refresh();
             }
             else
             {
                 XtraMessageBox.Show("无数据");
             }
-            //string path = Path.Combine(Application.StartupPath, @"Model\SGS");
-            //string exe = Path.Combine(path, @"sgsim.exe");
-            //string _out = Path.Combine(path, @"sgs.out");
-            //if (File.Exists(exe))
-            //{
-            //    File.Delete(_out);
-            //    ProcessStartInfo info = new ProcessStartInfo();
-            //    info.FileName = exe;
-            //    info.WorkingDirectory = path;
-            //    info.UseShellExecute = false;
-            //    info.Arguments = "sgsim.par";
-            //    var process = Process.Start(info);
-            //    while (!File.Exists(_out))
-            //    {
-            //        Thread.Sleep(1000);
-            //    }
-            //    int xcount = 0;
-            //    int ycount = 0;
-            //    int zcount = 0;
-
-            //    var gslib = ReadGislib(_out, out xcount, out ycount, out zcount);
-            //    var max = gslib.Max();
-            //    var min = gslib.Min();
-            //    var det = max - min;
-            //    Bitmap map = new Bitmap(xcount, ycount);
-            //    for (int i = 0; i < xcount; i++)
-            //    {
-            //        for (int j = 0; j < ycount; j++)
-            //        {
-            //            int index = i * xcount + j;
-            //            if (!float.IsNaN(gslib[index]))
-            //            {
-            //                var gray = (int)Math.Round((gslib[index] - min) / det * 255);
-            //                Color color = Color.FromArgb(gray, gray, gray);
-            //                map.SetPixel(i, j, color);
-            //            }
-            //            else
-            //            {
-            //                map.SetPixel(i, j, Color.Black);
-            //            }
-            //        }
-            //    }
-
-            //    this.panelControl1.Controls.Clear();
-            //    var pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
-            //    pictureEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            //    pictureEdit1.Location = new System.Drawing.Point(0, 0);
-            //    pictureEdit1.Name = "pictureEdit1";
-            //    pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            //    pictureEdit1.Size = new System.Drawing.Size(800, 450);
-            //    pictureEdit1.TabIndex = 0;
-            //    pictureEdit1.Properties.SizeMode = PictureSizeMode.Zoom;
-            //    pictureEdit1.Image = map;
-            //    this.panelControl1.Controls.Add(pictureEdit1);
-            //    this.Refresh();
-            //}
         }
 
         private float[] ReadGislib(string gislibfile, out int xcount, out int ycount, out int zcount)
@@ -201,7 +223,7 @@ namespace ExperimentDesign
             return fs;
         }
 
-        private void CreateSgsFolder(string folder, int index, int seed, double max_range, double angel, double nst, double nug)
+        private string CreateSgsFolder(string folder, int index, int seed, double max_range, double angel, double ktype, double nug)
         {
             string path = Path.Combine(folder, index.ToString());
             string par = Path.Combine(path, "sgsim.par");
@@ -239,15 +261,15 @@ namespace ExperimentDesign
             sb.AppendLine("1     3                       -multiple grid search (0=no, 1=yes),num      ");
             sb.AppendLine("0                             -maximum data per octant (0=not used)        ");
             sb.AppendLine($"{max_range}" + " " + $"{max_range}" + " 1.0 -maximum search  (hmax,hmin,vert) ");
-            sb.AppendLine($"{angel}" + "   0.0   0.0       -angles for search ellipsoid                 ");
+            sb.AppendLine("0.0   0.0   0.0       -angles for search ellipsoid                 ");
             sb.AppendLine("101" + " " + "101" + " 1 -size of covariance lookup table        ");
-            sb.AppendLine("0     0.60   1.0              -ktype: 0=SK,1=OK,2=LVM,3=EXDR,4=COLC        ");
+            sb.AppendLine($"{ktype}     0.60   1.0              -ktype: 0=SK,1=OK,2=LVM,3=EXDR,4=COLC        ");
             sb.AppendLine("none.dat                      -  file with LVM, EXDR, or COLC variable     ");
             sb.AppendLine("4                             -  column for secondary variable             ");
-            sb.AppendLine($"{nst}" + " " + $"{nug}" + "  -nst, nugget effect                          ");
+            sb.AppendLine($"{1.0}" + " " + $"{nug}" + "  -nst, nugget effect                          ");
             sb.AppendLine($"{1}" + " " + $"{1.0}" + " " + $"{0}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
             sb.AppendLine(" " + $"{500}" + " " + $"{500}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
-            sb.AppendLine($"{1}" + " " + $"{0}" + " " + $"{0}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{1}" + " " + $"{0}" + " " + $"{angel}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
             sb.AppendLine(" " + $"{0}" + " " + $"{1.0}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
             File.WriteAllText(par, sb.ToString());
             if (File.Exists(_out))
@@ -260,10 +282,7 @@ namespace ExperimentDesign
             info.UseShellExecute = false;
             info.Arguments = "sgsim.par";
             var process = Process.Start(info);
-            //while (!File.Exists(_out))
-            //{
-            //    Thread.Sleep(1000);
-            //}
+            return _out;
         }
     }
 }
