@@ -18,10 +18,17 @@ namespace ExperimentDesign
         /// <param name="factors"></param>
         /// <param name="designType"></param>
         /// <returns></returns>
-        public static CenteralCompositeTable GenerateComposite(uint factors, CenteralCompositeType designType)
+        public static CenteralCompositeTable GenerateComposite(int factors, CenteralCompositeType designType)
         {
-            CenteralCompositeTable table = new CenteralCompositeTable(factors, designType);
-            return table;
+            if (factors >= 2)
+            {
+                CenteralCompositeTable table = new CenteralCompositeTable(factors, designType);
+                return table;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -29,10 +36,17 @@ namespace ExperimentDesign
         /// </summary>
         /// <param name="factors"></param>
         /// <returns></returns>
-        public static BoxBehnkenTable GenerateBoxBehnken(uint factors)
+        public static BoxBehnkenTable GenerateBoxBehnken(int factors)
         {
-            BoxBehnkenTable table = new BoxBehnkenTable(factors);
-            return table;
+            if (factors >= 3)
+            {
+                BoxBehnkenTable table = new BoxBehnkenTable(factors);
+                return table;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -40,10 +54,17 @@ namespace ExperimentDesign
         /// </summary>
         /// <param name="factors"></param>
         /// <returns></returns>
-        public static PlackettBurmanTable GeneratePlackettBurman(uint factors)
+        public static PlackettBurmanTable GeneratePlackettBurman(int factors)
         {
-            PlackettBurmanTable table = new PlackettBurmanTable(factors);
-            return table;
+            if (factors >= 2)
+            {
+                PlackettBurmanTable table = new PlackettBurmanTable(factors);
+                return table;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -52,10 +73,17 @@ namespace ExperimentDesign
         /// <param name="factors"></param>
         /// <param name="levels"></param>
         /// <returns></returns>
-        public static OrthGuideTable GenerateOrthGuide(uint factors, uint levels)
+        public static OrthGuideTable GenerateOrthGuide(int factors, int levels)
         {
-            OrthGuideTable table = new OrthGuideTable(factors, levels);
-            return table;
+            if (factors >= 3)
+            {
+                OrthGuideTable table = new OrthGuideTable(factors, levels);
+                return table;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 
@@ -65,9 +93,9 @@ namespace ExperimentDesign
 
         Dictionary<char, double> maps;
 
-        public CenteralCompositeTable(uint factors, CenteralCompositeType designType)
+        public CenteralCompositeTable(int factors, CenteralCompositeType designType)
         {
-            uint samples = 1 + (uint)Math.Pow(2, factors) + 2 * factors;
+            int samples = 1 + (int)Math.Pow(2, factors) + 2 * factors;
             data = new char[samples, factors];
             for (int i = 0; i < samples; i++)
             {
@@ -77,17 +105,17 @@ namespace ExperimentDesign
                 }
             }
             //轴点中心点
-            for (uint j = 0; j < factors; j++)
+            for (int j = 0; j < factors; j++)
             {
                 SetValue(0, j, '0');
             }
             //立方点
             FullArray(factors, 1, factors - 1, this);
-            uint start = 1 + (uint)Math.Pow(2, factors);
+            int start = 1 + (int)Math.Pow(2, factors);
             if (designType == CenteralCompositeType.Inscribed)
             {
                 //轴点
-                for (uint j = 0; j < factors; j++)
+                for (int j = 0; j < factors; j++)
                 {
                     SetValue(start++, j, 'L');
                     SetValue(start++, j, 'H');
@@ -98,7 +126,7 @@ namespace ExperimentDesign
             else
             {
                 //轴点
-                for (uint j = 0; j < factors; j++)
+                for (int j = 0; j < factors; j++)
                 {
                     SetValue(start++, j, '-');
                     SetValue(start++, j, '+');
@@ -117,7 +145,7 @@ namespace ExperimentDesign
             return data[rowIndex, colIndex];
         }
 
-        private void SetValue(uint rowIndex, uint colIndex, char _value)
+        private void SetValue(int rowIndex, int colIndex, char _value)
         {
             data[rowIndex, colIndex] = _value;
         }
@@ -132,15 +160,15 @@ namespace ExperimentDesign
             return row;
         }
 
-        private void FullArray(uint factors, uint start, uint curCol, CenteralCompositeTable table)
+        private void FullArray(int factors, int start, int curCol, CenteralCompositeTable table)
         {
-            uint rows1 = start + (uint)Math.Pow(2, curCol);
-            uint rows2 = start + (uint)Math.Pow(2, curCol + 1);
-            for (uint i = start; i < rows1; i++)
+            int rows1 = start + (int)Math.Pow(2, curCol);
+            int rows2 = start + (int)Math.Pow(2, curCol + 1);
+            for (int i = start; i < rows1; i++)
             {
                 table.SetValue(i, curCol, '-');
             }
-            for (uint i = rows1; i < rows2; i++)
+            for (int i = rows1; i < rows2; i++)
             {
                 table.SetValue(i, curCol, '+');
             }
@@ -187,7 +215,7 @@ namespace ExperimentDesign
 
         Dictionary<char, double> maps;
 
-        public BoxBehnkenTable(uint factors)
+        public BoxBehnkenTable(int factors)
         {
             var file = Path.Combine(Application.StartupPath, "BBTable.txt");
             StreamReader read = new StreamReader(file);
@@ -279,7 +307,7 @@ namespace ExperimentDesign
 
         Dictionary<char, double> maps;
 
-        public PlackettBurmanTable(uint factors)
+        public PlackettBurmanTable(int factors)
         {
             if (factors < 4)
             {
@@ -428,9 +456,9 @@ namespace ExperimentDesign
 
     public class OrthGuideTable : Table
     {
-        uint[,] data;
+        int[,] data;
 
-        public OrthGuideTable(uint factors, uint levels)
+        public OrthGuideTable(int factors, int levels)
         {
             bool find = false;
             var file = Path.Combine(Application.StartupPath, "OrthTable.txt");
@@ -446,7 +474,7 @@ namespace ExperimentDesign
                         int n = 0;
                         if (int.TryParse(splits[1], out n))
                         {
-                            data = new uint[n, factors];
+                            data = new int[n, factors];
                             if (splits[0].Count(_ => _ == '^') == 1)
                             {
                                 var splits2 = splits[0].Split(new string[] { "^" }, StringSplitOptions.RemoveEmptyEntries);
@@ -463,7 +491,7 @@ namespace ExperimentDesign
                                             for (int col = 0; col < info.Length; col++)
                                             {
                                                 find = true;
-                                                data[i, col] = Convert.ToUInt32(info[col].ToString());
+                                                data[i, col] = Convert.ToInt32(info[col].ToString());
                                             }
                                         }
                                         break;

@@ -67,6 +67,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridEditWorkControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridEditForm.Designer.cs">
+      <DependentUpon>GridEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PBForm .cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,11 +96,20 @@
     <Compile Include="UncertaintyForm.Designer.cs">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkControl.Designer.cs">
+      <DependentUpon>WorkControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BBForm.resx">
       <DependentUpon>BBForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridEditForm.resx">
+      <DependentUpon>GridEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PBForm .resx">
       <DependentUpon>PBForm .cs</DependentUpon>
@@ -112,6 +130,9 @@
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkControl.resx">
+      <DependentUpon>WorkControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\图标.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -27,10 +27,10 @@ namespace ExperimentDesign
         {
             Dictionary<string, Dictionary<object, object>> factormaps = new Dictionary<string, Dictionary<object, object>>()
             {
-                {"波长",new Dictionary<object, object>(){ { (uint)0, 500 }, { (uint)1, 700 }, { (uint)2, 900 } } },
-                {"振幅",new Dictionary<object, object>(){ { (uint)0, 1000 }, { (uint)1, 2000 }, { (uint)2, 3000 } } },
-                {"宽度", new Dictionary<object, object>(){ { (uint)0, 700 }, { (uint)1, 1000 }, { (uint)2, 1500 } }},
-                {"厚度",new Dictionary<object, object>(){ { (uint)0, 5 }, { (uint)1, 7 }, { (uint)2, 9 } } }
+                {"波长",new Dictionary<object, object>(){ { (int)0, 500 }, { (int)1, 700 }, { (int)2, 900 } } },
+                {"振幅",new Dictionary<object, object>(){ { (int)0, 1000 }, { (int)1, 2000 }, { (int)2, 3000 } } },
+                {"宽度", new Dictionary<object, object>(){ { (int)0, 700 }, { (int)1, 1000 }, { (int)2, 1500 } }},
+                {"厚度",new Dictionary<object, object>(){ { (int)0, 5 }, { (int)1, 7 }, { (int)2, 9 } } }
             };
             var orthinfo = new FactorInfo(factormaps);
             var table = DesignAlgorithm.GenerateOrthGuide(4, 3);
