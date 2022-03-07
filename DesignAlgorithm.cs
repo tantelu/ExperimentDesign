@@ -89,11 +89,19 @@ namespace ExperimentDesign
 
     public class CenteralCompositeTable : Table
     {
+        private int factors = 0;
+
         char[,] data;
 
         Dictionary<char, double> maps;
 
         public CenteralCompositeTable(int factors, CenteralCompositeType designType)
+        {
+            this.factors = factors;
+            Init(designType);
+        }
+
+        public void Init(CenteralCompositeType designType)
         {
             int samples = 1 + (int)Math.Pow(2, factors) + 2 * factors;
             data = new char[samples, factors];
@@ -406,6 +414,44 @@ namespace ExperimentDesign
 
             }
             maps = new Dictionary<char, double>() { { '-', -1 }, { '+', 1 } };
+        }
+
+        public void SetcenterPoint(bool isAdd)
+        {
+            if (isAdd)
+            {
+                if (data[0, 0] != '0')
+                {
+                    char[,] newdata = new char[data.GetLength(0) + 1, data.GetLength(1)];
+                    for (int i = 0; i < data.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < data.GetLength(1); j++)
+                        {
+                            newdata[i + 1, j] = data[i, j];
+                        }
+                    }
+                    for (int j = 0; j < data.GetLength(1); j++)
+                    {
+                        newdata[0, j] = '0';
+                    }
+                    data = newdata;
+                }
+            }
+            else
+            {
+                if (data[0, 0] == '0')
+                {
+                    char[,] newdata = new char[data.GetLength(0) - 1, data.GetLength(1)];
+                    for (int i = 0; i < newdata.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < newdata.GetLength(1); j++)
+                        {
+                            newdata[i, j] = data[i + 1, j];
+                        }
+                    }
+                    data = newdata;
+                }
+            }
         }
 
         public override int GetTestCount()

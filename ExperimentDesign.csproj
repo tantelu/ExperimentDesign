@@ -61,6 +61,30 @@
       <DependentUpon>BBForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesignAlgorithm.cs" />
+    <Compile Include="DesignPanel\OrthDesignPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\OrthDesignPanel.Designer.cs">
+      <DependentUpon>OrthDesignPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignPanel\CCDesignPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\CCDesignPanel.Designer.cs">
+      <DependentUpon>CCDesignPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignPanel\PBDesignPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\PBDesignPanel.Designer.cs">
+      <DependentUpon>PBDesignPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignPanel\BBDesignPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\BBDesignPanel.Designer.cs">
+      <DependentUpon>BBDesignPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +100,13 @@
     <Compile Include="GridEditForm.Designer.cs">
       <DependentUpon>GridEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoForm\DesignShowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoForm\DesignShowForm.Designer.cs">
+      <DependentUpon>DesignShowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IUpdateDesignTimes.cs" />
     <Compile Include="PBForm .cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,11 +136,26 @@
     <EmbeddedResource Include="BBForm.resx">
       <DependentUpon>BBForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\OrthDesignPanel.resx">
+      <DependentUpon>OrthDesignPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\CCDesignPanel.resx">
+      <DependentUpon>CCDesignPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\PBDesignPanel.resx">
+      <DependentUpon>PBDesignPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\BBDesignPanel.resx">
+      <DependentUpon>BBDesignPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GridEditForm.resx">
       <DependentUpon>GridEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm\DesignShowForm.resx">
+      <DependentUpon>DesignShowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PBForm .resx">
       <DependentUpon>PBForm .cs</DependentUpon>
