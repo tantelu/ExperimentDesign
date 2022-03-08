@@ -3,11 +3,14 @@ using ExperimentDesign.DesignPanel;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
+using WorkList.ExperimentDesign;
 
 namespace ExperimentDesign
 {
-    public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes
+    public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IDeleteWorkControl
     {
         public UncertaintyForm()
         {
@@ -16,17 +19,29 @@ namespace ExperimentDesign
 
         private void editworkflow_Click(object sender, System.EventArgs e)
         {
-            var workflow = new GridEditWorkControl();
-            var point = new Point(5, 5 + workPanel.Controls.Count * 20);
-            workflow.Location = point;
-            workflow.Name = "editworkflow";
-            workflow.SetIndex(workPanel.Controls.Count + 1);
-            workflow.Size = new Size(400, 20);
-            this.SuspendLayout();
-            this.workPanel.SuspendLayout();
-            this.workPanel.Controls.Add(workflow);
-            this.workPanel.ResumeLayout();
-            this.ResumeLayout(false);
+            using (WorkSelectForm select = new WorkSelectForm())
+            {
+                if (select.ShowDialog() == DialogResult.OK)
+                {
+                    this.SuspendLayout();
+                    this.workPanel.SuspendLayout();
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    foreach (var item in select.GetSelects())
+                    {
+                        WorkControl workflow = assembly.CreateInstance(item.ControlType) as WorkControl;
+                        var point = new Point(5, 5 + workPanel.Controls.Count * 20);
+                        workflow.Location = point;
+                        workflow.Name = "editworkflow";
+                        workflow.SetIndex(workPanel.Controls.Count + 1);
+                        workflow.Size = new Size(400, 20);
+                        workflow.Layout = this;
+                        this.workPanel.Controls.Add(workflow);
+                    }
+                    this.workPanel.ResumeLayout();
+                    this.ResumeLayout(false);
+                    this.Refresh();
+                }
+            }
         }
 
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
@@ -54,11 +69,11 @@ namespace ExperimentDesign
             UpdateDesign();
             if (e.OldPage == this.tabNavigationPage1 && e.Page == this.tabNavigationPage2)
             {
-                
+
             }
             else if (e.Page == this.tabNavigationPage3)
             {
-                
+
             }
             else
             {
@@ -153,6 +168,24 @@ namespace ExperimentDesign
         {
             this.designTimes.Enabled = false;
             this.designTimes.Value = times;
+        }
+
+        public void Delete(WorkControl control)
+        {
+            int index = this.workPanel.Controls.IndexOf(control);
+            this.SuspendLayout();
+            this.workPanel.SuspendLayout();
+            for (int i = 0; i < this.workPanel.Controls.Count; i++)
+            {
+                if (i > index)
+                {
+                    this.workPanel.Controls[i].Location = this.workPanel.Controls[i].Location - new Size(0, 23);
+                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i);
+                }
+            }
+            this.workPanel.Controls.Remove(control);
+            this.workPanel.ResumeLayout();
+            this.ResumeLayout(false);
         }
     }
 

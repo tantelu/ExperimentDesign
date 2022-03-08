@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ExperimentDesign
+namespace WorkList.ExperimentDesign
 {
     public partial class WorkControl : UserControl
     {
+        public IDeleteWorkControl Layout { get; set; }
+
         public WorkControl()
         {
             InitializeComponent();
@@ -47,10 +49,9 @@ namespace ExperimentDesign
 
         public override bool Focused => this.textEdit3.Focused;
 
-        //private void textEdit3_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    ((TextEdit)sender).BackColor = Color.BlueViolet;
-        //    ((TextEdit)sender).ForeColor = Color.White;
-        //}
+        private void pictureEdit2_DoubleClick(object sender, EventArgs e)
+        {
+            Layout?.Delete(this);
+        }
     }
 }

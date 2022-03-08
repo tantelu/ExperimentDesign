@@ -1,8 +1,6 @@
 ﻿using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using System.Collections.Generic;
 
-namespace ExperimentDesign
+namespace WorkList.ExperimentDesign
 {
     public class GridEditWorkControl : WorkControl
     {
@@ -12,7 +10,6 @@ namespace ExperimentDesign
         }
 
         protected override string WorkName => "创建简单三维网格";
-
         
 
         protected override void Run()

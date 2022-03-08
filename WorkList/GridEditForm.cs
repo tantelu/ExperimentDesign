@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ExperimentDesign
+namespace WorkList.ExperimentDesign
 {
     public partial class GridEditForm : XtraForm
     {
