@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace WorkList.ExperimentDesign
 {
@@ -6,11 +7,12 @@ namespace WorkList.ExperimentDesign
     {
         public GridEditWorkControl()
         {
-            //this.layoutControlItem3.Text = WorkName;
+
         }
 
         protected override string WorkName => "创建简单三维网格";
-        
+
+        protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Grid;
 
         protected override void Run()
         {
@@ -21,9 +23,11 @@ namespace WorkList.ExperimentDesign
         {
             using (GridEditForm form = new GridEditForm())
             {
+                form.InitForm(param);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    SetUncentainParam(form.GetUncentainParam()); 
+                    this.param.Clear();
+                    this.param.AddRange(form.GetUncentainParam());
                 }
             }
         }

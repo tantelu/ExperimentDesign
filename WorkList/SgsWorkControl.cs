@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace WorkList.ExperimentDesign
 {
@@ -11,7 +12,7 @@ namespace WorkList.ExperimentDesign
 
         protected override string WorkName => "序贯高斯模拟";
 
-        
+        protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
 
         protected override void Run()
         {

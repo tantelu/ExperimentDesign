@@ -96,7 +96,6 @@ namespace WorkList.ExperimentDesign
             // 
             // pictureEdit1
             // 
-            this.pictureEdit1.EditValue = global::ExperimentDesign.Properties.Resources.图标;
             this.pictureEdit1.Location = new System.Drawing.Point(381, 3);
             this.pictureEdit1.Name = "pictureEdit1";
             contextButton1.Caption = "contextButton1";

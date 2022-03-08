@@ -73,9 +73,19 @@ namespace ExperimentDesign.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap 图标 {
+        internal static System.Drawing.Bitmap Grid {
             get {
-                object obj = ResourceManager.GetObject("图标", resourceCulture);
+                object obj = ResourceManager.GetObject("Grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Sgs {
+            get {
+                object obj = ResourceManager.GetObject("Sgs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

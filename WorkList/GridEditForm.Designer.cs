@@ -173,11 +173,7 @@ namespace WorkList.ExperimentDesign
             // 
             // spinEdit4
             // 
-            this.spinEdit4.EditValue = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.spinEdit4.EditValue = "1000";
             this.spinEdit4.Location = new System.Drawing.Point(70, 110);
             this.spinEdit4.Name = "spinEdit4";
             this.spinEdit4.Properties.Appearance.Options.UseTextOptions = true;

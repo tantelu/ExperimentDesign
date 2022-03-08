@@ -52,14 +52,19 @@ namespace ExperimentDesign
             {
                 if (item is WorkControl ctrl)
                 {
-                    var strs = ctrl.GetUncentainParam();
-                    if (strs?.Count > 0)
+                    var @params = ctrl.GetUncentainParam();
+                    if (@params?.Count > 0)
                     {
-                        foreach (var str in strs)
+                        foreach (var par in @params)
                         {
-                            VariableData data = new VariableData();
-                            data.Name = str;
-                            datas.Add(data);
+                            if (par.EditorValue != null && par.EditorValue.ToString().Contains("$"))
+                            {
+                                VariableData data = new VariableData();
+                                data.Name = par.EditorValue.ToString();
+                                data.ParName = par.Name;
+                                data.BaseValue = par.DefaultValue.ToString();
+                                datas.Add(data);
+                            }
                         }
                     }
                 }
@@ -187,12 +192,28 @@ namespace ExperimentDesign
             this.workPanel.ResumeLayout();
             this.ResumeLayout(false);
         }
+
+        private void gridView1_ShownEditor(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
+        {
+            if (string.Equals(e.Column.FieldName, nameof(VariableData.Distribution)))
+            {
+                e.RepositoryItem = paramDistributed;
+            }
+        }
     }
 
     public class VariableData
     {
         [DisplayName("变量名")]
         public string Name { get; set; }
+
+        [DisplayName("参数名")]
+        public string ParName { get; set; }
 
         [DisplayName("默认值")]
         public string BaseValue { get; set; }

@@ -41,10 +41,6 @@ namespace WorkList.ExperimentDesign
         {
             this.workList.Properties.Items.Clear();
             string path = Path.Combine(Application.StartupPath, @"WorkList.json");
-            //List<WorkItem> works = new List<WorkItem>();
-            //works.Add(new WorkItem() { Name = "创建简单三维网格", ControlType = typeof(GridEditWorkControl).FullName });
-            //works.Add(new WorkItem() { Name = "序贯高斯模拟", ControlType = typeof(SgsWorkControl).FullName });
-            //File.WriteAllText(path, JsonConvert.SerializeObject(works));
             var list = JsonConvert.DeserializeObject<List<WorkItem>>(File.ReadAllText(path));
             if (list.Count > 0)
             {

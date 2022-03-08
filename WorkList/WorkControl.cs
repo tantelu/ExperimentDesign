@@ -1,21 +1,29 @@
-﻿using System;
+﻿using ExperimentDesign.WorkList;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WorkList.ExperimentDesign
 {
     public partial class WorkControl : UserControl
     {
+        protected List<UncertainParam> param = new List<UncertainParam>();
+
         public IDeleteWorkControl Layout { get; set; }
 
         public WorkControl()
         {
             InitializeComponent();
+            this.pictureEdit1.EditValue = Picture;
             this.textEdit3.Text = WorkName;
         }
 
         protected virtual string WorkName { get; }
+
+        protected virtual Bitmap Picture { get; }
 
         public void SetIndex(int index)
         {
@@ -25,26 +33,28 @@ namespace WorkList.ExperimentDesign
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
         {
             ShowParamForm();
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in param)
+            {
+                if (item.EditorValue.ToString().Contains("$"))
+                {
+                    sb.Append(item.EditorValue);
+                    sb.Append(",");
+                }
+            }
+            if (sb.Length > 0)
+            {
+                this.textEdit2.Text = sb.ToString(0, sb.Length - 1);
+            }
         }
 
         protected virtual void ShowParamForm() { }
 
         protected virtual void Run() { }
 
-        protected virtual void SetUncentainParam(List<string> pars)
+        public virtual IReadOnlyList<UncertainParam> GetUncentainParam()
         {
-            string res = string.Empty;
-            foreach (var item in pars)
-            {
-                res += $"{item},";
-            }
-            this.textEdit2.Text = res;
-        }
-
-        public virtual List<String> GetUncentainParam()
-        {
-            var strs = this.textEdit2.Text.Split(',');
-            return strs.Select(_ => _.Trim()).Where(_ => _.Length > 0).ToList();
+            return param;
         }
 
         public override bool Focused => this.textEdit3.Focused;

@@ -94,6 +94,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\SgsWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +139,7 @@
     <Compile Include="UncertaintyForm.Designer.cs">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\UncertainParam.cs" />
     <Compile Include="WorkList\WorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,14 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,10 +210,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\图标.png" />
+    <None Include="Resources\Grid.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Png_DeleteDrill_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sgs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
