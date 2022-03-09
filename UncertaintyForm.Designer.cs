@@ -44,6 +44,8 @@ namespace ExperimentDesign
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.paramDistributed = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.argumentRepositoryItem = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.tabNavigationPage3 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.panelControl_design = new DevExpress.XtraEditors.PanelControl();
@@ -66,7 +68,6 @@ namespace ExperimentDesign
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.paramDistributed = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -81,6 +82,8 @@ namespace ExperimentDesign
             this.tabNavigationPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.argumentRepositoryItem)).BeginInit();
             this.tabNavigationPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
@@ -104,7 +107,6 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -254,7 +256,8 @@ namespace ExperimentDesign
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.paramDistributed});
+            this.paramDistributed,
+            this.argumentRepositoryItem});
             this.gridControl1.Size = new System.Drawing.Size(1251, 376);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -273,6 +276,24 @@ namespace ExperimentDesign
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEdit);
             this.gridView1.ShownEditor += new System.EventHandler(this.gridView1_ShownEditor);
+            // 
+            // paramDistributed
+            // 
+            this.paramDistributed.AutoHeight = false;
+            this.paramDistributed.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.paramDistributed.Items.AddRange(new object[] {
+            "均匀分布",
+            "集合"});
+            this.paramDistributed.Name = "paramDistributed";
+            // 
+            // argumentRepositoryItem
+            // 
+            this.argumentRepositoryItem.AutoHeight = false;
+            this.argumentRepositoryItem.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.argumentRepositoryItem.Name = "argumentRepositoryItem";
+            this.argumentRepositoryItem.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.argumentRepositoryItem_ButtonClick);
             // 
             // tabNavigationPage3
             // 
@@ -508,16 +529,6 @@ namespace ExperimentDesign
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
-            // paramDistributed
-            // 
-            this.paramDistributed.AutoHeight = false;
-            this.paramDistributed.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.paramDistributed.Items.AddRange(new object[] {
-            "均匀分布",
-            "集合"});
-            this.paramDistributed.Name = "paramDistributed";
-            // 
             // UncertaintyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -542,6 +553,8 @@ namespace ExperimentDesign
             this.tabNavigationPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.argumentRepositoryItem)).EndInit();
             this.tabNavigationPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
@@ -565,7 +578,6 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -610,5 +622,6 @@ namespace ExperimentDesign
         private System.Windows.Forms.Panel workPanel;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox paramDistributed;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit argumentRepositoryItem;
     }
 }

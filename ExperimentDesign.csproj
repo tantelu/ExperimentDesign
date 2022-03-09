@@ -94,6 +94,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridPopForm\MinMaxPopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridPopForm\MinMaxPopForm.Designer.cs">
+      <DependentUpon>MinMaxPopForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridPopForm\GridListPopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridPopForm\GridListPopForm.Designer.cs">
+      <DependentUpon>GridListPopForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +181,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridPopForm\MinMaxPopForm.resx">
+      <DependentUpon>MinMaxPopForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridPopForm\GridListPopForm.resx">
+      <DependentUpon>GridListPopForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\GridEditForm.resx">
       <DependentUpon>GridEditForm.cs</DependentUpon>

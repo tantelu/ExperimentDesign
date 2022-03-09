@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.DesignPanel;
+using ExperimentDesign.GridPopForm;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -203,6 +204,29 @@ namespace ExperimentDesign
             if (string.Equals(e.Column.FieldName, nameof(VariableData.Distribution)))
             {
                 e.RepositoryItem = paramDistributed;
+            }
+            if (string.Equals(e.Column.FieldName, nameof(VariableData.Arguments)))
+            {
+                e.RepositoryItem = this.argumentRepositoryItem;
+            }
+        }
+
+        private void argumentRepositoryItem_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var distribution = this.gridView1.GetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Distribution));
+            if (string.Equals(distribution, "均匀分布"))
+            {
+                using (MinMaxPopForm form = new MinMaxPopForm())
+                {
+                    form.ShowDialog();
+                }
+            }
+            else if (string.Equals(distribution, "集合"))
+            {
+                using (GridListPopForm form = new GridListPopForm())
+                {
+                    form.ShowDialog();
+                }
             }
         }
     }

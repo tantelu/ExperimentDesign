@@ -84,6 +84,7 @@ namespace WorkList.ExperimentDesign
             // 
             // layoutControl1
             // 
+            this.layoutControl1.AutoScroll = false;
             this.layoutControl1.Controls.Add(this.simpleButton2);
             this.layoutControl1.Controls.Add(this.simpleButton1);
             this.layoutControl1.Controls.Add(this.spinEdit1);
@@ -99,15 +100,15 @@ namespace WorkList.ExperimentDesign
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(834, 326);
+            this.layoutControl1.Size = new System.Drawing.Size(834, 320);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // simpleButton2
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(654, 290);
+            this.simpleButton2.Location = new System.Drawing.Point(670, 246);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(165, 32);
+            this.simpleButton2.Size = new System.Drawing.Size(149, 32);
             this.simpleButton2.StyleController = this.layoutControl1;
             this.simpleButton2.TabIndex = 14;
             this.simpleButton2.Text = "取消";
@@ -115,9 +116,9 @@ namespace WorkList.ExperimentDesign
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(474, 290);
+            this.simpleButton1.Location = new System.Drawing.Point(499, 246);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(160, 32);
+            this.simpleButton1.Size = new System.Drawing.Size(151, 32);
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 13;
             this.simpleButton1.Text = "确认";
@@ -278,13 +279,13 @@ namespace WorkList.ExperimentDesign
             this.layoutControlItem8,
             this.layoutControlItem9,
             this.layoutControlItem10,
+            this.layoutControlItem11,
             this.emptySpaceItem1,
-            this.emptySpaceItem2,
-            this.layoutControlItem11});
+            this.emptySpaceItem2});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(834, 326);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(834, 303);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -371,36 +372,36 @@ namespace WorkList.ExperimentDesign
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.simpleButton1;
-            this.layoutControlItem10.Location = new System.Drawing.Point(459, 282);
+            this.layoutControlItem10.Location = new System.Drawing.Point(484, 238);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Padding = new DevExpress.XtraLayout.Utils.Padding(10, 10, 3, 3);
-            this.layoutControlItem10.Size = new System.Drawing.Size(180, 38);
+            this.layoutControlItem10.Size = new System.Drawing.Size(171, 38);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 238);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 276);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(824, 40);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(824, 17);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 278);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 238);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(459, 38);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(484, 38);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.simpleButton2;
-            this.layoutControlItem11.Location = new System.Drawing.Point(639, 282);
+            this.layoutControlItem11.Location = new System.Drawing.Point(655, 238);
             this.layoutControlItem11.Name = "layoutControlItem11";
             this.layoutControlItem11.Padding = new DevExpress.XtraLayout.Utils.Padding(10, 10, 3, 3);
-            this.layoutControlItem11.Size = new System.Drawing.Size(185, 38);
+            this.layoutControlItem11.Size = new System.Drawing.Size(169, 38);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
@@ -408,7 +409,7 @@ namespace WorkList.ExperimentDesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 326);
+            this.ClientSize = new System.Drawing.Size(834, 320);
             this.Controls.Add(this.layoutControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
