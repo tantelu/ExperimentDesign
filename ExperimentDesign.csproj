@@ -106,6 +106,13 @@
     <Compile Include="GridPopForm\GridListPopForm.Designer.cs">
       <DependentUpon>GridListPopForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IArgument.cs" />
+    <Compile Include="InfoForm\DesignValueShowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoForm\DesignValueShowForm.Designer.cs">
+      <DependentUpon>DesignValueShowForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GridPopForm\GridListPopForm.resx">
       <DependentUpon>GridListPopForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
+      <DependentUpon>DesignValueShowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\GridEditForm.resx">
       <DependentUpon>GridEditForm.cs</DependentUpon>

@@ -594,49 +594,49 @@ namespace ExperimentDesign
 
         public abstract object GetValue(int rowIndex, int colIndex);
 
-        public virtual DataTable ToDataTable(FactorInfo info)
+        public virtual DataTable ToDataTable(IReadOnlyList<VariableData> datas)
         {
-            var factorNames = info.GetFactorNames();
-            var cols = factorNames.Count;
             DataTable table = new DataTable();
             table.Columns.Add($"实验\\因数", Type.GetType("System.String"));
-            for (int col = 0; col < cols; col++)
+            for (int col = 0; col < datas.Count; col++)
             {
-                var name = factorNames[col];
+                var name = datas[col].Name;
                 table.Columns.Add(name, Type.GetType("System.String"));
             }
             for (int i = 0; i < GetTestCount(); i++)
             {
                 DataRow row = table.NewRow();
                 row["实验\\因数"] = $"实验{i + 1}";
-                for (int col = 0; col < cols; col++)
+                for (int col = 0; col < datas.Count; col++)
                 {
-                    row[factorNames[col]] = info.GetValue(factorNames[col], GetValue(i, col));
+                    if (datas[col].Arguments != null)
+                    {
+                        var design = GetValue(i, col);
+                        if (char.Equals(design, '-'))
+                        {
+                            row[datas[col].Name] = datas[col].Arguments.GetMin();
+                        }
+                        else if (char.Equals(design, '+'))
+                        {
+                            row[datas[col].Name] = datas[col].Arguments.GetMax();
+                        }
+                        else if (char.Equals(design, '0'))
+                        {
+                            row[datas[col].Name] = datas[col].BaseValue;
+                        }
+                        else if (design is int intdesgin)
+                        {
+                            row[datas[col].Name] = datas[col].Arguments.GetLevel(intdesgin);
+                        }
+                    }
+                    else
+                    {
+                        row[datas[col].Name] = "NaN";
+                    }
                 }
                 table.Rows.Add(row);
             }
             return table;
-        }
-    }
-
-    public class FactorInfo
-    {
-        private Dictionary<string, Dictionary<object, object>> factormaps;
-
-        public FactorInfo(Dictionary<string, Dictionary<object, object>> factormaps)
-        {
-            this.factormaps = factormaps;
-        }
-
-        public object GetValue(string factorName, object level)
-        {
-            var temp = factormaps[factorName];
-            return temp[level];
-        }
-
-        public List<string> GetFactorNames()
-        {
-            return factormaps.Keys.ToList();
         }
     }
 

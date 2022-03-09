@@ -18,15 +18,15 @@ namespace WorkList.ExperimentDesign
         {
             map = new Dictionary<int, UncertainControl>()
             {
-                       {1,new UncertainControl(this.spinEdit1,"Grid_Xmin",0)  },
-                       {2,new UncertainControl(this.spinEdit2,"Grid_Ymin",0) },
-                       {3,new UncertainControl(this.spinEdit3,"Grid_Zmin",0) },
-                       {4,new UncertainControl(this.spinEdit4,"Grid_Xmax",1000) },
-                       { 5,new UncertainControl(this.spinEdit5,"Grid_Ymax",1000)},
-                       { 6,new UncertainControl(this.spinEdit6,"Grid_Zmax",100)},
-                       {7,new UncertainControl(this.spinEdit7,"Grid_Width",10) },
-                       {8,new UncertainControl(this.spinEdit8,"Grid_Height",10)},
-                       {9,new UncertainControl(this.spinEdit9,"Grid_Thick",10) },
+                       {1,new UncertainControl(this.spinEdit1,"网格X最小值",0)  },
+                       {2,new UncertainControl(this.spinEdit2,"网格Y最小值",0) },
+                       {3,new UncertainControl(this.spinEdit3,"网格Z最小值",0) },
+                       {4,new UncertainControl(this.spinEdit4,"网格X最大值",1000) },
+                       { 5,new UncertainControl(this.spinEdit5,"网格Y最大值",1000)},
+                       { 6,new UncertainControl(this.spinEdit6,"网格Z最大值",100)},
+                       {7,new UncertainControl(this.spinEdit7,"X方向网格大小",10) },
+                       {8,new UncertainControl(this.spinEdit8,"Y方向网格大小",10)},
+                       {9,new UncertainControl(this.spinEdit9,"Z方向网格大小",10) },
                    };
             foreach (var par in param)
             {
@@ -43,7 +43,7 @@ namespace WorkList.ExperimentDesign
             List<UncertainParam> res = new List<UncertainParam>();
             foreach (KeyValuePair<int, UncertainControl> item in map)
             {
-                res.Add(new UncertainParam() { Index = item.Key, DefaultValue = item.Value.DefaultValue, Name = item.Value.ParamName, EditorValue = item.Value.Control.EditValue });
+                res.Add(new UncertainParam() { Index = item.Key, DefaultValue = item.Value.DefaultValue, ParDescription = item.Value.ParamName, EditorValue = item.Value.Control.EditValue });
             }
             return res;
         }

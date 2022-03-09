@@ -19,51 +19,28 @@ namespace ExperimentDesign
         public Form1()
         {
             InitializeComponent();
-            //var table = DesignAlgorithm.GenerateOrthGuide(5, 4);
-            //XtraMessageBox.Show(table.ToString());
         }
 
         private void 正交实验ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            Dictionary<string, Dictionary<object, object>> factormaps = new Dictionary<string, Dictionary<object, object>>()
+            using (OrthGuideForm form = new OrthGuideForm())
             {
-                {"波长",new Dictionary<object, object>(){ { (int)0, 500 }, { (int)1, 700 }, { (int)2, 900 } } },
-                {"振幅",new Dictionary<object, object>(){ { (int)0, 1000 }, { (int)1, 2000 }, { (int)2, 3000 } } },
-                {"宽度", new Dictionary<object, object>(){ { (int)0, 700 }, { (int)1, 1000 }, { (int)2, 1500 } }},
-                {"厚度",new Dictionary<object, object>(){ { (int)0, 5 }, { (int)1, 7 }, { (int)2, 9 } } }
-            };
-            var orthinfo = new FactorInfo(factormaps);
-            var table = DesignAlgorithm.GenerateOrthGuide(4, 3);
-            AddTable(table.ToDataTable(orthinfo));
-            //using (OrthGuideForm form = new OrthGuideForm())
-            //{
-            //    if (form.ShowDialog() == DialogResult.OK)
-            //    {
-            //        AddTable(form.GetOrthTable());
-            //    }
-            //}
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    AddTable(form.GetOrthTable());
+                }
+            }
         }
 
         private void plackettBurman实验ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            Dictionary<string, Dictionary<object, object>> factormaps = new Dictionary<string, Dictionary<object, object>>()
+            using (PBForm form = new PBForm())
             {
-                {"波长",new Dictionary<object, object>(){ { '-', 500 }, { '+', 700 }} },
-                {"振幅",new Dictionary<object, object>(){ { '-', 1000 }, { '+', 2000 } }},
-                {"宽度", new Dictionary<object, object>(){ { '-', 700 }, { '+', 1000 }}},
-                {"厚度",new Dictionary<object, object>(){ { '-', 5 }, { '+', 7 } } },
-                {"方位角",new Dictionary<object, object>(){ { '-', 45 }, { '+', 90 } } }
-            };
-            var orthinfo = new FactorInfo(factormaps);
-            var table = DesignAlgorithm.GeneratePlackettBurman(5);
-            AddTable(table.ToDataTable(orthinfo));
-            //using (PBForm form = new PBForm())
-            //{
-            //    if (form.ShowDialog() == DialogResult.OK)
-            //    {
-            //        AddTable(form.GetPBTable());
-            //    }
-            //}
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    AddTable(form.GetPBTable());
+                }
+            }
         }
 
         private void AddTable(DataTable table)

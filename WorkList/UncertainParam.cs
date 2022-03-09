@@ -6,7 +6,7 @@
 
         public object DefaultValue { get; set; }
 
-        public string Name { get; set; }
+        public string ParDescription { get; set; }
 
         public int Index { get; set; }
     }

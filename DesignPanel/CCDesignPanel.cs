@@ -1,5 +1,6 @@
 ﻿using ExperimentDesign.InfoForm;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.DesignPanel
@@ -27,6 +28,8 @@ namespace ExperimentDesign.DesignPanel
             }
         }
 
+        public IReadOnlyList<VariableData> Data { get; set; }
+
         private void simpleButton_desgin_Click(object sender, EventArgs e)
         {
             using (DesignShowForm form = new DesignShowForm())
@@ -38,9 +41,9 @@ namespace ExperimentDesign.DesignPanel
 
         private void simpleButton_sample_Click(object sender, EventArgs e)
         {
-            using (DesignShowForm form = new DesignShowForm())
+            using (DesignValueShowForm form = new DesignValueShowForm())
             {
-                form.Infomation = DesignTable?.ToString();
+                form.SetGrid(DesignTable.ToDataTable(Data));
                 form.ShowDialog();
             }
         }

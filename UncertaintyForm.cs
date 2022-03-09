@@ -13,6 +13,8 @@ namespace ExperimentDesign
 {
     public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IDeleteWorkControl
     {
+        private List<VariableData> olddatas = new List<VariableData>();
+
         public UncertaintyForm()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace ExperimentDesign
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             var workControls = this.workPanel.Controls;
-            List<VariableData> datas = new List<VariableData>();
+            List<VariableData> newdatas = new List<VariableData>();
             foreach (var item in workControls)
             {
                 if (item is WorkControl ctrl)
@@ -58,19 +60,40 @@ namespace ExperimentDesign
                     {
                         foreach (var par in @params)
                         {
-                            if (par.EditorValue != null && par.EditorValue.ToString().Contains("$"))
+                            var data = olddatas.Find(_ => string.Equals(_.Name, par.EditorValue));
+                            if (data != null)
                             {
-                                VariableData data = new VariableData();
                                 data.Name = par.EditorValue.ToString();
-                                data.ParName = par.Name;
+                                data.ParDescription = par.ParDescription;
                                 data.BaseValue = par.DefaultValue.ToString();
-                                datas.Add(data);
+                                olddatas.Add(data);
+                                newdatas.Add(data);
+                            }
+                            else
+                            {
+                                if (par.EditorValue != null && par.EditorValue.ToString().Contains("$"))
+                                {
+                                    if (!newdatas.Exists(_ => string.Equals(_.Name, par.EditorValue.ToString())))
+                                    {
+                                        VariableData newdata = new VariableData();
+                                        newdata.Name = par.EditorValue.ToString();
+                                        newdata.ParDescription = par.ParDescription;
+                                        newdata.BaseValue = par.DefaultValue.ToString();
+                                        newdatas.Add(newdata);
+                                    }
+                                    else
+                                    {
+                                        XtraMessageBox.Show("存在重名参数,请修改");
+                                        newdatas.Clear();
+                                        return;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-            this.gridControl1.DataSource = datas;
+            this.gridControl1.DataSource = newdatas;
             this.gridControl1.RefreshDataSource();
             UpdateDesign();
             if (e.OldPage == this.tabNavigationPage1 && e.Page == this.tabNavigationPage2)
@@ -85,6 +108,7 @@ namespace ExperimentDesign
             {
 
             }
+            olddatas = newdatas;
         }
 
         private void UpdateDesign()
@@ -92,7 +116,7 @@ namespace ExperimentDesign
             var datas = this.gridControl1.DataSource as List<VariableData>;
             if (datas?.Count > 0)
             {
-                var tabel = GetDesignTable(designMethod.SelectedIndex, datas.Count);
+                var tabel = GetDesignTable(designMethod.SelectedIndex, datas);
                 if (tabel != null)
                 {
                     this.designTimes.Value = tabel.GetTestCount();
@@ -105,14 +129,16 @@ namespace ExperimentDesign
             }
         }
 
-        private Table GetDesignTable(int methodIndex, int factornum)
+        private Table GetDesignTable(int methodIndex, List<VariableData> data)
         {
+            int factornum = data.Count;
             this.panelControl_design.Controls.Clear();
             if (methodIndex == 0)
             {
                 var res = DesignAlgorithm.GenerateBoxBehnken(factornum);
                 BBDesignPanel panel = new BBDesignPanel();
                 panel.DesignTable = res;
+                panel.Data = data;
                 panel.Dock = System.Windows.Forms.DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
@@ -122,6 +148,7 @@ namespace ExperimentDesign
                 var res = DesignAlgorithm.GenerateComposite(factornum, CenteralCompositeType.FaceCentered);
                 CCDesignPanel panel = new CCDesignPanel();
                 panel.DesignTable = res;
+                panel.Data = data;
                 panel.Dock = System.Windows.Forms.DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
@@ -132,6 +159,7 @@ namespace ExperimentDesign
                 PBDesignPanel panel = new PBDesignPanel();
                 panel.DesignTimes = this;
                 panel.DesignTable = res;
+                panel.Data = data;
                 panel.Dock = System.Windows.Forms.DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
@@ -141,6 +169,7 @@ namespace ExperimentDesign
                 var res = DesignAlgorithm.GenerateOrthGuide(factornum, factornum - 1);
                 OrthDesignPanel panel = new OrthDesignPanel();
                 panel.DesignTable = res;
+                panel.Data = data;
                 panel.Dock = System.Windows.Forms.DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
@@ -218,14 +247,20 @@ namespace ExperimentDesign
             {
                 using (MinMaxPopForm form = new MinMaxPopForm())
                 {
-                    form.ShowDialog();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
+                    }
                 }
             }
             else if (string.Equals(distribution, "集合"))
             {
                 using (GridListPopForm form = new GridListPopForm())
                 {
-                    form.ShowDialog();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
+                    }
                 }
             }
         }
@@ -233,11 +268,12 @@ namespace ExperimentDesign
 
     public class VariableData
     {
-        [DisplayName("变量名")]
+        [DisplayName("设计参数名")]
+        ///对于参数输入界面的 EditorValue 如果其包含$  就是需要设计的参数
         public string Name { get; set; }
 
-        [DisplayName("参数名")]
-        public string ParName { get; set; }
+        [DisplayName("参数描述")]
+        public string ParDescription { get; set; }
 
         [DisplayName("默认值")]
         public string BaseValue { get; set; }
@@ -246,24 +282,6 @@ namespace ExperimentDesign
         public string Distribution { get; set; }
 
         [DisplayName("参数")]
-        public string Arguments
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                if (Values?.Count > 0)
-                {
-                    foreach (var item in Values)
-                    {
-                        sb.Append(item);
-                        sb.Append(";");
-                    }
-                }
-                return sb.ToString();
-            }
-        }
-
-        [Browsable(false)]
-        public List<string> Values { get; set; }
+        public IArgument Arguments { get; set; }
     }
 }
