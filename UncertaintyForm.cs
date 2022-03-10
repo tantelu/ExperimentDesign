@@ -1,18 +1,35 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.DesignPanel;
 using ExperimentDesign.GridPopForm;
+using ExperimentDesign.WorkList;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using WorkList.ExperimentDesign;
 
 namespace ExperimentDesign
 {
-    public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IDeleteWorkControl
+    public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IWork
     {
+        private string WorkBasePath
+        {
+            get
+            {
+                var path = Path.Combine(Application.StartupPath, "WorkFlowList");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                return path;
+            }
+        }
+        private WorkFlow current;
+
         private List<VariableData> olddatas = new List<VariableData>();
 
         public UncertaintyForm()
@@ -37,7 +54,7 @@ namespace ExperimentDesign
                         workflow.Name = "editworkflow";
                         workflow.SetIndex(workPanel.Controls.Count + 1);
                         workflow.Size = new Size(400, 20);
-                        workflow.Layout = this;
+                        workflow.Main = this;
                         this.workPanel.Controls.Add(workflow);
                     }
                     this.workPanel.ResumeLayout();
@@ -223,6 +240,11 @@ namespace ExperimentDesign
             this.ResumeLayout(false);
         }
 
+        public string GetWorkPath()
+        {
+            return this.current.WorkPath;
+        }
+
         private void gridView1_ShownEditor(object sender, System.EventArgs e)
         {
 
@@ -261,6 +283,62 @@ namespace ExperimentDesign
                     {
                         this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
                     }
+                }
+            }
+            else
+            {
+                XtraMessageBox.Show("请先选择参数分布");
+            }
+        }
+
+        private void simpleButton1_Click(object sender, System.EventArgs e)
+        {
+            Run();
+        }
+
+        public void Run()
+        {
+            int maxwait = 60000;
+            var workControls = this.workPanel.Controls;
+            foreach (var item in workControls)
+            {
+                if (item is WorkControl ctrl)
+                {
+                    ctrl.Run();
+                    int curwait = 0;
+                    while (!ctrl.GetRunState())
+                    {
+                        Thread.Sleep(5000);
+                        curwait += 5000;
+                        if (curwait > maxwait)
+                        {
+                            var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
+                            if (dia == DialogResult.Yes)
+                            {
+                                maxwait *= 2;
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void textEdit_new_TextChanged(object sender, System.EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textEdit_new.Text))
+            {
+                XtraMessageBox.Show("名称不能为空");
+            }
+            else
+            {
+                var path = Path.Combine(WorkBasePath, textEdit_new.Text);
+                if (Directory.Exists(path))
+                {
+                    XtraMessageBox.Show("名称已存在,请重新命名");
                 }
             }
         }

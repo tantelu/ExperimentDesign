@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WorkList.ExperimentDesign
@@ -14,9 +15,11 @@ namespace WorkList.ExperimentDesign
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Grid;
 
-        protected override void Run()
+        public override void Run()
         {
-
+            string path = Main.GetWorkPath();
+            string file = Path.Combine(path, $"{nameof(GridEditWorkControl)}.json");
+            Save(file);
         }
 
         protected override void ShowParamForm()
@@ -31,5 +34,10 @@ namespace WorkList.ExperimentDesign
                 }
             }
         }
+    }
+
+    public class Grid3D
+    {
+
     }
 }

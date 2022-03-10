@@ -118,6 +118,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\SgsEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\SgsEditorForm.Designer.cs">
+      <DependentUpon>SgsEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\SgsWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -136,7 +142,7 @@
     <Compile Include="InfoForm\DesignShowForm.Designer.cs">
       <DependentUpon>DesignShowForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\IDeleteWorkControl.cs" />
+    <Compile Include="WorkList\IWork.cs" />
     <Compile Include="IUpdateDesignTimes.cs" />
     <Compile Include="PBForm .cs">
       <SubType>Form</SubType>
@@ -165,6 +171,7 @@
     <Compile Include="WorkList\WorkControl.Designer.cs">
       <DependentUpon>WorkControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\WorkItem.cs" />
     <Compile Include="WorkList\WorkSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\SgsEditorForm.resx">
+      <DependentUpon>SgsEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\WorkControl.resx">
       <DependentUpon>WorkControl.cs</DependentUpon>

@@ -30,6 +30,7 @@ namespace ExperimentDesign
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.simpleButton_savework = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
@@ -55,7 +56,6 @@ namespace ExperimentDesign
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.textEdit_new = new DevExpress.XtraEditors.TextEdit();
             this.comboBoxEdit_exit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
@@ -68,6 +68,8 @@ namespace ExperimentDesign
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.textEdit_new = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -94,7 +96,6 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit_new.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
@@ -107,17 +108,20 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit_new.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.simpleButton_savework);
             this.layoutControl1.Controls.Add(this.simpleButton2);
             this.layoutControl1.Controls.Add(this.simpleButton1);
             this.layoutControl1.Controls.Add(this.tabPane1);
-            this.layoutControl1.Controls.Add(this.textEdit_new);
             this.layoutControl1.Controls.Add(this.comboBoxEdit_exit);
             this.layoutControl1.Controls.Add(this.checkEdit2);
             this.layoutControl1.Controls.Add(this.checkEdit1);
+            this.layoutControl1.Controls.Add(this.textEdit_new);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -125,6 +129,16 @@ namespace ExperimentDesign
             this.layoutControl1.Size = new System.Drawing.Size(1273, 549);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // simpleButton_savework
+            // 
+            this.simpleButton_savework.Enabled = false;
+            this.simpleButton_savework.Location = new System.Drawing.Point(8, 509);
+            this.simpleButton_savework.Name = "simpleButton_savework";
+            this.simpleButton_savework.Size = new System.Drawing.Size(157, 32);
+            this.simpleButton_savework.StyleController = this.layoutControl1;
+            this.simpleButton_savework.TabIndex = 11;
+            this.simpleButton_savework.Text = "保存工作流";
             // 
             // simpleButton2
             // 
@@ -137,12 +151,14 @@ namespace ExperimentDesign
             // 
             // simpleButton1
             // 
+            this.simpleButton1.Enabled = false;
             this.simpleButton1.Location = new System.Drawing.Point(815, 509);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(221, 32);
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 9;
             this.simpleButton1.Text = "运行";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // tabPane1
             // 
@@ -293,6 +309,7 @@ namespace ExperimentDesign
             this.argumentRepositoryItem.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.argumentRepositoryItem.Name = "argumentRepositoryItem";
+            this.argumentRepositoryItem.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.argumentRepositoryItem.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.argumentRepositoryItem_ButtonClick);
             // 
             // tabNavigationPage3
@@ -398,14 +415,6 @@ namespace ExperimentDesign
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
-            // textEdit_new
-            // 
-            this.textEdit_new.Location = new System.Drawing.Point(206, 8);
-            this.textEdit_new.Name = "textEdit_new";
-            this.textEdit_new.Size = new System.Drawing.Size(1059, 28);
-            this.textEdit_new.StyleController = this.layoutControl1;
-            this.textEdit_new.TabIndex = 7;
-            // 
             // comboBoxEdit_exit
             // 
             this.comboBoxEdit_exit.Enabled = false;
@@ -451,7 +460,8 @@ namespace ExperimentDesign
             this.layoutControlItem4,
             this.layoutControlItem5,
             this.layoutControlItem6,
-            this.layoutControlItem7});
+            this.layoutControlItem7,
+            this.layoutControlItem13});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
@@ -470,9 +480,9 @@ namespace ExperimentDesign
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 501);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(163, 501);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(807, 38);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(644, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -529,6 +539,24 @@ namespace ExperimentDesign
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.Control = this.simpleButton_savework;
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 501);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(163, 38);
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem13.TextVisible = false;
+            // 
+            // textEdit_new
+            // 
+            this.textEdit_new.Location = new System.Drawing.Point(206, 8);
+            this.textEdit_new.Name = "textEdit_new";
+            this.textEdit_new.Size = new System.Drawing.Size(1059, 28);
+            this.textEdit_new.StyleController = this.layoutControl1;
+            this.textEdit_new.TabIndex = 7;
+            this.textEdit_new.TextChanged += new System.EventHandler(this.textEdit_new_TextChanged);
+            // 
             // UncertaintyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -565,7 +593,6 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit_new.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
@@ -578,6 +605,8 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit_new.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -593,7 +622,6 @@ namespace ExperimentDesign
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit_exit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraEditors.TextEdit textEdit_new;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
@@ -623,5 +651,8 @@ namespace ExperimentDesign
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox paramDistributed;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit argumentRepositoryItem;
+        private DevExpress.XtraEditors.SimpleButton simpleButton_savework;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private DevExpress.XtraEditors.TextEdit textEdit_new;
     }
 }

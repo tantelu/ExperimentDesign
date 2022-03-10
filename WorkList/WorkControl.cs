@@ -1,7 +1,9 @@
 ﻿using ExperimentDesign.WorkList;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,7 +14,7 @@ namespace WorkList.ExperimentDesign
     {
         protected List<UncertainParam> param = new List<UncertainParam>();
 
-        public IDeleteWorkControl Layout { get; set; }
+        public IWork Main { get; set; }
 
         public WorkControl()
         {
@@ -50,7 +52,21 @@ namespace WorkList.ExperimentDesign
 
         protected virtual void ShowParamForm() { }
 
-        protected virtual void Run() { }
+        public virtual void Run() { }
+
+        public virtual bool GetRunState() { return true; }
+
+        protected virtual void Save(string file)
+        {
+            var str = JsonConvert.SerializeObject(param);
+            File.WriteAllText(file, str);
+        }
+
+        protected virtual void Openm(string file)
+        {
+            var str = File.ReadAllText(file);
+            param = JsonConvert.DeserializeObject<List<UncertainParam>>(str);
+        }
 
         public virtual IReadOnlyList<UncertainParam> GetUncentainParam()
         {
@@ -61,7 +77,7 @@ namespace WorkList.ExperimentDesign
 
         private void pictureEdit2_DoubleClick(object sender, EventArgs e)
         {
-            Layout?.Delete(this);
+            Main?.Delete(this);
         }
     }
 }
