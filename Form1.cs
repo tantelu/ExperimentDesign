@@ -248,7 +248,7 @@ namespace ExperimentDesign
             sb.AppendLine(" " + $"{500}" + " " + $"{500}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
             sb.AppendLine($"{1}" + " " + $"{0}" + " " + $"{angel}" + " 0.0 0.0 -it,cc,ang1,ang2,ang3");
             sb.AppendLine(" " + $"{0}" + " " + $"{1.0}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
-            File.WriteAllText(par, sb.ToString());
+            File.WriteAllText(par, sb.ToString(), Encoding.UTF8);
             if (File.Exists(_out))
             {
                 File.Delete(_out);

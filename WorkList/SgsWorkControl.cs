@@ -15,7 +15,7 @@ namespace WorkList.ExperimentDesign
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
 
-        public override void Run()
+        public override void Run(string path)
         {
 
         }

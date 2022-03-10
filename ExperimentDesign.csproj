@@ -172,6 +172,7 @@
       <DependentUpon>WorkControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkList\WorkItem.cs" />
+    <Compile Include="WorkList\WorkPath.cs" />
     <Compile Include="WorkList\WorkSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>

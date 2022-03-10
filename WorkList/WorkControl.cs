@@ -52,14 +52,14 @@ namespace WorkList.ExperimentDesign
 
         protected virtual void ShowParamForm() { }
 
-        public virtual void Run() { }
+        public virtual void Run(string workpath) { }
 
         public virtual bool GetRunState() { return true; }
 
         protected virtual void Save(string file)
         {
             var str = JsonConvert.SerializeObject(param);
-            File.WriteAllText(file, str);
+            File.WriteAllText(file, str, Encoding.UTF8);
         }
 
         protected virtual void Openm(string file)

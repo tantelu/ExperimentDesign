@@ -2,6 +2,9 @@
 using ExperimentDesign.DesignPanel;
 using ExperimentDesign.GridPopForm;
 using ExperimentDesign.WorkList;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -16,25 +19,27 @@ namespace ExperimentDesign
 {
     public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IWork
     {
-        private string WorkBasePath
-        {
-            get
-            {
-                var path = Path.Combine(Application.StartupPath, "WorkFlowList");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                return path;
-            }
-        }
-        private WorkFlow current;
-
+        private List<WorkFlow> exitworks = new List<WorkFlow>();
         private List<VariableData> olddatas = new List<VariableData>();
+
+        private WorkFlow Current { get; set; }
 
         public UncertaintyForm()
         {
             InitializeComponent();
+            var path = Path.Combine(WorkPath.WorkBasePath, "WorkFlowList.json");
+            if (File.Exists(path))
+            {
+                var josn = File.ReadAllText(path);
+                if (!string.IsNullOrEmpty(josn))
+                {
+                    exitworks = JsonConvert.DeserializeObject<List<WorkFlow>>(josn);
+                    if (exitworks.Count > 0)
+                    {
+                        comboBoxEdit_exit.Properties.Items.AddRange(exitworks);
+                    }
+                }
+            }
         }
 
         private void editworkflow_Click(object sender, System.EventArgs e)
@@ -207,6 +212,7 @@ namespace ExperimentDesign
             checkEdit1.Checked = !checkEdit2.Checked;
             comboBoxEdit_exit.Enabled = checkEdit2.Checked;
             textEdit_new.Enabled = checkEdit1.Checked;
+            Current = this.comboBoxEdit_exit.SelectedItem as WorkFlow;
         }
 
         private void checkEdit1_CheckedChanged(object sender, System.EventArgs e)
@@ -214,6 +220,7 @@ namespace ExperimentDesign
             checkEdit2.Checked = !checkEdit1.Checked;
             comboBoxEdit_exit.Enabled = checkEdit2.Checked;
             textEdit_new.Enabled = checkEdit1.Checked;
+            Current = null;
         }
 
         public void UpdateDesignTimes(int times)
@@ -238,11 +245,6 @@ namespace ExperimentDesign
             this.workPanel.Controls.Remove(control);
             this.workPanel.ResumeLayout();
             this.ResumeLayout(false);
-        }
-
-        public string GetWorkPath()
-        {
-            return this.current.WorkPath;
         }
 
         private void gridView1_ShownEditor(object sender, System.EventArgs e)
@@ -298,49 +300,74 @@ namespace ExperimentDesign
 
         public void Run()
         {
-            int maxwait = 60000;
-            var workControls = this.workPanel.Controls;
-            foreach (var item in workControls)
+            if (Current != null)
             {
-                if (item is WorkControl ctrl)
+                int maxwait = 60000;
+                var workControls = this.workPanel.Controls;
+                foreach (var item in workControls)
                 {
-                    ctrl.Run();
-                    int curwait = 0;
-                    while (!ctrl.GetRunState())
+                    if (item is WorkControl ctrl)
                     {
-                        Thread.Sleep(5000);
-                        curwait += 5000;
-                        if (curwait > maxwait)
+                        ctrl.Run(Current.GetWorkPath());
+                        int curwait = 0;
+                        while (!ctrl.GetRunState())
                         {
-                            var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
-                            if (dia == DialogResult.Yes)
+                            Thread.Sleep(5000);
+                            curwait += 5000;
+                            if (curwait > maxwait)
                             {
-                                maxwait *= 2;
-                            }
-                            else
-                            {
-                                return;
+                                var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
+                                if (dia == DialogResult.Yes)
+                                {
+                                    maxwait *= 2;
+                                }
+                                else
+                                {
+                                    return;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-
-        private void textEdit_new_TextChanged(object sender, System.EventArgs e)
-        {
-            if (string.IsNullOrEmpty(textEdit_new.Text))
-            {
-                XtraMessageBox.Show("名称不能为空");
-            }
             else
             {
-                var path = Path.Combine(WorkBasePath, textEdit_new.Text);
-                if (Directory.Exists(path))
+                XtraMessageBox.Show("请先设置当前工作流");
+            }
+        }
+
+        private void simpleButton_savework_Click(object sender, System.EventArgs e)
+        {
+            if (checkEdit1.Checked)
+            {
+                if (string.IsNullOrEmpty(this.textEdit_new.Text))
                 {
-                    XtraMessageBox.Show("名称已存在,请重新命名");
+                    XtraMessageBox.Show("工作流名称不能为空");
+                    return;
+                }
+                var newwork = new WorkFlow();
+                newwork.Name = this.textEdit_new.Text;
+                Current = newwork;
+                var find = exitworks.Find(_ => string.Equals(Current.Name, _.Name));
+                if (find == null)
+                {
+                    exitworks.Add(Current);
+                    WorkFlow.UpdateWorkList(exitworks);
+                    var index = this.comboBoxEdit_exit.Properties.Items.Add(Current);
+                    checkEdit2.Checked = true;
+                    this.comboBoxEdit_exit.SelectedIndex = index;
+                }
+                else
+                {
+                    XtraMessageBox.Show("工作流已存在");
                 }
             }
+            Current.Save();
+        }
+
+        private void comboBoxEdit_exit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Current = this.comboBoxEdit_exit.SelectedItem as WorkFlow;
         }
     }
 

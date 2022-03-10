@@ -15,10 +15,9 @@ namespace WorkList.ExperimentDesign
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Grid;
 
-        public override void Run()
+        public override void Run(string workpath)
         {
-            string path = Main.GetWorkPath();
-            string file = Path.Combine(path, $"{nameof(GridEditWorkControl)}.json");
+            string file = Path.Combine(workpath, $"{nameof(GridEditWorkControl)}.json");
             Save(file);
         }
 
