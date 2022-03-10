@@ -10,7 +10,7 @@ namespace WorkList.ExperimentDesign
 {
     public partial class WorkSelectForm : Form
     {
-        private List<WorkItem> selects = new List<WorkItem>();
+        private List<WorkControlItem> selects = new List<WorkControlItem>();
 
         public WorkSelectForm()
         {
@@ -26,7 +26,7 @@ namespace WorkList.ExperimentDesign
         {
             if (e.Button.Index == 1)
             {
-                selects.Add((WorkItem)this.workList.SelectedItem);
+                selects.Add((WorkControlItem)this.workList.SelectedItem);
             }
             StringBuilder sb = new StringBuilder();
             foreach (var item in selects)
@@ -41,7 +41,7 @@ namespace WorkList.ExperimentDesign
         {
             this.workList.Properties.Items.Clear();
             string path = Path.Combine(Application.StartupPath, @"WorkList.json");
-            var list = JsonConvert.DeserializeObject<List<WorkItem>>(File.ReadAllText(path));
+            var list = JsonConvert.DeserializeObject<List<WorkControlItem>>(File.ReadAllText(path));
             if (list.Count > 0)
             {
                 this.workList.Properties.Items.AddRange(list);
@@ -49,7 +49,7 @@ namespace WorkList.ExperimentDesign
             }
         }
 
-        public List<WorkItem> GetSelects()
+        public List<WorkControlItem> GetSelects()
         {
             return selects;
         }
@@ -61,7 +61,7 @@ namespace WorkList.ExperimentDesign
         }
     }
 
-    public class WorkItem
+    public class WorkControlItem
     {
         public string ControlType { get; set; }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -27,18 +28,11 @@ namespace ExperimentDesign
         public UncertaintyForm()
         {
             InitializeComponent();
-            var path = Path.Combine(WorkPath.WorkBasePath, "WorkFlowList.json");
-            if (File.Exists(path))
+            var folders = Directory.GetDirectories(WorkPath.WorkBasePath);
+            var exits = folders?.Select(_ =>new WorkFlow(Path.GetFileNameWithoutExtension(_))).ToList();
+            if (exits?.Count > 0)
             {
-                var josn = File.ReadAllText(path);
-                if (!string.IsNullOrEmpty(josn))
-                {
-                    exitworks = JsonConvert.DeserializeObject<List<WorkFlow>>(josn);
-                    if (exitworks.Count > 0)
-                    {
-                        comboBoxEdit_exit.Properties.Items.AddRange(exitworks);
-                    }
-                }
+                comboBoxEdit_exit.Properties.Items.AddRange(exits);
             }
         }
 
@@ -338,6 +332,7 @@ namespace ExperimentDesign
 
         private void simpleButton_savework_Click(object sender, System.EventArgs e)
         {
+            //保存当前工作信息
             if (checkEdit1.Checked)
             {
                 if (string.IsNullOrEmpty(this.textEdit_new.Text))
@@ -345,8 +340,7 @@ namespace ExperimentDesign
                     XtraMessageBox.Show("工作流名称不能为空");
                     return;
                 }
-                var newwork = new WorkFlow();
-                newwork.Name = this.textEdit_new.Text;
+                var newwork = new WorkFlow(this.textEdit_new.Text);
                 Current = newwork;
                 var find = exitworks.Find(_ => string.Equals(Current.Name, _.Name));
                 if (find == null)
@@ -362,12 +356,74 @@ namespace ExperimentDesign
                     XtraMessageBox.Show("工作流已存在");
                 }
             }
-            Current.Save();
+            Save();
+        }
+
+        public void Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            writer.WritePropertyName("Name");
+            writer.WriteValue(Current.Name);
+            writer.WritePropertyName("Controls");
+            writer.WriteStartArray();
+            foreach (var item in this.workPanel.Controls)
+            {
+                if (item is WorkControl ctrl)
+                {
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("Type");
+                    writer.WriteValue(ctrl.GetType().FullName);
+                    writer.WritePropertyName("Params");
+                    writer.WriteValue(ctrl.Save());
+                    writer.WriteEndObject();
+                }
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.Flush();
+            string jsonText = sw.GetStringBuilder().ToString();
+            File.WriteAllText(Current.GetWorkConfigFile(), jsonText, Encoding.UTF8);
+        }
+
+        public void Open(string file)
+        {
+            if (File.Exists(file))
+            {
+                var jsonText = File.ReadAllText(file, Encoding.UTF8);
+                JObject jo = JObject.Parse(jsonText);
+                JArray ctrls = jo["Controls"] as JArray;
+                if (ctrls?.Count > 0)
+                {
+                    this.SuspendLayout();
+                    this.workPanel.SuspendLayout();
+                    this.workPanel.Controls.Clear();
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    for (int i = 0; i < ctrls.Count; i++)
+                    {
+                        JObject ctrl = ctrls[i] as JObject;
+                        WorkControl workflow = assembly.CreateInstance(ctrl["Type"].ToString()) as WorkControl;
+                        var point = new Point(5, 5 + workPanel.Controls.Count * 20);
+                        workflow.Location = point;
+                        workflow.Name = "editworkflow";
+                        workflow.SetIndex(workPanel.Controls.Count + 1);
+                        workflow.Size = new Size(400, 20);
+                        workflow.Main = this;
+                        workflow.Open(ctrl["Params"].ToString());
+                        this.workPanel.Controls.Add(workflow);
+                    }
+                    this.workPanel.ResumeLayout();
+                    this.ResumeLayout(false);
+                    this.Refresh();
+                }
+            }
         }
 
         private void comboBoxEdit_exit_SelectedIndexChanged(object sender, EventArgs e)
         {
             Current = this.comboBoxEdit_exit.SelectedItem as WorkFlow;
+            Open(Current?.GetWorkConfigFile());
         }
     }
 

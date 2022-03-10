@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace WorkList.ExperimentDesign
 {
@@ -35,6 +36,16 @@ namespace WorkList.ExperimentDesign
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
         {
             ShowParamForm();
+            UpdateText();
+        }
+
+        protected virtual void ShowParamForm() { }
+
+        /// <summary>
+        /// 界面上显示的设计参数
+        /// </summary>
+        private void UpdateText()
+        {
             StringBuilder sb = new StringBuilder();
             foreach (var item in param)
             {
@@ -50,22 +61,20 @@ namespace WorkList.ExperimentDesign
             }
         }
 
-        protected virtual void ShowParamForm() { }
-
         public virtual void Run(string workpath) { }
 
         public virtual bool GetRunState() { return true; }
 
-        protected virtual void Save(string file)
+        public virtual string Save()
         {
             var str = JsonConvert.SerializeObject(param);
-            File.WriteAllText(file, str, Encoding.UTF8);
+            return str;
         }
 
-        protected virtual void Openm(string file)
+        public virtual void Open(string str)
         {
-            var str = File.ReadAllText(file);
             param = JsonConvert.DeserializeObject<List<UncertainParam>>(str);
+            UpdateText();
         }
 
         public virtual IReadOnlyList<UncertainParam> GetUncentainParam()

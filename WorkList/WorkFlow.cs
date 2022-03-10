@@ -5,7 +5,12 @@ namespace ExperimentDesign.WorkList
 {
     public class WorkFlow
     {
-        public string Name { get; set; }
+        public WorkFlow(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get;private set; }
 
         public string GetWorkPath()
         {
@@ -31,9 +36,6 @@ namespace ExperimentDesign.WorkList
             return Name;
         }
 
-        public void Save() { }
-
-        public void Open() { }
         public static void UpdateWorkList(IReadOnlyList<WorkFlow> works) { }
     }
 }

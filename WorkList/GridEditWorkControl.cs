@@ -18,7 +18,7 @@ namespace WorkList.ExperimentDesign
         public override void Run(string workpath)
         {
             string file = Path.Combine(workpath, $"{nameof(GridEditWorkControl)}.json");
-            Save(file);
+            Save();
         }
 
         protected override void ShowParamForm()
