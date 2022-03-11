@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -35,6 +36,270 @@ namespace ExperimentDesign
             }
         }
 
+        //运行工作流
+        public void Run()
+        {
+            if (Current != null)
+            {
+                int maxwait = 60000;
+                var workControls = this.workPanel.Controls;
+                var designTable = GetDesignDataTable();
+                if (designTable == null)
+                {
+                    return;
+                }
+                for (int i = 0; i < designTable.Count; i++)
+                {
+                    foreach (var item in workControls)
+                    {
+                        if (item is WorkControl ctrl)
+                        {
+                            ctrl.Run(i + 1,designTable[i]);
+                            int curwait = 0;
+                            while (!ctrl.GetRunState())
+                            {
+                                Thread.Sleep(5000);
+                                curwait += 5000;
+                                if (curwait > maxwait)
+                                {
+                                    var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
+                                    if (dia == DialogResult.Yes)
+                                    {
+                                        maxwait *= 2;
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                XtraMessageBox.Show("请先设置当前工作流");
+            }
+        }
+
+        //删除某一工作流
+        public void Delete(WorkControl control)
+        {
+            int index = this.workPanel.Controls.IndexOf(control);
+            this.SuspendLayout();
+            this.workPanel.SuspendLayout();
+            for (int i = 0; i < this.workPanel.Controls.Count; i++)
+            {
+                if (i > index)
+                {
+                    this.workPanel.Controls[i].Location = this.workPanel.Controls[i].Location - new Size(0, 23);
+                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i);
+                }
+            }
+            this.workPanel.Controls.Remove(control);
+            this.workPanel.ResumeLayout();
+            this.ResumeLayout(false);
+        }
+        //保存工作流
+        public void Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            writer.WritePropertyName("Name");
+            writer.WriteValue(Current.Name);
+            writer.WritePropertyName("Controls");
+            writer.WriteStartArray();
+            foreach (var item in this.workPanel.Controls)
+            {
+                if (item is WorkControl ctrl)
+                {
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("Type");
+                    writer.WriteValue(ctrl.GetType().FullName);
+                    writer.WritePropertyName("Params");
+                    writer.WriteValue(ctrl.Save());
+                    writer.WriteEndObject();
+                }
+            }
+            writer.WriteEndArray();
+            writer.WritePropertyName("UncertainParam");
+            writer.WriteStartArray();
+            foreach (var item in olddatas)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Type");
+                writer.WriteValue(item.GetType().FullName);
+                writer.WritePropertyName("Data");
+                writer.WriteValue(item.Save());
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.Flush();
+            string jsonText = sw.GetStringBuilder().ToString();
+            File.WriteAllText(Current.GetWorkConfigFile(), jsonText, Encoding.UTF8);
+        }
+        //打开工作流
+        public void Open(string file)
+        {
+            if (File.Exists(file))
+            {
+                olddatas.Clear();
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                var jsonText = File.ReadAllText(file, Encoding.UTF8);
+                JObject jo = JObject.Parse(jsonText);
+                JArray ctrls = jo["Controls"] as JArray;
+                JToken t = jo["UncertainParam"];
+                if (t is JArray uncertains)
+                {
+                    for (int i = 0; i < uncertains.Count; i++)
+                    {
+                        JObject uncertain = uncertains[i] as JObject;
+                        var obj = assembly.CreateInstance(uncertain["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as VariableData;
+                        var data = uncertain["Data"].ToString();
+                        obj.Open(data);
+                        olddatas.Add(obj);
+                    }
+                }
+                if (ctrls?.Count > 0)
+                {
+                    this.SuspendLayout();
+                    this.workPanel.SuspendLayout();
+                    this.workPanel.Controls.Clear();
+                    for (int i = 0; i < ctrls.Count; i++)
+                    {
+                        JObject ctrl = ctrls[i] as JObject;
+                        WorkControl workflow = assembly.CreateInstance(ctrl["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as WorkControl;
+                        var point = new Point(5, 5 + workPanel.Controls.Count * 20);
+                        workflow.Location = point;
+                        workflow.Name = "editworkflow";
+                        workflow.SetIndex(workPanel.Controls.Count + 1);
+                        workflow.Size = new Size(400, 20);
+                        workflow.Main = this;
+                        workflow.Open(ctrl["Params"].ToString());
+                        this.workPanel.Controls.Add(workflow);
+                    }
+                    this.workPanel.ResumeLayout();
+                    this.ResumeLayout(false);
+                    this.Refresh();
+                }
+            }
+            this.tabPane1.SelectedPageIndex = 0;
+        }
+
+        //更新设计（页面切换 设计方法切换时）
+        private void UpdateDesign()
+        {
+            var datas = this.gridControl1.DataSource as List<VariableData>;
+            if (datas?.Count > 0)
+            {
+                var tabel = GetDesignTable(designMethod.SelectedIndex, datas);
+                if (tabel != null)
+                {
+                    this.designTimes.Value = tabel.GetTestCount();
+                }
+                else
+                {
+                    this.designTimes.Value = 0;
+                    XtraMessageBox.Show($"参数错误,无法进行{designMethod.SelectedText}实验设计");
+                }
+            }
+        }
+
+        //获取设计表
+        private Table GetDesignTable(int methodIndex, List<VariableData> data)
+        {
+            int factornum = data.Count;
+            this.panelControl_design.Controls.Clear();
+            if (methodIndex == 0)
+            {
+                var res = DesignAlgorithm.GenerateBoxBehnken(factornum);
+                BBDesignPanel panel = new BBDesignPanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else if (methodIndex == 1)
+            {
+                var res = DesignAlgorithm.GenerateComposite(factornum, CenteralCompositeType.FaceCentered);
+                CCDesignPanel panel = new CCDesignPanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else if (methodIndex == 2)
+            {
+                var res = DesignAlgorithm.GeneratePlackettBurman(factornum);
+                PBDesignPanel panel = new PBDesignPanel();
+                panel.DesignTimes = this;
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else if (methodIndex == 3)
+            {
+                var res = DesignAlgorithm.GenerateOrthGuide(factornum, factornum - 1);
+                OrthDesignPanel panel = new OrthDesignPanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void UpdateDesignTimes(int times)
+        {
+            this.designTimes.Enabled = false;
+            this.designTimes.Value = times;
+        }
+
+        //获取当前工作流的工作路径
+        public string GetWorkPath()
+        {
+            return Current.GetWorkPath();
+        }
+
+        //获取设计表
+        public IReadOnlyList<IReadOnlyDictionary<string, object>> GetDesignDataTable()
+        {
+            if (this.panelControl_design.Controls.Count > 0)
+            {
+                var property = this.panelControl_design.Controls[0].GetType().GetProperty("DesignTable");
+                var designtable = property.GetValue(this.panelControl_design.Controls[0]) as Table;
+                bool exitNaN;
+                var res = designtable.ToDesignList(this.gridControl1.DataSource as List<VariableData>, out exitNaN);
+                if (exitNaN)
+                {
+                    XtraMessageBox.Show("设计表存在NaN值");
+                    return null;
+                }
+                else
+                {
+                    return res;
+                }
+            }
+            else
+            {
+                XtraMessageBox.Show("不存在设计表");
+                return null;
+            }
+        }
+
+
+        //鼠标交互事件---------------------------------------------------------------------------------------------------------
         private void editworkflow_Click(object sender, System.EventArgs e)
         {
             using (WorkSelectForm select = new WorkSelectForm())
@@ -126,75 +391,6 @@ namespace ExperimentDesign
             olddatas = newdatas;
         }
 
-        private void UpdateDesign()
-        {
-            var datas = this.gridControl1.DataSource as List<VariableData>;
-            if (datas?.Count > 0)
-            {
-                var tabel = GetDesignTable(designMethod.SelectedIndex, datas);
-                if (tabel != null)
-                {
-                    this.designTimes.Value = tabel.GetTestCount();
-                }
-                else
-                {
-                    this.designTimes.Value = 0;
-                    XtraMessageBox.Show($"参数错误,无法进行{designMethod.SelectedText}实验设计");
-                }
-            }
-        }
-
-        private Table GetDesignTable(int methodIndex, List<VariableData> data)
-        {
-            int factornum = data.Count;
-            this.panelControl_design.Controls.Clear();
-            if (methodIndex == 0)
-            {
-                var res = DesignAlgorithm.GenerateBoxBehnken(factornum);
-                BBDesignPanel panel = new BBDesignPanel();
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else if (methodIndex == 1)
-            {
-                var res = DesignAlgorithm.GenerateComposite(factornum, CenteralCompositeType.FaceCentered);
-                CCDesignPanel panel = new CCDesignPanel();
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else if (methodIndex == 2)
-            {
-                var res = DesignAlgorithm.GeneratePlackettBurman(factornum);
-                PBDesignPanel panel = new PBDesignPanel();
-                panel.DesignTimes = this;
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else if (methodIndex == 3)
-            {
-                var res = DesignAlgorithm.GenerateOrthGuide(factornum, factornum - 1);
-                OrthDesignPanel panel = new OrthDesignPanel();
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         private void designMethod_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             UpdateDesign();
@@ -214,30 +410,6 @@ namespace ExperimentDesign
             comboBoxEdit_exit.Enabled = checkEdit2.Checked;
             textEdit_new.Enabled = checkEdit1.Checked;
             Current = null;
-        }
-
-        public void UpdateDesignTimes(int times)
-        {
-            this.designTimes.Enabled = false;
-            this.designTimes.Value = times;
-        }
-
-        public void Delete(WorkControl control)
-        {
-            int index = this.workPanel.Controls.IndexOf(control);
-            this.SuspendLayout();
-            this.workPanel.SuspendLayout();
-            for (int i = 0; i < this.workPanel.Controls.Count; i++)
-            {
-                if (i > index)
-                {
-                    this.workPanel.Controls[i].Location = this.workPanel.Controls[i].Location - new Size(0, 23);
-                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i);
-                }
-            }
-            this.workPanel.Controls.Remove(control);
-            this.workPanel.ResumeLayout();
-            this.ResumeLayout(false);
         }
 
         private void gridView1_ShownEditor(object sender, System.EventArgs e)
@@ -291,44 +463,6 @@ namespace ExperimentDesign
             Run();
         }
 
-        public void Run()
-        {
-            if (Current != null)
-            {
-                int maxwait = 60000;
-                var workControls = this.workPanel.Controls;
-                foreach (var item in workControls)
-                {
-                    if (item is WorkControl ctrl)
-                    {
-                        ctrl.Run(Current.GetWorkPath());
-                        int curwait = 0;
-                        while (!ctrl.GetRunState())
-                        {
-                            Thread.Sleep(5000);
-                            curwait += 5000;
-                            if (curwait > maxwait)
-                            {
-                                var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
-                                if (dia == DialogResult.Yes)
-                                {
-                                    maxwait *= 2;
-                                }
-                                else
-                                {
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                XtraMessageBox.Show("请先设置当前工作流");
-            }
-        }
-
         private void simpleButton_savework_Click(object sender, System.EventArgs e)
         {
             //保存当前工作信息
@@ -356,93 +490,6 @@ namespace ExperimentDesign
                 }
             }
             Save();
-        }
-
-        public void Save()
-        {
-            StringWriter sw = new StringWriter();
-            JsonWriter writer = new JsonTextWriter(sw);
-            writer.WriteStartObject();
-            writer.WritePropertyName("Name");
-            writer.WriteValue(Current.Name);
-            writer.WritePropertyName("Controls");
-            writer.WriteStartArray();
-            foreach (var item in this.workPanel.Controls)
-            {
-                if (item is WorkControl ctrl)
-                {
-                    writer.WriteStartObject();
-                    writer.WritePropertyName("Type");
-                    writer.WriteValue(ctrl.GetType().FullName);
-                    writer.WritePropertyName("Params");
-                    writer.WriteValue(ctrl.Save());
-                    writer.WriteEndObject();
-                }
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("UncertainParam");
-            writer.WriteStartArray();
-            foreach (var item in olddatas)
-            {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Type");
-                writer.WriteValue(item.GetType().FullName);
-                writer.WritePropertyName("Data");
-                writer.WriteValue(item.Save());
-                writer.WriteEndObject();
-            }
-            writer.WriteEndArray();
-            writer.WriteEndObject();
-            writer.Flush();
-            string jsonText = sw.GetStringBuilder().ToString();
-            File.WriteAllText(Current.GetWorkConfigFile(), jsonText, Encoding.UTF8);
-        }
-
-        public void Open(string file)
-        {
-            if (File.Exists(file))
-            {
-                olddatas.Clear();
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                var jsonText = File.ReadAllText(file, Encoding.UTF8);
-                JObject jo = JObject.Parse(jsonText);
-                JArray ctrls = jo["Controls"] as JArray;
-                JToken t = jo["UncertainParam"];
-                if (t is JArray uncertains)
-                {
-                    for (int i = 0; i < uncertains.Count; i++)
-                    {
-                        JObject uncertain = uncertains[i] as JObject;
-                        var obj = assembly.CreateInstance(uncertain["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as VariableData;
-                        var data = uncertain["Data"].ToString();
-                        obj.Open(data);
-                        olddatas.Add(obj);
-                    }
-                }
-                if (ctrls?.Count > 0)
-                {
-                    this.SuspendLayout();
-                    this.workPanel.SuspendLayout();
-                    this.workPanel.Controls.Clear();
-                    for (int i = 0; i < ctrls.Count; i++)
-                    {
-                        JObject ctrl = ctrls[i] as JObject;
-                        WorkControl workflow = assembly.CreateInstance(ctrl["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as WorkControl;
-                        var point = new Point(5, 5 + workPanel.Controls.Count * 20);
-                        workflow.Location = point;
-                        workflow.Name = "editworkflow";
-                        workflow.SetIndex(workPanel.Controls.Count + 1);
-                        workflow.Size = new Size(400, 20);
-                        workflow.Main = this;
-                        workflow.Open(ctrl["Params"].ToString());
-                        this.workPanel.Controls.Add(workflow);
-                    }
-                    this.workPanel.ResumeLayout();
-                    this.ResumeLayout(false);
-                    this.Refresh();
-                }
-            }
-            this.tabPane1.SelectedPageIndex = 0;
         }
 
         private void comboBoxEdit_exit_SelectedIndexChanged(object sender, EventArgs e)

@@ -58,7 +58,7 @@ namespace WorkList.ExperimentDesign
             }
         }
 
-        public virtual void Run(string workpath) { }
+        public virtual void Run(int index, IReadOnlyDictionary<string, object> designVaribles) { }
 
         public virtual bool GetRunState() { return true; }
 

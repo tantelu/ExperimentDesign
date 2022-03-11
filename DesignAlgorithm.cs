@@ -638,6 +638,46 @@ namespace ExperimentDesign
             }
             return table;
         }
+
+        public virtual IReadOnlyList<IReadOnlyDictionary<string,object>> ToDesignList(IReadOnlyList<VariableData> datas,out bool exitNaN)
+        {
+            List<IReadOnlyDictionary<string, object>> res = new List<IReadOnlyDictionary<string, object>>();
+            exitNaN = false;
+            for (int i = 0; i < GetTestCount(); i++)
+            {
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                for (int col = 0; col < datas.Count; col++)
+                {
+                    if (datas[col].Arguments != null)
+                    {
+                        var design = GetValue(i, col);
+                        if (char.Equals(design, '-'))
+                        {
+                            dic.Add(datas[col].Name, datas[col].Arguments.GetMin());
+                        }
+                        else if (char.Equals(design, '+'))
+                        {
+                            dic.Add(datas[col].Name, datas[col].Arguments.GetMax());
+                        }
+                        else if (char.Equals(design, '0'))
+                        {
+                            dic.Add(datas[col].Name, datas[col].BaseValue);
+                        }
+                        else if (design is int intdesgin)
+                        {
+                            dic.Add(datas[col].Name, datas[col].Arguments.GetLevel(intdesgin));
+                        }
+                    }
+                    else
+                    {
+                        dic.Add(datas[col].Name, "NaN");
+                        exitNaN = true;
+                    }
+                }
+                res.Add(dic);
+            }
+            return res;
+        }
     }
 
     public enum CenteralCompositeType

@@ -5,5 +5,6 @@ namespace WorkList.ExperimentDesign
     {
         void Delete(WorkControl control);
 
+        string GetWorkPath();
     }
 }
