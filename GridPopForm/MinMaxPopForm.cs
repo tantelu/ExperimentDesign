@@ -35,6 +35,8 @@ namespace ExperimentDesign.GridPopForm
             this.max = max;
         }
 
+        private MinMaxArgument() { }
+
         public object GetLevel(int level)
         {
             if (level == 0)
@@ -59,6 +61,18 @@ namespace ExperimentDesign.GridPopForm
         public object GetMin()
         {
             return min;
+        }
+
+        public void Open(string json)
+        {
+            string[] strs = json.Split(',');
+            min = Convert.ToDecimal(strs[0]);
+            max = Convert.ToDecimal(strs[1]);
+        }
+
+        public string Save()
+        {
+            return $"{min},{max}";
         }
 
         public override string ToString()

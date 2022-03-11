@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,8 @@ namespace ExperimentDesign.GridPopForm
             vs = temp.Select(_ => _.Trim()).ToList();
         }
 
+        private ListArgument() { }
+
         public object GetLevel(int level)
         {
             return vs[level];
@@ -50,6 +53,16 @@ namespace ExperimentDesign.GridPopForm
         public object GetMin()
         {
             return vs[0];
+        }
+
+        public void Open(string json)
+        {
+            vs = JsonConvert.DeserializeObject<List<string>>(json);
+        }
+
+        public string Save()
+        {
+            return JsonConvert.SerializeObject(vs);
         }
 
         public override string ToString()

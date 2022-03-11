@@ -9,5 +9,9 @@
         object GetLevel(int level);
 
         string ToString();
+
+        string Save();
+
+        void Open(string json);
     }
 }

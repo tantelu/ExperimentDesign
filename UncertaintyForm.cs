@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -29,7 +28,7 @@ namespace ExperimentDesign
         {
             InitializeComponent();
             var folders = Directory.GetDirectories(WorkPath.WorkBasePath);
-            var exits = folders?.Select(_ =>new WorkFlow(Path.GetFileNameWithoutExtension(_))).ToList();
+            var exits = folders?.Select(_ => new WorkFlow(Path.GetFileNameWithoutExtension(_))).ToList();
             if (exits?.Count > 0)
             {
                 comboBoxEdit_exit.Properties.Items.AddRange(exits);
@@ -47,7 +46,7 @@ namespace ExperimentDesign
                     Assembly assembly = Assembly.GetExecutingAssembly();
                     foreach (var item in select.GetSelects())
                     {
-                        WorkControl workflow = assembly.CreateInstance(item.ControlType) as WorkControl;
+                        WorkControl workflow = assembly.CreateInstance(item.ControlType, false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as WorkControl;
                         var point = new Point(5, 5 + workPanel.Controls.Count * 20);
                         workflow.Location = point;
                         workflow.Name = "editworkflow";
@@ -381,6 +380,18 @@ namespace ExperimentDesign
                 }
             }
             writer.WriteEndArray();
+            writer.WritePropertyName("UncertainParam");
+            writer.WriteStartArray();
+            foreach (var item in olddatas)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Type");
+                writer.WriteValue(item.GetType().FullName);
+                writer.WritePropertyName("Data");
+                writer.WriteValue(item.Save());
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
             writer.WriteEndObject();
             writer.Flush();
             string jsonText = sw.GetStringBuilder().ToString();
@@ -391,19 +402,32 @@ namespace ExperimentDesign
         {
             if (File.Exists(file))
             {
+                olddatas.Clear();
+                Assembly assembly = Assembly.GetExecutingAssembly();
                 var jsonText = File.ReadAllText(file, Encoding.UTF8);
                 JObject jo = JObject.Parse(jsonText);
                 JArray ctrls = jo["Controls"] as JArray;
+                JToken t = jo["UncertainParam"];
+                if (t is JArray uncertains)
+                {
+                    for (int i = 0; i < uncertains.Count; i++)
+                    {
+                        JObject uncertain = uncertains[i] as JObject;
+                        var obj = assembly.CreateInstance(uncertain["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as VariableData;
+                        var data = uncertain["Data"].ToString();
+                        obj.Open(data);
+                        olddatas.Add(obj);
+                    }
+                }
                 if (ctrls?.Count > 0)
                 {
                     this.SuspendLayout();
                     this.workPanel.SuspendLayout();
                     this.workPanel.Controls.Clear();
-                    Assembly assembly = Assembly.GetExecutingAssembly();
                     for (int i = 0; i < ctrls.Count; i++)
                     {
                         JObject ctrl = ctrls[i] as JObject;
-                        WorkControl workflow = assembly.CreateInstance(ctrl["Type"].ToString()) as WorkControl;
+                        WorkControl workflow = assembly.CreateInstance(ctrl["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as WorkControl;
                         var point = new Point(5, 5 + workPanel.Controls.Count * 20);
                         workflow.Location = point;
                         workflow.Name = "editworkflow";
@@ -418,6 +442,7 @@ namespace ExperimentDesign
                     this.Refresh();
                 }
             }
+            this.tabPane1.SelectedPageIndex = 0;
         }
 
         private void comboBoxEdit_exit_SelectedIndexChanged(object sender, EventArgs e)
@@ -425,24 +450,5 @@ namespace ExperimentDesign
             Current = this.comboBoxEdit_exit.SelectedItem as WorkFlow;
             Open(Current?.GetWorkConfigFile());
         }
-    }
-
-    public class VariableData
-    {
-        [DisplayName("设计参数名")]
-        ///对于参数输入界面的 EditorValue 如果其包含$  就是需要设计的参数
-        public string Name { get; set; }
-
-        [DisplayName("参数描述")]
-        public string ParDescription { get; set; }
-
-        [DisplayName("默认值")]
-        public string BaseValue { get; set; }
-
-        [DisplayName("分布")]
-        public string Distribution { get; set; }
-
-        [DisplayName("参数")]
-        public IArgument Arguments { get; set; }
     }
 }
