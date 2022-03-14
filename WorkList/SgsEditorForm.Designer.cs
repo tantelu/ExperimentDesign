@@ -188,6 +188,7 @@ namespace ExperimentDesign.WorkList
             this.comboBoxEdit2.Size = new System.Drawing.Size(691, 28);
             this.comboBoxEdit2.StyleController = this.layoutControl1;
             this.comboBoxEdit2.TabIndex = 14;
+            this.comboBoxEdit2.Tag = "简单克里金";
             // 
             // comboBoxEdit1
             // 
@@ -206,6 +207,7 @@ namespace ExperimentDesign.WorkList
             this.comboBoxEdit1.Size = new System.Drawing.Size(691, 28);
             this.comboBoxEdit1.StyleController = this.layoutControl1;
             this.comboBoxEdit1.TabIndex = 6;
+            this.comboBoxEdit1.Tag = "高斯模型";
             // 
             // sill
             // 
@@ -220,6 +222,7 @@ namespace ExperimentDesign.WorkList
             this.sill.Size = new System.Drawing.Size(268, 28);
             this.sill.StyleController = this.layoutControl1;
             this.sill.TabIndex = 4;
+            this.sill.Tag = "1.0";
             // 
             // nug
             // 
@@ -234,6 +237,7 @@ namespace ExperimentDesign.WorkList
             this.nug.Size = new System.Drawing.Size(268, 28);
             this.nug.StyleController = this.layoutControl1;
             this.nug.TabIndex = 5;
+            this.nug.Tag = "0.0001";
             // 
             // majordir
             // 
@@ -248,6 +252,7 @@ namespace ExperimentDesign.WorkList
             this.majordir.Size = new System.Drawing.Size(206, 28);
             this.majordir.StyleController = this.layoutControl1;
             this.majordir.TabIndex = 7;
+            this.majordir.Tag = "500";
             // 
             // minordir
             // 
@@ -262,6 +267,7 @@ namespace ExperimentDesign.WorkList
             this.minordir.Size = new System.Drawing.Size(196, 28);
             this.minordir.StyleController = this.layoutControl1;
             this.minordir.TabIndex = 8;
+            this.minordir.Tag = "500";
             // 
             // verticaldir
             // 
@@ -276,6 +282,7 @@ namespace ExperimentDesign.WorkList
             this.verticaldir.Size = new System.Drawing.Size(177, 28);
             this.verticaldir.StyleController = this.layoutControl1;
             this.verticaldir.TabIndex = 9;
+            this.verticaldir.Tag = "100";
             // 
             // majorAzimuth
             // 
@@ -290,6 +297,7 @@ namespace ExperimentDesign.WorkList
             this.majorAzimuth.Size = new System.Drawing.Size(340, 28);
             this.majorAzimuth.StyleController = this.layoutControl1;
             this.majorAzimuth.TabIndex = 12;
+            this.majorAzimuth.Tag = "0";
             // 
             // majorDip
             // 
@@ -304,6 +312,7 @@ namespace ExperimentDesign.WorkList
             this.majorDip.Size = new System.Drawing.Size(358, 28);
             this.majorDip.StyleController = this.layoutControl1;
             this.majorDip.TabIndex = 13;
+            this.majorDip.Tag = "0";
             // 
             // maxdata
             // 
@@ -318,6 +327,7 @@ namespace ExperimentDesign.WorkList
             this.maxdata.Size = new System.Drawing.Size(691, 28);
             this.maxdata.StyleController = this.layoutControl1;
             this.maxdata.TabIndex = 15;
+            this.maxdata.Tag = "8";
             // 
             // multigrid
             // 
@@ -332,6 +342,7 @@ namespace ExperimentDesign.WorkList
             this.multigrid.Size = new System.Drawing.Size(311, 28);
             this.multigrid.StyleController = this.layoutControl1;
             this.multigrid.TabIndex = 17;
+            this.multigrid.Tag = "3";
             // 
             // layoutControlGroup1
             // 
@@ -358,7 +369,7 @@ namespace ExperimentDesign.WorkList
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(856, 407);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(856, 433);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -505,7 +516,7 @@ namespace ExperimentDesign.WorkList
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 369);
             this.emptySpaceItem2.MinSize = new System.Drawing.Size(106, 26);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(846, 32);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(846, 58);
             this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 

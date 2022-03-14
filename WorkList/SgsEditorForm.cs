@@ -7,7 +7,7 @@ namespace ExperimentDesign.WorkList
 {
     public partial class SgsEditorForm : XtraForm
     {
-        private Dictionary<int, UncertainControl> map; 
+        private Dictionary<int, UncertainControl> map;
 
         public SgsEditorForm()
         {
@@ -55,8 +55,12 @@ namespace ExperimentDesign.WorkList
             {
                 if (item.Value.Data != null)
                 {
-                    item.Value.Data.Name = item.Value.Control.EditValue.ToString();
-                    item.Value.Data.BaseValue = item.Value.Control.EditValue;
+                    var name = item.Value.Control.EditValue.ToString();
+                    item.Value.Data.Name = name;
+                    if (!name.Contains("$"))
+                    {
+                        item.Value.Data.BaseValue = item.Value.Control.EditValue;
+                    }
                     res.Add(item.Value.Data);
                 }
                 else
@@ -67,8 +71,8 @@ namespace ExperimentDesign.WorkList
                         WorkControlTypeName = nameof(GridEditWorkControl),
                         Name = item.Value.Control.EditValue.ToString(),
                         ParDescription = item.Value.ParamDescription,
-                        BaseValue = item.Value.Control.EditValue,
-                });
+                        BaseValue = Name.Contains("$") ? item.Value.Control.Tag : item.Value.Control.EditValue,
+                    });
                 }
             }
             return res;

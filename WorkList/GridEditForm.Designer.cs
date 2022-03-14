@@ -52,9 +52,9 @@ namespace WorkList.ExperimentDesign
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
@@ -77,9 +77,9 @@ namespace WorkList.ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -139,6 +139,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit1.Size = new System.Drawing.Size(756, 28);
             this.spinEdit1.StyleController = this.layoutControl1;
             this.spinEdit1.TabIndex = 4;
+            this.spinEdit1.Tag = "0";
             // 
             // spinEdit2
             // 
@@ -155,6 +156,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit2.Size = new System.Drawing.Size(756, 28);
             this.spinEdit2.StyleController = this.layoutControl1;
             this.spinEdit2.TabIndex = 5;
+            this.spinEdit2.Tag = "0";
             // 
             // spinEdit3
             // 
@@ -171,6 +173,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit3.Size = new System.Drawing.Size(756, 28);
             this.spinEdit3.StyleController = this.layoutControl1;
             this.spinEdit3.TabIndex = 6;
+            this.spinEdit3.Tag = "0";
             // 
             // spinEdit4
             // 
@@ -183,6 +186,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit4.Size = new System.Drawing.Size(756, 28);
             this.spinEdit4.StyleController = this.layoutControl1;
             this.spinEdit4.TabIndex = 7;
+            this.spinEdit4.Tag = "1000";
             // 
             // spinEdit5
             // 
@@ -199,6 +203,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit5.Size = new System.Drawing.Size(756, 28);
             this.spinEdit5.StyleController = this.layoutControl1;
             this.spinEdit5.TabIndex = 8;
+            this.spinEdit5.Tag = "1000";
             // 
             // spinEdit6
             // 
@@ -215,6 +220,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit6.Size = new System.Drawing.Size(756, 28);
             this.spinEdit6.StyleController = this.layoutControl1;
             this.spinEdit6.TabIndex = 9;
+            this.spinEdit6.Tag = "100";
             // 
             // spinEdit7
             // 
@@ -231,6 +237,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit7.Size = new System.Drawing.Size(275, 28);
             this.spinEdit7.StyleController = this.layoutControl1;
             this.spinEdit7.TabIndex = 10;
+            this.spinEdit7.Tag = "10";
             // 
             // spinEdit8
             // 
@@ -247,6 +254,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit8.Size = new System.Drawing.Size(194, 28);
             this.spinEdit8.StyleController = this.layoutControl1;
             this.spinEdit8.TabIndex = 11;
+            this.spinEdit8.Tag = "10";
             // 
             // spinEdit9
             // 
@@ -263,6 +271,7 @@ namespace WorkList.ExperimentDesign
             this.spinEdit9.Size = new System.Drawing.Size(151, 28);
             this.spinEdit9.StyleController = this.layoutControl1;
             this.spinEdit9.TabIndex = 12;
+            this.spinEdit9.Tag = "10";
             // 
             // layoutControlGroup1
             // 
@@ -285,7 +294,7 @@ namespace WorkList.ExperimentDesign
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(834, 303);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(834, 320);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -379,22 +388,6 @@ namespace WorkList.ExperimentDesign
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 276);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(824, 17);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 238);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(484, 38);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.simpleButton2;
@@ -404,6 +397,22 @@ namespace WorkList.ExperimentDesign
             this.layoutControlItem11.Size = new System.Drawing.Size(169, 38);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 276);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(824, 34);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 238);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(484, 38);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // GridEditForm
             // 
@@ -440,9 +449,9 @@ namespace WorkList.ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }
