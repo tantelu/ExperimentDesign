@@ -290,7 +290,7 @@ namespace ExperimentDesign
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEdit);
-            this.gridView1.ShownEditor += new System.EventHandler(this.gridView1_ShownEditor);
+            this.gridView1.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridView1_ShowingEditor);
             // 
             // paramDistributed
             // 
@@ -301,6 +301,8 @@ namespace ExperimentDesign
             "均匀分布",
             "集合"});
             this.paramDistributed.Name = "paramDistributed";
+            this.paramDistributed.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.paramDistributed.SelectedIndexChanged += new System.EventHandler(this.paramDistributed_SelectedIndexChanged);
             // 
             // argumentRepositoryItem
             // 

@@ -45,7 +45,7 @@ namespace ExperimentDesign.WorkList
             List<UncertainParam> res = new List<UncertainParam>();
             foreach (KeyValuePair<int, UncertainControl> item in map)
             {
-                res.Add(new UncertainParam() { Index = item.Key, DefaultValue = item.Value.DefaultValue, ParDescription = item.Value.ParamName, EditorValue = item.Value.Control.EditValue });
+                res.Add(new UncertainParam() { Index = item.Key, DefaultValue = item.Value.DefaultValue, ParDescription = item.Value.ParamDescription, EditorValue = item.Value.Control.EditValue });
             }
             return res;
         }

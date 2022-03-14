@@ -54,7 +54,7 @@ namespace ExperimentDesign
                     {
                         if (item is WorkControl ctrl)
                         {
-                            ctrl.Run(i + 1,designTable[i]);
+                            ctrl.Run(i + 1, designTable[i]);
                             int curwait = 0;
                             while (!ctrl.GetRunState(i + 1))
                             {
@@ -412,9 +412,17 @@ namespace ExperimentDesign
             Current = null;
         }
 
-        private void gridView1_ShownEditor(object sender, System.EventArgs e)
+        private void gridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            if (string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.Name))||
+                string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.ParDescription)))
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
         }
 
         private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
@@ -456,6 +464,11 @@ namespace ExperimentDesign
             {
                 XtraMessageBox.Show("请先选择参数分布");
             }
+        }
+
+        private void paramDistributed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), null);
         }
 
         private void simpleButton1_Click(object sender, System.EventArgs e)

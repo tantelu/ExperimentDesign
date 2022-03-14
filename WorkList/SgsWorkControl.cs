@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace WorkList.ExperimentDesign
@@ -36,7 +35,6 @@ namespace WorkList.ExperimentDesign
             Grid3D grid = new Grid3D();
             grid.Open(gridfile);
             SgsPar sgsPar = new SgsPar(grid);
-
             var propeties = sgsPar.GetType().GetProperties().Where(_ => _.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
             foreach (var property in propeties)
             {
@@ -68,7 +66,7 @@ namespace WorkList.ExperimentDesign
             sgsPar.Save(file);
             string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgsim.exe");
             string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
-            File.Copy(Path.Combine(Application.StartupPath, "sgsim.exe"), exe, true);
+            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = exe;
             info.WorkingDirectory = Path.Combine(Main.GetWorkPath(), $"{index}");
@@ -171,8 +169,8 @@ namespace WorkList.ExperimentDesign
             sb.AppendLine("none.dat                      -  file with LVM, EXDR, or COLC variable     ");
             sb.AppendLine("4                             -  column for secondary variable             ");
             sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -nst, nugget effect                          ");
-            sb.AppendLine($"{1}" + " " + $"{Sill}" + " " + $"{MajorAzi}" + " " + $"{MajorDip}" + " " + $"{0.0}"+" - it,cc,ang1,ang2,ang3");
-            sb.AppendLine(" " + $"{MajorRange}" + " " + $"{MinorRange}" + " " + $"{VerRange}"+ " 1.0 - a_hmax, a_hmin, a_vert        ");
+            sb.AppendLine($"{1}" + " " + $"{Sill}" + " " + $"{MajorAzi}" + " " + $"{MajorDip}" + " " + $"{0.0}" + " - it,cc,ang1,ang2,ang3");
+            sb.AppendLine(" " + $"{MajorRange}" + " " + $"{MinorRange}" + " " + $"{VerRange}" + " 1.0 - a_hmax, a_hmin, a_vert        ");
             File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
         }
 
