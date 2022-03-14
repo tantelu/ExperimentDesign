@@ -56,7 +56,7 @@ namespace ExperimentDesign
                         {
                             ctrl.Run(i + 1,designTable[i]);
                             int curwait = 0;
-                            while (!ctrl.GetRunState())
+                            while (!ctrl.GetRunState(i + 1))
                             {
                                 Thread.Sleep(5000);
                                 curwait += 5000;

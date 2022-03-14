@@ -56,11 +56,15 @@ namespace WorkList.ExperimentDesign
             {
                 this.textEdit2.Text = sb.ToString(0, sb.Length - 1);
             }
+            else
+            {
+                this.textEdit2.Text = string.Empty;
+            }
         }
 
         public virtual void Run(int index, IReadOnlyDictionary<string, object> designVaribles) { }
 
-        public virtual bool GetRunState() { return true; }
+        public virtual bool GetRunState(int index) { return true; }
 
         public virtual string Save()
         {

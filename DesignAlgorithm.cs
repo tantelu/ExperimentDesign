@@ -639,7 +639,7 @@ namespace ExperimentDesign
             return table;
         }
 
-        public virtual IReadOnlyList<IReadOnlyDictionary<string,object>> ToDesignList(IReadOnlyList<VariableData> datas,out bool exitNaN)
+        public virtual IReadOnlyList<IReadOnlyDictionary<string, object>> ToDesignList(IReadOnlyList<VariableData> datas, out bool exitNaN)
         {
             List<IReadOnlyDictionary<string, object>> res = new List<IReadOnlyDictionary<string, object>>();
             exitNaN = false;
@@ -671,6 +671,9 @@ namespace ExperimentDesign
                     else
                     {
                         dic.Add(datas[col].Name, "NaN");
+                    }
+                    if (string.Equals("NaN", dic[datas[col].Name].ToString()))
+                    {
                         exitNaN = true;
                     }
                 }

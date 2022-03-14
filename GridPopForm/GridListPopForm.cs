@@ -42,7 +42,14 @@ namespace ExperimentDesign.GridPopForm
 
         public object GetLevel(int level)
         {
-            return vs[level];
+            if (level < 0 || level >= vs.Count)
+            {
+                return double.NaN;
+            }
+            else
+            {
+                return vs[level];
+            }
         }
 
         public object GetMax()
