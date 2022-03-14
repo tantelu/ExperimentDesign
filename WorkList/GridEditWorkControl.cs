@@ -39,17 +39,17 @@ namespace WorkList.ExperimentDesign
                 if (par != null)
                 {
                     object _value = null;
-                    if (par.EditorValue.ToString().Contains("$"))
+                    if (par.Name.ToString().Contains("$"))
                     {
-                        if (!designVaribles.TryGetValue(par.EditorValue.ToString(), out _value))
+                        if (!designVaribles.TryGetValue(par.Name.ToString(), out _value))
                         {
-                            XtraMessageBox.Show($"在设计表中不存在'{par.EditorValue.ToString()}',请检查错误。");
+                            XtraMessageBox.Show($"在设计表中不存在'{par.Name.ToString()}',请检查错误。");
                             return;
                         }
                     }
                     else
                     {
-                        _value = par.EditorValue;
+                        _value = par.Name;
                     }
                     property.SetValue(grid,Convert.ChangeType(_value, property.PropertyType));
                 }

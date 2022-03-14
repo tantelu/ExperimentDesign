@@ -1,8 +1,10 @@
-﻿using ExperimentDesign.WorkList;
+﻿using ExperimentDesign;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -10,7 +12,7 @@ namespace WorkList.ExperimentDesign
 {
     public partial class WorkControl : UserControl
     {
-        protected List<UncertainParam> param = new List<UncertainParam>();
+        protected List<VariableData> param = new List<VariableData>();
 
         public IWork Main { get; set; }
 
@@ -46,9 +48,9 @@ namespace WorkList.ExperimentDesign
             StringBuilder sb = new StringBuilder();
             foreach (var item in param)
             {
-                if (item.EditorValue.ToString().Contains("$"))
+                if (item.Name.ToString().Contains("$"))
                 {
-                    sb.Append(item.EditorValue);
+                    sb.Append(item.Name);
                     sb.Append(",");
                 }
             }
@@ -68,17 +70,36 @@ namespace WorkList.ExperimentDesign
 
         public virtual string Save()
         {
-            var str = JsonConvert.SerializeObject(param);
-            return str;
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartArray();
+            foreach (var item in param)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Data");
+                writer.WriteValue(item.Save());
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
         }
 
         public virtual void Open(string str)
         {
-            param = JsonConvert.DeserializeObject<List<UncertainParam>>(str);
+            param.Clear();
+            JArray ja = JArray.Parse(str);
+            for (int i = 0; i < ja.Count; i++)
+            {
+                JObject jo = ja[i] as JObject;
+                VariableData data = new VariableData();
+                data.Open(jo["Data"]?.ToString());
+                param.Add(data);
+            }
             UpdateText();
         }
 
-        public virtual IReadOnlyList<UncertainParam> GetUncentainParam()
+        public virtual IReadOnlyList<VariableData> GetUncentainParam()
         {
             return param;
         }

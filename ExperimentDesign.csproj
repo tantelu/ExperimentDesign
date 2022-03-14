@@ -165,7 +165,6 @@
     <Compile Include="UncertaintyForm.Designer.cs">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\UncertainParam.cs" />
     <Compile Include="WorkList\WorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

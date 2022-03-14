@@ -9,20 +9,32 @@ namespace ExperimentDesign
     public class VariableData
     {
         [DisplayName("设计参数名")]
-        ///对于参数输入界面的 EditorValue 如果其包含$  就是需要设计的参数
+        ///对于参数输入界面的 EditorValue 如果其包含$就是需要设计的参数
         public string Name { get; set; }
 
         [DisplayName("参数描述")]
         public string ParDescription { get; set; }
 
         [DisplayName("默认值")]
-        public string BaseValue { get; set; }
+        public object BaseValue { get; set; }
 
         [DisplayName("分布")]
         public string Distribution { get; set; }
 
         [DisplayName("参数")]
         public IArgument Arguments { get; set; }
+
+        /// <summary>
+        /// 对应WorkControl的名字
+        /// </summary>
+        [Browsable(false)]
+        public string WorkControlTypeName { get; set; }
+
+        /// <summary>
+        /// 在WorkControl中参数的顺序
+        /// </summary>
+        [Browsable(false)]
+        public int CtrlIndex { get; set; }
 
         public void Open(string json)
         {
@@ -33,6 +45,8 @@ namespace ExperimentDesign
                 this.ParDescription = jo[nameof(ParDescription)]?.ToString();
                 this.BaseValue = jo[nameof(BaseValue)]?.ToString();
                 this.Distribution = jo[nameof(Distribution)]?.ToString();
+                this.CtrlIndex = (int)jo[nameof(CtrlIndex)];
+                this.WorkControlTypeName = jo[nameof(WorkControlTypeName)]?.ToString();
                 var strargu = jo[nameof(Arguments)]?.ToString();
                 if (!string.IsNullOrEmpty(strargu))
                 {
@@ -57,6 +71,10 @@ namespace ExperimentDesign
             writer.WriteValue(BaseValue);
             writer.WritePropertyName(nameof(Distribution));
             writer.WriteValue(Distribution);
+            writer.WritePropertyName(nameof(CtrlIndex));
+            writer.WriteValue(CtrlIndex);
+            writer.WritePropertyName(nameof(WorkControlTypeName));
+            writer.WriteValue(WorkControlTypeName);
             writer.WritePropertyName(nameof(Arguments));
             if (Arguments != null)
             {

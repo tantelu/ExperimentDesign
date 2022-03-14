@@ -298,7 +298,6 @@ namespace ExperimentDesign
             }
         }
 
-
         //鼠标交互事件---------------------------------------------------------------------------------------------------------
         private void editworkflow_Click(object sender, System.EventArgs e)
         {
@@ -330,7 +329,7 @@ namespace ExperimentDesign
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             var workControls = this.workPanel.Controls;
-            List<VariableData> newdatas = new List<VariableData>();
+            List<VariableData> designDatas = new List<VariableData>();
             foreach (var item in workControls)
             {
                 if (item is WorkControl ctrl)
@@ -340,40 +339,19 @@ namespace ExperimentDesign
                     {
                         foreach (var par in @params)
                         {
-                            var data = olddatas.Find(_ => string.Equals(_.Name, par.EditorValue));
-                            if (data != null)
+                            if (par.Name.Contains("$"))
                             {
-                                data.Name = par.EditorValue.ToString();
-                                data.ParDescription = par.ParDescription;
-                                data.BaseValue = par.DefaultValue.ToString();
-                                olddatas.Add(data);
-                                newdatas.Add(data);
+                                designDatas.Add(par);
                             }
-                            else
+                            if (!olddatas.Contains(par))
                             {
-                                if (par.EditorValue != null && par.EditorValue.ToString().Contains("$"))
-                                {
-                                    if (!newdatas.Exists(_ => string.Equals(_.Name, par.EditorValue.ToString())))
-                                    {
-                                        VariableData newdata = new VariableData();
-                                        newdata.Name = par.EditorValue.ToString();
-                                        newdata.ParDescription = par.ParDescription;
-                                        newdata.BaseValue = par.DefaultValue.ToString();
-                                        newdatas.Add(newdata);
-                                    }
-                                    else
-                                    {
-                                        XtraMessageBox.Show("存在重名参数,请修改");
-                                        newdatas.Clear();
-                                        return;
-                                    }
-                                }
+                                olddatas.Add(par);
                             }
                         }
                     }
                 }
             }
-            this.gridControl1.DataSource = newdatas;
+            this.gridControl1.DataSource = designDatas;
             this.gridControl1.RefreshDataSource();
             UpdateDesign();
             if (e.OldPage == this.tabNavigationPage1 && e.Page == this.tabNavigationPage2)
@@ -388,7 +366,6 @@ namespace ExperimentDesign
             {
 
             }
-            olddatas = newdatas;
         }
 
         private void designMethod_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -414,7 +391,7 @@ namespace ExperimentDesign
 
         private void gridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.Name))||
+            if (string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.Name)) ||
                 string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.ParDescription)))
             {
                 e.Cancel = true;

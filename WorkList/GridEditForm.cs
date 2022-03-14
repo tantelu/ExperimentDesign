@@ -1,5 +1,5 @@
 ﻿using DevExpress.XtraEditors;
-using ExperimentDesign.WorkList;
+using ExperimentDesign;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -14,38 +14,60 @@ namespace WorkList.ExperimentDesign
             InitializeComponent();
         }
 
-        public void InitForm(List<UncertainParam> param)
+        public void InitForm(List<VariableData> param)
         {
             map = new Dictionary<int, UncertainControl>()
             {
-                       {1,new UncertainControl(this.spinEdit1,"网格X最小值",0)  },
-                       {2,new UncertainControl(this.spinEdit2,"网格Y最小值",0) },
-                       {3,new UncertainControl(this.spinEdit3,"网格Z最小值",0) },
-                       {4,new UncertainControl(this.spinEdit4,"网格X最大值",1000) },
-                       {5,new UncertainControl(this.spinEdit5,"网格Y最大值",1000)},
-                       {6,new UncertainControl(this.spinEdit6,"网格Z最大值",100)},
-                       {7,new UncertainControl(this.spinEdit7,"X方向网格大小",10) },
-                       {8,new UncertainControl(this.spinEdit8,"Y方向网格大小",10)},
-                       {9,new UncertainControl(this.spinEdit9,"Z方向网格大小",10) },
+                       {1,new UncertainControl(this.spinEdit1,"网格X最小值")  },
+                       {2,new UncertainControl(this.spinEdit2,"网格Y最小值") },
+                       {3,new UncertainControl(this.spinEdit3,"网格Z最小值") },
+                       {4,new UncertainControl(this.spinEdit4,"网格X最大值") },
+                       {5,new UncertainControl(this.spinEdit5,"网格Y最大值")},
+                       {6,new UncertainControl(this.spinEdit6,"网格Z最大值")},
+                       {7,new UncertainControl(this.spinEdit7,"X方向网格大小") },
+                       {8,new UncertainControl(this.spinEdit8,"Y方向网格大小")},
+                       {9,new UncertainControl(this.spinEdit9,"Z方向网格大小") },
                    };
             foreach (var par in param)
             {
                 UncertainControl ctrl;
-                if (map.TryGetValue(par.Index, out ctrl))
+                if (map.TryGetValue(par.CtrlIndex, out ctrl))
                 {
-                    ctrl.Control.EditValue = par.EditorValue;
-                    ctrl.DefaultValue = par.DefaultValue;
-                    ctrl.ParamDescription = par.ParDescription;
+                    if (par.Name.Contains("$"))
+                    {
+                        ctrl.Control.EditValue = par.Name;
+                    }
+                    else
+                    {
+                        ctrl.Control.EditValue = par.BaseValue;
+                    }
+                    ctrl.Data = par;
                 }
             }
         }
 
-        public List<UncertainParam> GetUncentainParam()
+        public List<VariableData> GetUncentainParam()
         {
-            List<UncertainParam> res = new List<UncertainParam>();
+            List<VariableData> res = new List<VariableData>();
             foreach (KeyValuePair<int, UncertainControl> item in map)
             {
-                res.Add(new UncertainParam() { Index = item.Key, DefaultValue = item.Value.DefaultValue, ParDescription = item.Value.ParamDescription, EditorValue = item.Value.Control.EditValue });
+                if (item.Value.Data != null)
+                {
+                    item.Value.Data.Name = item.Value.Control.EditValue.ToString();
+                    item.Value.Data.BaseValue = item.Value.Control.EditValue;
+                    res.Add(item.Value.Data);
+                }
+                else
+                {
+                    res.Add(new VariableData()
+                    {
+                        CtrlIndex = item.Key,
+                        WorkControlTypeName = nameof(GridEditWorkControl),
+                        Name = item.Value.Control.EditValue.ToString(),
+                        ParDescription = item.Value.ParamDescription,
+                        BaseValue = item.Value.Control.EditValue
+                });
+                }
             }
             return res;
         }
@@ -63,17 +85,31 @@ namespace WorkList.ExperimentDesign
 
     public class UncertainControl
     {
-        public UncertainControl(BaseEdit ctrl, string paramName, object defaultValue)
+        private string paramDescription;
+
+        public UncertainControl(BaseEdit ctrl, string paramDescription)
         {
             this.Control = ctrl;
-            this.ParamDescription = paramName;
-            this.DefaultValue = defaultValue;
+            this.paramDescription = paramDescription;
         }
 
         public BaseEdit Control { get; set; }
 
-        public string ParamDescription { get; set; }
+        public VariableData Data { get; set; }
 
-        public object DefaultValue { get; set; }
+        public string ParamDescription
+        {
+            get
+            {
+                if (Data != null)
+                {
+                    return Data.ParDescription;
+                }
+                else
+                {
+                    return paramDescription;
+                }
+            }
+        }
     }
 }
