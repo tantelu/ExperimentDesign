@@ -1,5 +1,4 @@
 ﻿using DevExpress.XtraEditors;
-using ExperimentDesign.WorkList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,10 +7,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WorkList.ExperimentDesign
+namespace ExperimentDesign.WorkList
 {
     public class SgsWorkControl : WorkControl
     {
@@ -19,6 +19,13 @@ namespace WorkList.ExperimentDesign
         {
 
         }
+
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr _lopen(string lpPathName, int iReadWrite);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool CloseHandle(IntPtr hObject);
 
         protected override string WorkName => "序贯高斯模拟";
 
@@ -73,6 +80,12 @@ namespace WorkList.ExperimentDesign
             info.UseShellExecute = false;
             info.Arguments = "sgsim.par";
             var process = Process.Start(info);
+        }
+
+        public override bool GetRunState(int index)
+        {
+            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
+            return File.Exists(_out);
         }
 
         protected override void ShowParamForm()

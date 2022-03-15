@@ -165,6 +165,18 @@
     <Compile Include="UncertaintyForm.Designer.cs">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\Show2DResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Show2DResultForm.Designer.cs">
+      <DependentUpon>Show2DResultForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Show2DWorkControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkList\Show2DWorkControl.Designer.cs">
+      <DependentUpon>Show2DWorkControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\WorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,6 +241,12 @@
     <EmbeddedResource Include="WorkList\SgsEditorForm.resx">
       <DependentUpon>SgsEditorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Show2DResultForm.resx">
+      <DependentUpon>Show2DResultForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Show2DWorkControl.resx">
+      <DependentUpon>Show2DWorkControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkList\WorkControl.resx">
       <DependentUpon>WorkControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,10 +270,16 @@
     <None Include="Resources\Grid.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Png_DeleteDrill_16.png" />
+    <None Include="Resources\Sgs.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Sgs.png" />
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uncertain.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Show2D.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

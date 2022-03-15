@@ -1,5 +1,5 @@
 ﻿
-namespace WorkList.ExperimentDesign
+namespace ExperimentDesign.WorkList
 {
     partial class GridEditForm
     {

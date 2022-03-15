@@ -1,5 +1,4 @@
-﻿using ExperimentDesign;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WorkList.ExperimentDesign
+namespace ExperimentDesign.WorkList
 {
     public partial class WorkControl : UserControl
     {
@@ -24,6 +23,12 @@ namespace WorkList.ExperimentDesign
         }
 
         protected virtual string WorkName { get; }
+
+        protected virtual string GetWorkPath(int index)
+        {
+            string path = Path.Combine(Main.GetWorkPath(), $"{index}");
+            return path;
+        }
 
         protected virtual Bitmap Picture { get; }
 

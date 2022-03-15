@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using System.Collections.Generic;
-using WorkList.ExperimentDesign;
+using ExperimentDesign.WorkList;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList

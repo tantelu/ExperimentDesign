@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WorkList.ExperimentDesign
+namespace ExperimentDesign.WorkList
 {
     public class GridEditWorkControl : WorkControl
     {
@@ -26,7 +26,7 @@ namespace WorkList.ExperimentDesign
 
         public override void Run(int index, IReadOnlyDictionary<string, object> designVaribles)
         {
-            string path = Path.Combine(Main.GetWorkPath(), $"{index}");
+            string path = GetWorkPath(index);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -65,7 +65,7 @@ namespace WorkList.ExperimentDesign
 
         public override bool GetRunState(int index)
         {
-            string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"{nameof(Grid3D)}.json");
+            string file = Path.Combine(GetWorkPath(index), $"{nameof(Grid3D)}.json");
             return File.Exists(file);
         }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace WorkList.ExperimentDesign
+namespace ExperimentDesign.WorkList
 {
     public interface IWork
     {

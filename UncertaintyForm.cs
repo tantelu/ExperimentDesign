@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using WorkList.ExperimentDesign;
+using ExperimentDesign.WorkList;
 
 namespace ExperimentDesign
 {
@@ -41,6 +41,22 @@ namespace ExperimentDesign
         {
             if (Current != null)
             {
+                DirectoryInfo info = new DirectoryInfo(GetWorkPath());
+                if (info.GetDirectories().Length > 0)
+                {
+                    var dialog = XtraMessageBox.Show("当前工作流已经运行过,运行会覆盖原有结果,是否继续？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        foreach (var item in info.GetDirectories())
+                        {
+                            item.Delete(true);
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 int maxwait = 60000;
                 var workControls = this.workPanel.Controls;
                 var designTable = GetDesignDataTable();
@@ -58,8 +74,8 @@ namespace ExperimentDesign
                             int curwait = 0;
                             while (!ctrl.GetRunState(i + 1))
                             {
-                                Thread.Sleep(5000);
-                                curwait += 5000;
+                                Thread.Sleep(1000);
+                                curwait += 1000;
                                 if (curwait > maxwait)
                                 {
                                     var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
@@ -76,13 +92,13 @@ namespace ExperimentDesign
                         }
                     }
                 }
+                XtraMessageBox.Show($"工作流执行完成");
             }
             else
             {
                 XtraMessageBox.Show("请先设置当前工作流");
             }
         }
-
         //删除某一工作流
         public void Delete(WorkControl control)
         {
@@ -109,6 +125,8 @@ namespace ExperimentDesign
             writer.WriteStartObject();
             writer.WritePropertyName("Name");
             writer.WriteValue(Current.Name);
+            writer.WritePropertyName("DesignMethod");
+            writer.WriteValue(this.designMethod.SelectedIndex);
             writer.WritePropertyName("Controls");
             writer.WriteStartArray();
             foreach (var item in this.workPanel.Controls)
@@ -150,6 +168,15 @@ namespace ExperimentDesign
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 var jsonText = File.ReadAllText(file, Encoding.UTF8);
                 JObject jo = JObject.Parse(jsonText);
+                var temp = jo.GetValue("DesignMethod");
+                if (temp != null)
+                {
+                    int index = (int)temp;
+                    if (index >= 0 || index < this.designMethod.Properties.Items.Count)
+                    {
+                        this.designMethod.SelectedIndex = index;
+                    }
+                }
                 JArray ctrls = jo["Controls"] as JArray;
                 JToken t = jo["UncertainParam"];
                 if (t is JArray uncertains)
@@ -188,7 +215,6 @@ namespace ExperimentDesign
             }
             this.tabPane1.SelectedPageIndex = 0;
         }
-
         //更新设计（页面切换 设计方法切换时）
         private void UpdateDesign()
         {
@@ -207,7 +233,6 @@ namespace ExperimentDesign
                 }
             }
         }
-
         //获取设计表
         private Table GetDesignTable(int methodIndex, List<VariableData> data)
         {
