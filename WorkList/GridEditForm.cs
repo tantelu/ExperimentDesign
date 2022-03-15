@@ -5,10 +5,8 @@ using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList
 {
-    public partial class GridEditForm : XtraForm
+    public partial class GridEditForm : EditorForm
     {
-        private Dictionary<int, UncertainControl> map;
-
         public GridEditForm()
         {
             InitializeComponent();
@@ -46,36 +44,6 @@ namespace ExperimentDesign.WorkList
             }
         }
 
-        public List<VariableData> GetUncentainParam()
-        {
-            List<VariableData> res = new List<VariableData>();
-            foreach (KeyValuePair<int, UncertainControl> item in map)
-            {
-                if (item.Value.Data != null)
-                {
-                    var name = item.Value.Control.EditValue.ToString();
-                    item.Value.Data.Name = name;
-                    if (!name.Contains("$"))
-                    {
-                        item.Value.Data.BaseValue = item.Value.Control.EditValue;
-                    }
-                    res.Add(item.Value.Data);
-                }
-                else
-                {
-                    res.Add(new VariableData()
-                    {
-                        CtrlIndex = item.Key,
-                        WorkControlTypeName = nameof(GridEditWorkControl),
-                        Name = item.Value.Control.EditValue.ToString(),
-                        ParDescription = item.Value.ParamDescription,
-                        BaseValue = Name.Contains("$") ? item.Value.Control.Tag : item.Value.Control.EditValue,
-                    });
-                }
-            }
-            return res;
-        }
-
         private void simpleButton1_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -84,36 +52,6 @@ namespace ExperimentDesign.WorkList
         private void simpleButton2_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-        }
-    }
-
-    public class UncertainControl
-    {
-        private string paramDescription;
-
-        public UncertainControl(BaseEdit ctrl, string paramDescription)
-        {
-            this.Control = ctrl;
-            this.paramDescription = paramDescription;
-        }
-
-        public BaseEdit Control { get; set; }
-
-        public VariableData Data { get; set; }
-
-        public string ParamDescription
-        {
-            get
-            {
-                if (Data != null)
-                {
-                    return Data.ParDescription;
-                }
-                else
-                {
-                    return paramDescription;
-                }
-            }
         }
     }
 }

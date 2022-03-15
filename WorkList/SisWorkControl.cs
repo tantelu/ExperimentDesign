@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList
 {
-    public class SgsWorkControl : WorkControl
+    public class SisWorkControl : WorkControl
     {
-        public SgsWorkControl()
+        public SisWorkControl()
         {
 
         }
 
-        protected override string WorkName => "序贯高斯模拟";
+        protected override string WorkName => "序贯指示模拟";
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
 
@@ -28,12 +28,12 @@ namespace ExperimentDesign.WorkList
             string gridfile = Path.Combine(Main.GetWorkPath(), $"{index}", $"{nameof(Grid3D)}.json");
             if (!File.Exists(gridfile))
             {
-                XtraMessageBox.Show("未找到工区网格定义文件,无法执行序贯高斯模拟");
+                XtraMessageBox.Show($"未找到工区网格定义文件,无法执行{WorkName}");
                 return;
             }
             Grid3D grid = new Grid3D();
             grid.Open(gridfile);
-            SgsPar sgsPar = new SgsPar(grid);
+            SisPar sgsPar = new SisPar(grid);
             var propeties = sgsPar.GetType().GetProperties().Where(_ => _.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
             foreach (var property in propeties)
             {
@@ -61,28 +61,28 @@ namespace ExperimentDesign.WorkList
                     return;
                 }
             }
-            string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"sgsim.par");
+            string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"sisim.par");
             sgsPar.Save(file);
-            string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgsim.exe");
-            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
-            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
+            string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sisim.exe");
+            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sis.out");
+            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sisim.exe"), exe, true);
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = exe;
             info.WorkingDirectory = Path.Combine(Main.GetWorkPath(), $"{index}");
             info.UseShellExecute = false;
-            info.Arguments = "sgsim.par";
+            info.Arguments = "sisim.par";
             var process = Process.Start(info);
         }
 
         public override bool GetRunState(int index)
         {
-            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
+            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sis.out");
             return File.Exists(_out);
         }
 
         protected override void ShowParamForm()
         {
-            using (SgsEditorForm form = new SgsEditorForm())
+            using (SisEditorForm form = new SisEditorForm())
             {
                 form.InitForm(param);
                 if (form.ShowDialog() == DialogResult.OK)
@@ -94,9 +94,9 @@ namespace ExperimentDesign.WorkList
         }
     }
 
-    public class SgsPar
+    public class SisPar
     {
-        public SgsPar(Grid3D grid)
+        public SisPar(Grid3D grid)
         {
             this.Grid3D = grid;
         }
@@ -142,44 +142,62 @@ namespace ExperimentDesign.WorkList
         public void Save(string file)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("              Parameters for SGSIM                                         ");
+            sb.AppendLine("              Parameters for SISIM                                         ");
             sb.AppendLine("              ********************                                         ");
             sb.AppendLine("                                                                           ");
-            sb.AppendLine("START OF PARAMETER:                                                        ");
-            sb.AppendLine("none                          -file with data                              ");
-            sb.AppendLine("1  2  0  3  5  0              -  columns for X,Y,Z,vr,wt,sec.var.          ");
-            sb.AppendLine("-1.0e21 1.0e21                -  trimming limits                           ");
-            sb.AppendLine("0                             -transform the data (0=no, 1=yes)            ");
-            sb.AppendLine("none.trn                      -  file for output trans table               ");
-            sb.AppendLine("1                             -  consider ref. dist (0=no, 1=yes)          ");
-            sb.AppendLine("none.dat                      -  file with ref. dist distribution          ");
-            sb.AppendLine("1  0                          -  columns for vr and wt                     ");
-            sb.AppendLine("-4.0    4.0                   -  zmin,zmax(tail extrapolation)             ");
-            sb.AppendLine("1      -4.0                   -  lower tail option, parameter              ");
-            sb.AppendLine("1       4.0                   -  upper tail option, parameter              ");
-            sb.AppendLine("3                             -debugging level: 0,1,2,3                    ");
-            sb.AppendLine("nonw.dbg                      -file for debugging output                   ");
-            sb.AppendLine("sgs.out" + "                  -file for simulation output                  ");
-            sb.AppendLine($"{1}" + "                 -number of realizations to generate          ");
+            sb.AppendLine("START OF PARAMETERS:                                                        ");
+            sb.AppendLine("1                             -1=continuous(cdf), 0=categorical(pdf)");
+            sb.AppendLine("5                             -number thresholds/categories");
+            sb.AppendLine("0.5   1.0   2.5   5.0   10.0  -thresholds / categories");
+            sb.AppendLine("0.12  0.29  0.50  0.74  0.88  -   global cdf / pdf");
+            sb.AppendLine("../data/cluster.dat           -file with data");
+            sb.AppendLine("1   2   0   3                 -   columns for X,Y,Z, and variable");
+            sb.AppendLine("direct.ik                     -file with soft indicator input");
+            sb.AppendLine("1   2   0   3 4 5 6 7         -   columns for X,Y,Z, and indicators");
+            sb.AppendLine("0                             -   Markov-Bayes simulation (0=no,1=yes)");
+            sb.AppendLine("0.61  0.54  0.56  0.53  0.29  -      calibration B(z) values");
+            sb.AppendLine("-1.0e21    1.0e21             -trimming limits");
+            sb.AppendLine($"0.0   30              -minimum and maximum data value");
+            sb.AppendLine("1      0.0                    -   lower tail option and parameter");
+            sb.AppendLine("1      1.0                    -   middle     option and parameter");
+            sb.AppendLine("1     30.0                    -   upper tail option and parameter");
+            sb.AppendLine("cluster.dat                   -   file with tabulated values");
+            sb.AppendLine("3   0                         -      columns for variable, weight");
+            sb.AppendLine("3                             -debugging level: 0,1,2,3");
+            sb.AppendLine("sis.dbg                     -file for debugging output");
+            sb.AppendLine("sis.out                     -file for simulation output");
+            sb.AppendLine($"{1}" + "                 -number of realizations");
             sb.AppendLine($"{(int)((Grid3D.Xmax - Grid3D.Xmin) / Grid3D.Xsize)}" + " " + $"{Grid3D.Xmin}" + " " + $"{Grid3D.Xsize}" + "                              ");
             sb.AppendLine($"{(int)((Grid3D.Ymax - Grid3D.Ymin) / Grid3D.Ysize)}" + " " + $"{Grid3D.Ymin}" + " " + $"{Grid3D.Ysize}" + "                              ");
             sb.AppendLine($"{(int)((Grid3D.Zmax - Grid3D.Zmin) / Grid3D.Zsize)}" + " " + $"{Grid3D.Zmin}" + " " + $"{Grid3D.Zsize}" + "                              ");
-            sb.AppendLine($"{GlobalWorkCongfig.Seed}" + "                  -random number seed                    ");
-            sb.AppendLine("0     " + $"{MaxData}" + "                       -min and max original data for sim");
-            sb.AppendLine("12                            -number of simulated nodes to use            ");
-            sb.AppendLine("0                             -assign data to nodes (0=no, 1=yes)          ");
-            sb.AppendLine($"{(UseMulti ? 1 : 0)}     {MultiGrid}                       -multiple grid search (0=no, 1=yes),num      ");
+            sb.AppendLine($"{GlobalWorkCongfig.Seed}  -random number seed");
+            sb.AppendLine($"{MaxData}       -maximum original data  for each kriging");
+            sb.AppendLine("12       -maximum previous nodes for each kriging");
+            sb.AppendLine("1       -maximum soft indicator nodes for kriging");
+            sb.AppendLine("1                             -assign data to nodes (0=no, 1=yes)          ");
+            sb.AppendLine($"{(UseMulti ? 1 : 0)}     {MultiGrid}          -multiple grid search (0=no, 1=yes),num      ");
             sb.AppendLine("0                             -maximum data per octant (0=not used)        ");
-            sb.AppendLine($"{MajorRange}" + " " + $"{MinorRange}" + " 1.0 -maximum search  (hmax,hmin,vert) ");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange} -maximum search radii");
             sb.AppendLine("0.0   0.0   0.0       -angles for search ellipsoid                 ");
-            sb.AppendLine("101" + " " + "101" + " 1 -size of covariance lookup table        ");
-            sb.AppendLine($"{ChangeKrigType}     0.60   1.0              -ktype: 0=SK,1=OK,2=LVM,3=EXDR,4=COLC        ");
-            sb.AppendLine("none.dat                      -  file with LVM, EXDR, or COLC variable     ");
-            sb.AppendLine("4                             -  column for secondary variable             ");
-            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -nst, nugget effect                          ");
+            sb.AppendLine("51    51    11                -size of covariance lookup table");
+            sb.AppendLine("0    2.5                      -0=full IK, 1=median approx. (cutoff)");
+            sb.AppendLine($"{ChangeKrigType}             -0=SK, 1=OK");
             int vartype = string.Equals(VarType, "指数模型") ? 1 : string.Equals(VarType, "球状模型") ? 2 : 0;
-            sb.AppendLine($"{vartype} " + $"{Sill}  " + $"{MajorAzi}  " + $"{MajorDip}  " + $"{0.0}" + " - it,cc,ang1,ang2,ang3");
-            sb.AppendLine($"{MajorRange}  " + $"{MinorRange}  "+ $"{VerRange} - a_hmax, a_hmin, a_vert");
+            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -One   nst, nugget effect");
+            sb.AppendLine($"{vartype} {Sill} {MajorAzi} {MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange} -a_hmax, a_hmin, a_vert ");
+            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -Two   nst, nugget effect");
+            sb.AppendLine($"{vartype} {Sill} {MajorAzi} {MajorDip} 0.0  - it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange}  - a_hmax, a_hmin, a_vert ");
+            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -Three   nst, nugget effect");
+            sb.AppendLine($"{vartype} {Sill} {MajorAzi} {MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange}   - a_hmax, a_hmin, a_vert ");
+            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -Four   nst, nugget effect");
+            sb.AppendLine($"{vartype} {Sill} {MajorAzi} {MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange} - a_hmax, a_hmin, a_vert ");
+            sb.AppendLine($"{1.0}" + " " + $"{Nug}" + "  -Five   nst, nugget effect");
+            sb.AppendLine($"{vartype} {Sill} {MajorAzi} {MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{MajorRange} {MinorRange} {VerRange} - a_hmax, a_hmin, a_vert ");
             File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
         }
 

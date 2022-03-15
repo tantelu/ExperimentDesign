@@ -3,8 +3,11 @@ using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList
 {
-    public static class WorkPath
+    public static class GlobalWorkCongfig
     {
+        /// <summary>
+        /// 工作流的基础路径
+        /// </summary>
         public static string WorkBasePath
         {
             get
@@ -17,5 +20,7 @@ namespace ExperimentDesign.WorkList
                 return path;
             }
         }
+
+        public static int Seed { get; set; } = 12345;
     }
 }

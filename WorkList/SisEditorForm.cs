@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList
 {
-    public partial class SgsEditorForm : EditorForm
+    public partial class SisEditorForm : EditorForm
     {
-        public SgsEditorForm()
+        public SisEditorForm()
         {
             InitializeComponent();
         }

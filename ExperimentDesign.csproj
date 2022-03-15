@@ -119,11 +119,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="VariableData.cs" />
+    <Compile Include="WorkList\EditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\SisEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\SisEditorForm.Designer.cs">
+      <DependentUpon>SisEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\SgsEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WorkList\SgsEditorForm.Designer.cs">
       <DependentUpon>SgsEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\SisWorkControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkList\SgsWorkControl.cs">
       <SubType>UserControl</SubType>
@@ -184,7 +196,7 @@
       <DependentUpon>WorkControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkList\WorkFlow.cs" />
-    <Compile Include="WorkList\WorkPath.cs" />
+    <Compile Include="WorkList\GlobalWorkCongfig.cs" />
     <Compile Include="WorkList\WorkSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\SisEditorForm.resx">
+      <DependentUpon>SisEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\SgsEditorForm.resx">
       <DependentUpon>SgsEditorForm.cs</DependentUpon>

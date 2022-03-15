@@ -28,7 +28,7 @@ namespace ExperimentDesign
         public UncertaintyForm()
         {
             InitializeComponent();
-            var folders = Directory.GetDirectories(WorkPath.WorkBasePath);
+            var folders = Directory.GetDirectories(GlobalWorkCongfig.WorkBasePath);
             var exits = folders?.Select(_ => new WorkFlow(Path.GetFileNameWithoutExtension(_))).ToList();
             if (exits?.Count > 0)
             {
@@ -229,7 +229,7 @@ namespace ExperimentDesign
                 else
                 {
                     this.designTimes.Value = 0;
-                    XtraMessageBox.Show($"参数错误,无法进行{designMethod.SelectedText}实验设计");
+                    XtraMessageBox.Show($"参数过少或者设置错误,无法进行{designMethod.SelectedText}实验设计");
                 }
             }
         }
@@ -354,7 +354,9 @@ namespace ExperimentDesign
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             var workControls = this.workPanel.Controls;
+            olddatas.Clear();
             List<VariableData> designDatas = new List<VariableData>();
+            HashSet<string> distinct = new HashSet<string>();
             foreach (var item in workControls)
             {
                 if (item is WorkControl ctrl)
@@ -367,12 +369,14 @@ namespace ExperimentDesign
                             if (par.Name.Contains("$"))
                             {
                                 designDatas.Add(par);
-                            }
-                            if (!olddatas.Contains(par))
-                            {
-                                olddatas.Add(par);
+                                if (!distinct.Add(par.Name))
+                                {
+                                    XtraMessageBox.Show("不确定参数不能重名,请修改");
+                                    return;
+                                }
                             }
                         }
+                        olddatas.AddRange(@params);
                     }
                 }
             }

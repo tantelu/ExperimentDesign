@@ -14,7 +14,7 @@ namespace ExperimentDesign.WorkList
 
         public string GetWorkPath()
         {
-            var path= Path.Combine(WorkPath.WorkBasePath, Name);
+            var path= Path.Combine(GlobalWorkCongfig.WorkBasePath, Name);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
