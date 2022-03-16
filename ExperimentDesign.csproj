@@ -134,7 +134,13 @@
     <Compile Include="WorkList\SgsEditorForm.Designer.cs">
       <DependentUpon>SgsEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\SisWorkControl.cs">
+    <Compile Include="WorkList\Sis\SigRunForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Sis\SigRunForm.Designer.cs">
+      <DependentUpon>SigRunForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Sis\SisWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkList\SgsWorkControl.cs">
@@ -188,6 +194,12 @@
     </Compile>
     <Compile Include="WorkList\Show2DWorkControl.Designer.cs">
       <DependentUpon>Show2DWorkControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\VariogramControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkList\VariogramControl.Designer.cs">
+      <DependentUpon>VariogramControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkList\WorkControl.cs">
       <SubType>UserControl</SubType>
@@ -261,6 +273,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Show2DWorkControl.resx">
       <DependentUpon>Show2DWorkControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Sis\SigRunForm.resx">
+      <DependentUpon>SigRunForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\VariogramControl.resx">
+      <DependentUpon>VariogramControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\WorkControl.resx">
       <DependentUpon>WorkControl.cs</DependentUpon>

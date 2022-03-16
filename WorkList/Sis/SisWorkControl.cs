@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Sis
 {
     public class SisWorkControl : WorkControl
     {
