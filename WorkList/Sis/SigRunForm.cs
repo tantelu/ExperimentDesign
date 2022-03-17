@@ -1,6 +1,8 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.General;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,9 +18,80 @@ namespace ExperimentDesign.WorkList.Sis
             InitializeComponent();
         }
 
-        public SisPar GetSisPar(Grid3D grid, IReadOnlyDictionary<string, object> designVaribles)
+        public SisPar GetSisPar()
         {
-            return new SisPar(grid);
+            SisPar sis = new SisPar();
+            var pros = this.probalities.Text.Split(new string[] { " ", ";", "," }, StringSplitOptions.RemoveEmptyEntries);
+            sis.Vars = new List<CategoryIndicatorParam>(dic.Count);
+            foreach (var item in dic)
+            {
+                CategoryIndicatorParam ipar = new CategoryIndicatorParam();
+                ipar.Variogram = item.Value;
+                ipar.Facie = Convert.ToInt32(item.Key);
+                ipar.Probability = Convert.ToDouble(pros[this.selectedFacies.Items.IndexOf(item.Key)]);
+                sis.Vars.Add(ipar);
+            }
+            if (SearchMaxRadius.Text.Contains("$"))
+            {
+                sis.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Tag), SearchMaxRadius.Text);
+            }
+            else
+            {
+                sis.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Text));
+            }
+            if (SearchMedRadius.Text.Contains("$"))
+            {
+                sis.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Tag), SearchMedRadius.Text);
+            }
+            else
+            {
+                sis.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Text));
+            }
+            if (SearchMinRadius.Text.Contains("$"))
+            {
+                sis.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Tag), SearchMinRadius.Text);
+            }
+            else
+            {
+                sis.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Text));
+            }
+
+            if (Azimuth.Text.Contains("$"))
+            {
+                sis.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Tag), Azimuth.Text);
+            }
+            else
+            {
+                sis.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Text));
+            }
+            if (Dip.Text.Contains("$"))
+            {
+                sis.Dip = new Design<double>(Convert.ToDouble(Dip.Tag), Dip.Text);
+            }
+            else
+            {
+                sis.Dip = new Design<double>(Convert.ToDouble(Dip.Text));
+            }
+            if (Rake.Text.Contains("$"))
+            {
+                sis.Rake = new Design<double>(Convert.ToDouble(Rake.Tag), Rake.Text);
+            }
+            else
+            {
+                sis.Rake = new Design<double>(Convert.ToDouble(Rake.Text));
+            }
+
+            if (MaxData.Text.Contains("$"))
+            {
+                sis.MaxData = new Design<int>(Convert.ToInt32(MaxData.Tag), MaxData.Text);
+            }
+            else
+            {
+                sis.MaxData = new Design<int>(Convert.ToInt32(MaxData.Text));
+            }
+            sis.MedianIK = MedianIK.Checked;
+            sis.KrigType = (KrigType)krigType.SelectedIndex;
+            return sis;
         }
 
         public string SaveForm()
@@ -55,12 +128,8 @@ namespace ExperimentDesign.WorkList.Sis
             writer.WriteValue(this.allsameCheck.Checked);
             writer.WritePropertyName(this.krigType.Name);
             writer.WriteValue(this.krigType.SelectedIndex);
-            writer.WritePropertyName(this.maxData.Name);
-            writer.WriteValue(this.maxData.Text);
-            writer.WritePropertyName(this.mulgridnum.Name);
-            writer.WriteValue(this.mulgridnum.Text);
-            writer.WritePropertyName(this.usemultigrid.Name);
-            writer.WriteValue(this.usemultigrid.Checked);
+            writer.WritePropertyName(this.MaxData.Name);
+            writer.WriteValue(this.MaxData.Text);
             writer.WriteEndObject();
             writer.Flush();
             return sw.GetStringBuilder().ToString();
@@ -95,9 +164,7 @@ namespace ExperimentDesign.WorkList.Sis
                 }
                 this.allsameCheck.Checked = (bool)jo.GetValue(this.allsameCheck.Name);
                 this.krigType.SelectedIndex = (int)jo[this.krigType.Name];
-                this.maxData.Text = jo[this.maxData.Name].ToString();
-                this.mulgridnum.Text = jo[this.mulgridnum.Name].ToString();
-                this.usemultigrid.Checked = (bool)jo[this.usemultigrid.Name];
+                this.MaxData.Text = jo[this.MaxData.Name].ToString();
                 SetSameCheck();
             }
         }

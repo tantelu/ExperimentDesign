@@ -14,6 +14,8 @@ namespace ExperimentDesign.WorkList
 {
     public class SgsWorkControl : WorkControl
     {
+        private Process process;
+
         public SgsWorkControl()
         {
 
@@ -71,13 +73,24 @@ namespace ExperimentDesign.WorkList
             info.WorkingDirectory = Path.Combine(Main.GetWorkPath(), $"{index}");
             info.UseShellExecute = false;
             info.Arguments = "sgsim.par";
-            var process = Process.Start(info);
+            process = Process.Start(info);
         }
 
         public override bool GetRunState(int index)
         {
-            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
-            return File.Exists(_out);
+            if (process.HasExited)
+            {
+                process.Dispose();
+                process.Close();
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+            //string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
+            //return File.Exists(_out);
         }
 
         protected override void ShowParamForm()
@@ -98,9 +111,10 @@ namespace ExperimentDesign.WorkList
     {
         public SgsPar(Grid3D grid)
         {
-            this.Grid3D = grid;
+            Grid3D = grid;
         }
 
+        [Description("三维网格")]
         public Grid3D Grid3D { get; set; }
 
         [Description("基台值")]

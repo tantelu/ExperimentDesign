@@ -94,6 +94,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\Design.cs" />
+    <Compile Include="General\KrigType.cs" />
+    <Compile Include="General\VariogramType.cs" />
     <Compile Include="GridPopForm\MinMaxPopForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +125,7 @@
     <Compile Include="WorkList\EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="General\GroupAttribute.cs" />
     <Compile Include="WorkList\SisEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +144,7 @@
     <Compile Include="WorkList\Sis\SigRunForm.Designer.cs">
       <DependentUpon>SigRunForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\Sis\Sispar.cs" />
     <Compile Include="WorkList\Sis\SisWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

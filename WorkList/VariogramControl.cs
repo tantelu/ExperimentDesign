@@ -1,7 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using ExperimentDesign.General;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,30 +20,153 @@ namespace ExperimentDesign.WorkList
 
         public Variogram GetVariogram()
         {
-            Variogram var = new Variogram();
-            var.Sill = sill.Text;
-            var.Nug = nug.Text;
-            var.VarType = comboBoxEdit1.SelectedText;
-            var.MajorRange = majordir.Text;
-            var.MinorRange = minordir.Text;
-            var.VerRange = verticaldir.Text;
-            var.MajorAzi = majorAzimuth.Text;
-            var.MajorDip = majorDip.Text;
-            return var;
+            try
+            {
+                Variogram var = new Variogram();
+                if (sill.Text.Contains("$"))
+                {
+                    var.Sill = new Design<double>(Convert.ToDouble(sill.Tag), sill.Text);
+                }
+                else
+                {
+                    var.Sill = new Design<double>(Convert.ToDouble(sill.Text));
+                }
+                if (nug.Text.Contains("$"))
+                {
+                    var.Nug = new Design<double>(Convert.ToDouble(nug.Tag), nug.Text);
+                }
+                else
+                {
+                    var.Nug = new Design<double>(Convert.ToDouble(nug.Text));
+                }
+                var.VarType = (VariogramType)comboBoxEdit1.SelectedIndex;
+                if (majordir.Text.Contains("$"))
+                {
+                    var.MajorRange = new Design<double>(Convert.ToDouble(majordir.Tag), majordir.Text);
+                }
+                else
+                {
+                    var.MajorRange = new Design<double>(Convert.ToDouble(majordir.Text));
+                }
+                if (minordir.Text.Contains("$"))
+                {
+                    var.MinorRange = new Design<double>(Convert.ToDouble(minordir.Tag), minordir.Text);
+                }
+                else
+                {
+                    var.MinorRange = new Design<double>(Convert.ToDouble(minordir.Text));
+                }
+                if (verticaldir.Text.Contains("$"))
+                {
+                    var.VerRange = new Design<double>(Convert.ToDouble(verticaldir.Tag), verticaldir.Text);
+                }
+                else
+                {
+                    var.VerRange = new Design<double>(Convert.ToDouble(verticaldir.Text));
+                }
+                if (majorAzimuth.Text.Contains("$"))
+                {
+                    var.MajorAzi = new Design<double>(Convert.ToDouble(majorAzimuth.Tag), majorAzimuth.Text);
+                }
+                else
+                {
+                    var.MajorAzi = new Design<double>(Convert.ToDouble(majorAzimuth.Text));
+                }
+                if (majorDip.Text.Contains("$"))
+                {
+                    var.MajorDip = new Design<double>(Convert.ToDouble(majorDip.Tag), majorDip.Text);
+                }
+                else
+                {
+                    var.MajorDip = new Design<double>(Convert.ToDouble(majorDip.Text));
+                }
+                return var;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public void SetVariogram(Variogram variogram)
+        public void SetVariogram(Variogram var)
         {
-            if (variogram != null)
+            if (var != null)
             {
-                sill.Text = variogram.Sill.ToString();
-                nug.Text = variogram.Nug.ToString();
-                comboBoxEdit1.SelectedText = variogram.VarType.ToString();
-                majordir.Text = variogram.MajorRange.ToString();
-                minordir.Text = variogram.MinorRange.ToString();
-                verticaldir.Text = variogram.VerRange.ToString();
-                majorAzimuth.Text = variogram.MajorAzi.ToString();
-                majorDip.Text = variogram.MajorDip.ToString();
+                if (var.Sill.IsDesign)
+                {
+                    sill.Text = var.Sill.DesignName;
+                    sill.Tag = var.Sill.Value;
+                }
+                else
+                {
+                    sill.Text = var.Sill.Value.ToString();
+                    sill.Tag = var.Sill.Value;
+                }
+                if (var.Nug.IsDesign)
+                {
+                    nug.Text = var.Nug.DesignName;
+                    nug.Tag = var.Nug.Value;
+                }
+                else
+                {
+                    nug.Text = var.Nug.Value.ToString();
+                    nug.Tag = var.Nug.Value;
+                }
+                comboBoxEdit1.SelectedIndex = (int)var.VarType;
+                if (var.MajorRange.IsDesign)
+                {
+                    majordir.Text = var.MajorRange.DesignName;
+                    majordir.Tag = var.MajorRange.Value;
+                }
+                else
+                {
+                    majordir.Text = var.MajorRange.Value.ToString();
+                    majordir.Tag = var.MajorRange.Value;
+                }
+
+                if (var.MinorRange.IsDesign)
+                {
+                    minordir.Text = var.MinorRange.DesignName;
+                    minordir.Tag = var.MinorRange.Value;
+                }
+                else
+                {
+                    minordir.Text = var.MinorRange.Value.ToString();
+                    minordir.Tag = var.MinorRange.Value;
+                }
+
+                if (var.VerRange.IsDesign)
+                {
+                    verticaldir.Text = var.VerRange.DesignName;
+                    verticaldir.Tag = var.VerRange.Value;
+                }
+                else
+                {
+                    verticaldir.Text = var.VerRange.Value.ToString();
+                    verticaldir.Tag = var.VerRange.Value;
+                }
+
+                if (var.MajorAzi.IsDesign)
+                {
+                    majorAzimuth.Text = var.MajorAzi.DesignName;
+                    majorAzimuth.Tag = var.MajorAzi.Value;
+                }
+                else
+                {
+                    majorAzimuth.Text = var.MajorAzi.Value.ToString();
+                    majorAzimuth.Tag = var.MajorAzi.Value;
+                }
+
+                if (var.MajorDip.IsDesign)
+                {
+                    majorDip.Text = var.MajorDip.DesignName;
+                    majorDip.Tag = var.MajorDip.Value;
+                }
+                else
+                {
+                    majorDip.Text = var.MajorDip.Value.ToString();
+                    majorDip.Tag = var.MajorDip.Value;
+                }
             }
         }
     }
@@ -53,7 +180,7 @@ namespace ExperimentDesign.WorkList
                 Variogram var = new Variogram();
                 var.Sill = 1.0;
                 var.Nug = 0.0001;
-                var.VarType = "球状模型";
+                var.VarType = VariogramType.Spherical;
                 var.MajorRange = 500;
                 var.MinorRange = 500;
                 var.VerRange = 100;
@@ -64,28 +191,28 @@ namespace ExperimentDesign.WorkList
         }
 
         [Description("基台值")]
-        public object Sill { get; set; }
+        public Design<double> Sill { get; set; }
 
         [Description("块金值")]
-        public object Nug { get; set; }
+        public Design<double> Nug { get; set; }
 
         [Description("变差函数类型")]
-        public object VarType { get; set; }
+        public VariogramType VarType { get; set; }
 
         [Description("主变程")]
-        public object MajorRange { get; set; }
+        public Design<double> MajorRange { get; set; }
 
         [Description("次变程")]
-        public object MinorRange { get; set; }
+        public Design<double> MinorRange { get; set; }
 
         [Description("垂直变程")]
-        public object VerRange { get; set; }
+        public Design<double> VerRange { get; set; }
 
         [Description("变差函数主方向")]
-        public object MajorAzi { get; set; }
+        public Design<double> MajorAzi { get; set; }
 
         [Description("变差函数倾角")]
-        public object MajorDip { get; set; }
+        public Design<double> MajorDip { get; set; }
 
         public override string ToString()
         {
@@ -107,7 +234,7 @@ namespace ExperimentDesign.WorkList
             writer.WritePropertyName(nameof(Nug));
             writer.WriteValue(Nug);
             writer.WritePropertyName(nameof(VarType));
-            writer.WriteValue(VarType);
+            writer.WriteValue((int)VarType);
             writer.WritePropertyName(nameof(MajorRange));
             writer.WriteValue(MajorRange);
             writer.WritePropertyName(nameof(MinorRange));
@@ -126,14 +253,14 @@ namespace ExperimentDesign.WorkList
         public void Open(string json)
         {
             JObject jo = JObject.Parse(json);
-            Sill = jo[nameof(Sill)];
-            Nug = jo[nameof(Nug)];
-            VarType = jo[nameof(VarType)];
-            MajorRange = jo[nameof(MajorRange)];
-            MinorRange = jo[nameof(MinorRange)];
-            VerRange = jo[nameof(VerRange)];
-            MajorAzi = jo[nameof(MajorAzi)];
-            MajorDip = jo[nameof(MajorDip)];
+            Sill = (double)jo[nameof(Sill)];
+            Nug = (double)jo[nameof(Nug)];
+            VarType = (VariogramType)(int)jo[nameof(VarType)];
+            MajorRange = (double)jo[nameof(MajorRange)];
+            MinorRange = (double)jo[nameof(MinorRange)];
+            VerRange = (double)jo[nameof(VerRange)];
+            MajorAzi = (double)jo[nameof(MajorAzi)];
+            MajorDip = (double)jo[nameof(MajorDip)];
         }
     }
 }
