@@ -107,9 +107,9 @@ namespace ExperimentDesign.WorkList.Sis
             sb.AppendLine("sis.dbg                     -file for debugging output");
             sb.AppendLine("sis.out                     -file for simulation output");
             sb.AppendLine($"1                 -number of realizations");
-            sb.AppendLine($"{(int)((Grid3D.Xmax - Grid3D.Xmin) / Grid3D.Xsize)}" + " " + $"{Grid3D.Xmin}" + " " + $"{Grid3D.Xsize}" + "                              ");
-            sb.AppendLine($"{(int)((Grid3D.Ymax - Grid3D.Ymin) / Grid3D.Ysize)}" + " " + $"{Grid3D.Ymin}" + " " + $"{Grid3D.Ysize}" + "                              ");
-            sb.AppendLine($"{(int)((Grid3D.Zmax - Grid3D.Zmin) / Grid3D.Zsize)}" + " " + $"{Grid3D.Zmin}" + " " + $"{Grid3D.Zsize}" + "                              ");
+            sb.AppendLine($"{(int)((Grid3D.Xmax - Grid3D.Xmin) / Grid3D.Xsize)} {Grid3D.Xmin} {Grid3D.Xsize}  -nx,xmn,xsiz");
+            sb.AppendLine($"{(int)((Grid3D.Ymax - Grid3D.Ymin) / Grid3D.Ysize)} {Grid3D.Ymin} {Grid3D.Ysize} -ny,ymn,ysiz");
+            sb.AppendLine($"{(int)((Grid3D.Zmax - Grid3D.Zmin) / Grid3D.Zsize)} {Grid3D.Zmin} {Grid3D.Zsize} -nz,zmn,zsiz");
             sb.AppendLine($"{GlobalWorkCongfig.Seed}  -random number seed");
             sb.AppendLine($"12      -maximum original data  for each kriging");
             sb.AppendLine("12       -maximum previous nodes for each kriging");
@@ -124,9 +124,9 @@ namespace ExperimentDesign.WorkList.Sis
             sb.AppendLine($"{(int)KrigType}             -0=SK, 1=OK");
             foreach (var item in Vars)
             {
-                sb.AppendLine($"{1.0}   {item.Variogram.Nug}   - nst, nugget effect");
-                sb.AppendLine($"{(int)item.Variogram.VarType} {item.Variogram.Sill} {item.Variogram.MajorAzi} {item.Variogram.MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
-                sb.AppendLine($"{item.Variogram.MajorRange} {item.Variogram.MinorRange} {item.Variogram.VerRange} -a_hmax, a_hmin, a_vert ");
+                sb.AppendLine($"{1.0}  {item.Variogram.Nug}   -nst, nugget effect");
+                sb.AppendLine($"{(int)item.Variogram.VarType} {item.Variogram.Sill} {item.Variogram.MajorAzi}  {item.Variogram.MajorDip} {0.0}  -it,cc,ang1,ang2,ang3");
+                sb.AppendLine($"{item.Variogram.MajorRange} { item.Variogram.MinorRange} {item.Variogram.VerRange}  - a_hmax, a_hmin, a_vert");
             }
             foreach (var keyvalue in designVaribles)
             {
