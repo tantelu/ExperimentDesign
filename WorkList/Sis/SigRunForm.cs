@@ -21,6 +21,14 @@ namespace ExperimentDesign.WorkList.Sis
         public SisPar GetSisPar()
         {
             SisPar sis = new SisPar();
+            if (this.allFacies.Items?.Count > 0)
+            {
+                sis.Unselected = new List<int>();
+                foreach (var item in this.allFacies.Items)
+                {
+                    sis.Unselected.Add(Convert.ToInt32(item));
+                }
+            }
             var pros = this.probalities.Text.Split(new string[] { " ", ";", "," }, StringSplitOptions.RemoveEmptyEntries);
             sis.Vars = new List<CategoryIndicatorParam>(dic.Count);
             foreach (var item in dic)
@@ -94,111 +102,118 @@ namespace ExperimentDesign.WorkList.Sis
             return sis;
         }
 
-        public string SaveForm()
+        public void InitForm(SisPar sis)
         {
-            StringWriter sw = new StringWriter();
-            JsonWriter writer = new JsonTextWriter(sw);
-            writer.WriteStartObject();
-            writer.WritePropertyName(this.allFacies.Name);
-            writer.WriteStartArray();
-            if (dic.Count > 0)
+            if (sis != null)
             {
-                foreach (var item in this.allFacies.Items)
+                MedianIK.Checked = sis.MedianIK;
+                krigType.SelectedIndex = (int)sis.KrigType;
+                if (sis.MaxData.IsDesign)
                 {
-                    writer.WriteValue(item);
+                    MaxData.Text = sis.MaxData.DesignName;
+                    MaxData.Tag = sis.MaxData.Value;
                 }
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName(this.selectedFacies.Name);
-            writer.WriteStartArray();
-            if (dic.Count > 0)
-            {
-                foreach (var item in this.selectedFacies.Items)
+                else
                 {
-                    writer.WriteStartObject();
-                    writer.WritePropertyName("Key");
-                    writer.WriteValue(item);
-                    writer.WritePropertyName("Value");
-                    writer.WriteValue(dic[item].Save());
-                    writer.WriteEndObject();
+                    MaxData.Text = sis.MaxData.Value.ToString();
+                    MaxData.Tag = sis.MaxData.Value;
                 }
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName(this.allsameCheck.Name);
-            writer.WriteValue(this.allsameCheck.Checked);
-            writer.WritePropertyName(this.krigType.Name);
-            writer.WriteValue(this.krigType.SelectedIndex);
-            writer.WritePropertyName(this.MaxData.Name);
-            writer.WriteValue(this.MaxData.Text);
-            writer.WriteEndObject();
-            writer.Flush();
-            return sw.GetStringBuilder().ToString();
-        }
 
-        public void InitForm(string json)
-        {
-            if (!string.IsNullOrEmpty(json))
-            {
-                JObject jo = JObject.Parse(json);
-                var job = jo.GetValue(this.allFacies.Name);
-                if (job is JArray ja1)
+                if (sis.Rake.IsDesign)
                 {
-                    this.allFacies.Items.Clear();
-                    for (int i = 0; i < ja1.Count; i++)
+                    Rake.Text = sis.Rake.DesignName;
+                    Rake.Tag = sis.Rake.Value;
+                }
+                else
+                {
+                    Rake.Text = sis.Rake.Value.ToString();
+                    Rake.Tag = sis.Rake.Value;
+                }
+
+                if (sis.Dip.IsDesign)
+                {
+                    Dip.Text = sis.Dip.DesignName;
+                    Dip.Tag = sis.Dip.Value;
+                }
+                else
+                {
+                    Dip.Text = sis.Dip.Value.ToString();
+                    Dip.Tag = sis.Dip.Value;
+                }
+
+                if (sis.Azimuth.IsDesign)
+                {
+                    Azimuth.Text = sis.Azimuth.DesignName;
+                    Azimuth.Tag = sis.Azimuth.Value;
+                }
+                else
+                {
+                    Azimuth.Text = sis.Azimuth.Value.ToString();
+                    Azimuth.Tag = sis.Azimuth.Value;
+                }
+
+                if (sis.SearchMinRadius.IsDesign)
+                {
+                    SearchMinRadius.Text = sis.SearchMinRadius.DesignName;
+                    SearchMinRadius.Tag = sis.SearchMinRadius.Value;
+                }
+                else
+                {
+                    SearchMinRadius.Text = sis.SearchMinRadius.Value.ToString();
+                    SearchMinRadius.Tag = sis.SearchMinRadius.Value;
+                }
+
+                if (sis.SearchMedRadius.IsDesign)
+                {
+                    SearchMedRadius.Text = sis.SearchMedRadius.DesignName;
+                    SearchMedRadius.Tag = sis.SearchMedRadius.Value;
+                }
+                else
+                {
+                    SearchMedRadius.Text = sis.SearchMedRadius.Value.ToString();
+                    SearchMedRadius.Tag = sis.SearchMedRadius.Value;
+                }
+
+                if (sis.SearchMaxRadius.IsDesign)
+                {
+                    SearchMaxRadius.Text = sis.SearchMaxRadius.DesignName;
+                    SearchMaxRadius.Tag = sis.SearchMaxRadius.Value;
+                }
+                else
+                {
+                    SearchMaxRadius.Text = sis.SearchMaxRadius.Value.ToString();
+                    SearchMaxRadius.Tag = sis.SearchMaxRadius.Value;
+                }
+                this.allFacies.Items.Clear();
+                dic.Clear();
+                string pro = string.Empty;
+                if (sis.Vars?.Count > 0)
+                {
+                    foreach (var item in sis.Vars)
                     {
-                        this.allFacies.Items.Add(ja1[i]);
+                        dic.Add(item.Facie, item.Variogram);
+                        this.selectedFacies.Items.Add(item.Facie);
+                        pro += $"{item.Probability} ";
                     }
                 }
-                job = jo.GetValue(this.selectedFacies.Name);
-                if (job is JArray ja2)
+                if (sis.Unselected?.Count > 0)
                 {
-                    this.selectedFacies.Items.Clear();
-                    for (int i = 0; i < ja2.Count; i++)
+                    foreach (var item in sis.Unselected)
                     {
-                        JObject jobj = ja2[i] as JObject;
-                        Variogram var = new Variogram();
-                        var.Open(jobj["Value"].ToString());
-                        dic.Add(jobj["Key"], var);
-                        this.selectedFacies.Items.Add(jobj["Key"]);
+                        this.allFacies.Items.Add(item);
                     }
                 }
-                this.allsameCheck.Checked = (bool)jo.GetValue(this.allsameCheck.Name);
-                this.krigType.SelectedIndex = (int)jo[this.krigType.Name];
-                this.MaxData.Text = jo[this.MaxData.Name].ToString();
-                SetSameCheck();
+
+                this.probalities.Text = pro;
             }
         }
 
         public void UpdateCurrentVariogram()
         {
             var vari = this.variogramControl1.GetVariogram();
-            if (allsameCheck.Checked)
+            if (selectedFacies.SelectedItem != null && dic.ContainsKey(selectedFacies.SelectedItem))
             {
-                var keys = dic.Keys.ToList();
-                foreach (var key in keys)
-                {
-                    dic[key] = vari;
-                }
-            }
-            else
-            {
-                if (selectedFacies.SelectedItem != null && dic.ContainsKey(selectedFacies.SelectedItem))
-                {
-                    dic[selectedFacies.SelectedItem] = vari;
-                }
-            }
-        }
-
-        public void SetSameCheck()
-        {
-            if (selectedFacies.Items.Count > 2)
-            {
-                allsameCheck.Enabled = true;
-            }
-            else
-            {
-                allsameCheck.Enabled = false;
-                allsameCheck.Checked = true;
+                dic[selectedFacies.SelectedItem] = vari;
             }
         }
 
@@ -211,7 +226,13 @@ namespace ExperimentDesign.WorkList.Sis
                     dic.Add(allFacies.SelectedItem, Variogram.Default);
                     selectedFacies.Items.Add(allFacies.SelectedItem);
                     allFacies.Items.Remove(allFacies.SelectedItem);
-                    SetSameCheck();
+                    var pros = string.Empty;
+                    var v = 1.0 / this.selectedFacies.Items.Count;
+                    for (int i = 0; i < this.selectedFacies.Items.Count; i++)
+                    {
+                        pros += $"{v.ToString("f2")}  ";
+                    }
+                    this.probalities.Text = pros;
                 }
             }
         }
@@ -225,7 +246,16 @@ namespace ExperimentDesign.WorkList.Sis
                     dic.Remove(selectedFacies.SelectedItem);
                     allFacies.Items.Add(selectedFacies.SelectedItem);
                     selectedFacies.Items.Remove(selectedFacies.SelectedItem);
-                    SetSameCheck();
+                    var pros = string.Empty;
+                    if (this.selectedFacies.Items.Count > 0)
+                    {
+                        var v = 1.0 / this.selectedFacies.Items.Count;
+                        for (int i = 0; i < this.selectedFacies.Items.Count; i++)
+                        {
+                            pros += $"{v.ToString("f2")}  ";
+                        }
+                    }
+                    this.probalities.Text = pros;
                 }
             }
         }
@@ -247,14 +277,6 @@ namespace ExperimentDesign.WorkList.Sis
             }
         }
 
-        private void allsameCheck_CheckedChanged(object sender, System.EventArgs e)
-        {
-            if (allsameCheck.Checked)
-            {
-                UpdateCurrentVariogram();
-            }
-        }
-
         private void simpleButton1_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -263,6 +285,16 @@ namespace ExperimentDesign.WorkList.Sis
         private void simpleButton2_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
+        private void allsame_Click(object sender, EventArgs e)
+        {
+            var vari = this.variogramControl1.GetVariogram();
+            var keys = dic.Keys.ToList();
+            foreach (var key in keys)
+            {
+                dic[key] = vari;
+            }
         }
     }
 }

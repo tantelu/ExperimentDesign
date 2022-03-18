@@ -48,7 +48,7 @@ namespace ExperimentDesign.WorkList
         /// <summary>
         /// 界面上显示的设计参数
         /// </summary>
-        private void UpdateText()
+        protected void UpdateText()
         {
             StringBuilder sb = new StringBuilder();
             foreach (var item in param)

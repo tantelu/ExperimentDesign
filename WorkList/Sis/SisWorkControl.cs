@@ -1,4 +1,6 @@
 ﻿using DevExpress.XtraEditors;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,13 +9,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Sis
 {
     public class SisWorkControl : WorkControl
     {
+        private SisPar par;
+
         public SisWorkControl()
         {
 
@@ -62,7 +65,7 @@ namespace ExperimentDesign.WorkList.Sis
                 }
             }
             string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"sisim.par");
-            sgsPar.Save(file);
+            //sgsPar.Save(file);
             string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sisim.exe");
             string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sis.out");
             File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sisim.exe"), exe, true);
@@ -84,14 +87,65 @@ namespace ExperimentDesign.WorkList.Sis
         {
             using (SigRunForm form = new SigRunForm())
             {
+                form.InitForm(par);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var par = form.GetSisPar();
-                    var newparam = VariableData.ToVariables(this.param, par);
+                    par = form.GetSisPar();
+                    var newparam = VariableData.ObjectToVariables(this.param, par);
                     this.param.Clear();
                     this.param.AddRange(newparam);
                 }
             }
+        }
+
+        public override string Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            writer.WritePropertyName(nameof(par));
+            writer.WriteValue(par?.Save());
+            writer.WritePropertyName(nameof(param));
+            writer.WriteStartArray();
+            foreach (var item in param)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Data");
+                writer.WriteValue(item.Save());
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
+        }
+
+        public override void Open(string str)
+        {
+            param.Clear();
+            JObject jobj = JObject.Parse(str);
+            var parstr = jobj[nameof(par)]?.ToString();
+            if (!string.IsNullOrEmpty(parstr))
+            {
+                par = new SisPar();
+                par.Open(parstr);
+            }
+            if (jobj[nameof(param)] is JArray ja)
+            {
+                if (ja?.Count > 0)
+                {
+                    for (int i = 0; i < ja.Count; i++)
+                    {
+                        JObject jo = ja[i] as JObject;
+                        VariableData data = new VariableData();
+                        data.Open(jo["Data"]?.ToString());
+                        param.Add(data);
+                    }
+                }
+
+            }
+
+            UpdateText();
         }
     }
 }

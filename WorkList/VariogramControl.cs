@@ -230,21 +230,21 @@ namespace ExperimentDesign.WorkList
             JsonWriter writer = new JsonTextWriter(sw);
             writer.WriteStartObject();
             writer.WritePropertyName(nameof(Sill));
-            writer.WriteValue(Sill);
+            writer.WriteValue(Sill.Save());
             writer.WritePropertyName(nameof(Nug));
-            writer.WriteValue(Nug);
+            writer.WriteValue(Nug.Save());
             writer.WritePropertyName(nameof(VarType));
             writer.WriteValue((int)VarType);
             writer.WritePropertyName(nameof(MajorRange));
-            writer.WriteValue(MajorRange);
+            writer.WriteValue(MajorRange.Save());
             writer.WritePropertyName(nameof(MinorRange));
-            writer.WriteValue(MinorRange);
+            writer.WriteValue(MinorRange.Save());
             writer.WritePropertyName(nameof(VerRange));
-            writer.WriteValue(VerRange);
+            writer.WriteValue(VerRange.Save());
             writer.WritePropertyName(nameof(MajorAzi));
-            writer.WriteValue(MajorAzi);
+            writer.WriteValue(MajorAzi.Save());
             writer.WritePropertyName(nameof(MajorDip));
-            writer.WriteValue(MajorDip);
+            writer.WriteValue(MajorDip.Save());
             writer.WriteEndObject();
             writer.Flush();
             return sw.GetStringBuilder().ToString();
@@ -253,14 +253,21 @@ namespace ExperimentDesign.WorkList
         public void Open(string json)
         {
             JObject jo = JObject.Parse(json);
-            Sill = (double)jo[nameof(Sill)];
-            Nug = (double)jo[nameof(Nug)];
+            Sill = new Design<double>();
+            Sill.Open(jo[nameof(Sill)]?.ToString());
+            Nug = new Design<double>();
+            Nug.Open(jo[nameof(Nug)]?.ToString());
             VarType = (VariogramType)(int)jo[nameof(VarType)];
-            MajorRange = (double)jo[nameof(MajorRange)];
-            MinorRange = (double)jo[nameof(MinorRange)];
-            VerRange = (double)jo[nameof(VerRange)];
-            MajorAzi = (double)jo[nameof(MajorAzi)];
-            MajorDip = (double)jo[nameof(MajorDip)];
+            MajorRange = new Design<double>();
+            MajorRange.Open(jo[nameof(MajorRange)]?.ToString());
+            MinorRange = new Design<double>();
+            MinorRange.Open(jo[nameof(MinorRange)]?.ToString());
+            VerRange = new Design<double>();
+            VerRange.Open(jo[nameof(VerRange)]?.ToString());
+            MajorAzi = new Design<double>();
+            MajorAzi.Open(jo[nameof(MajorAzi)]?.ToString());
+            MajorDip = new Design<double>();
+            MajorDip.Open(jo[nameof(MajorDip)]?.ToString());
         }
     }
 }

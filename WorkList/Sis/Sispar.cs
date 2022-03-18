@@ -1,4 +1,6 @@
 ﻿using ExperimentDesign.General;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,10 +33,9 @@ namespace ExperimentDesign.WorkList.Sis
             }
         }
 
-        public static SisPar VariablesToSis(List<VariableData> datas, IReadOnlyDictionary<string, object> designVaribles)
+        public void UpdateSis(List<VariableData> datas, IReadOnlyDictionary<string, object> designVaribles)
         {
-            SisPar sisPar = Default;
-            var allproperties = sisPar.GetType().GetProperties();
+            var allproperties = this.GetType().GetProperties();
             var propeties = allproperties.Where(_ => _.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
             foreach (var property in propeties)
             {
@@ -46,26 +47,23 @@ namespace ExperimentDesign.WorkList.Sis
                     {
                         if (!designVaribles.TryGetValue(par.Name, out _value))
                         {
-                            return null;
+                            
                         }
                     }
                     else
                     {
                         _value = par.BaseValue;
                     }
-                    property.SetValue(sisPar, Convert.ChangeType(_value, property.PropertyType));
+                    property.SetValue(this, Convert.ChangeType(_value, property.PropertyType));
                 }
             }
             var groups = allproperties.Where(_ => _.GetCustomAttribute<GroupAttribute>() != null).ToList();
-            return null;
         }
 
         public SisPar()
         {
 
         }
-
-        public Grid3D Grid3D { get; set; }
 
         [Description("指示参数")]
         [GroupList]
@@ -98,7 +96,7 @@ namespace ExperimentDesign.WorkList.Sis
         [Description("是否使用中值克里金")]
         public bool MedianIK { get; set; }
 
-        public void Save(string file)
+        public void Save(string file,Grid3D Grid3D)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("              Parameters for SISIM                                         ");
@@ -157,6 +155,93 @@ namespace ExperimentDesign.WorkList.Sis
             }
             File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
         }
+
+        public List<int> Unselected { get; set; }
+
+        public string Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            writer.WritePropertyName(nameof(KrigType));
+            writer.WriteValue((int)KrigType);
+            writer.WritePropertyName(nameof(Unselected));
+            writer.WriteValue(JsonConvert.SerializeObject(Unselected));
+            writer.WritePropertyName(nameof(MedianIK));
+            writer.WriteValue(MedianIK);
+            writer.WritePropertyName(nameof(MaxData));
+            writer.WriteValue(MaxData.Save());
+            writer.WritePropertyName(nameof(Rake));
+            writer.WriteValue(Rake.Save());
+            writer.WritePropertyName(nameof(Dip));
+            writer.WriteValue(Dip.Save());
+            writer.WritePropertyName(nameof(Azimuth));
+            writer.WriteValue(Azimuth.Save());
+            writer.WritePropertyName(nameof(SearchMinRadius));
+            writer.WriteValue(SearchMinRadius.Save());
+            writer.WritePropertyName(nameof(SearchMedRadius));
+            writer.WriteValue(SearchMedRadius.Save());
+            writer.WritePropertyName(nameof(SearchMaxRadius));
+            writer.WriteValue(SearchMaxRadius.Save());
+            writer.WritePropertyName(nameof(Vars));
+            writer.WriteStartArray();
+            if (Vars?.Count > 0)
+            {
+                foreach (var item in Vars)
+                {
+                    writer.WriteValue(item.Save());
+                }
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
+        }
+
+        public void Open(string json)
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                JObject jo = JObject.Parse(json);
+                KrigType = (KrigType)(int)jo[nameof(KrigType)];
+                MedianIK = (bool)jo[nameof(MedianIK)];
+                Unselected = JsonConvert.DeserializeObject<List<int>>(jo[nameof(Unselected)]?.ToString());
+                MaxData = new Design<int>();
+                MaxData.Open(jo[nameof(MaxData)]?.ToString());
+
+                Rake = new Design<double>();
+                Rake.Open(jo[nameof(Rake)]?.ToString());
+
+                Dip = new Design<double>();
+                Dip.Open(jo[nameof(Dip)]?.ToString());
+
+                Azimuth = new Design<double>();
+                Azimuth.Open(jo[nameof(Azimuth)]?.ToString());
+
+                SearchMinRadius = new Design<double>();
+                SearchMinRadius.Open(jo[nameof(SearchMinRadius)]?.ToString());
+
+                SearchMedRadius = new Design<double>();
+                SearchMedRadius.Open(jo[nameof(SearchMedRadius)]?.ToString());
+
+                SearchMaxRadius = new Design<double>();
+                SearchMaxRadius.Open(jo[nameof(SearchMaxRadius)]?.ToString());
+
+                Vars = new List<CategoryIndicatorParam>();
+                if(jo[nameof(Vars)] is JArray ja)
+                {
+                    if (ja?.Count > 0)
+                    {
+                        for (int i = 0; i < ja.Count; i++)
+                        {
+                            CategoryIndicatorParam par = new CategoryIndicatorParam();
+                            par.Open(ja[i]?.ToString());
+                            Vars.Add(par);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class CategoryIndicatorParam
@@ -173,13 +258,33 @@ namespace ExperimentDesign.WorkList.Sis
 
         [Description("全局概率")]
         public double Probability { get; set; }
-    }
 
-    public class SisVariableData : VariableData
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int VariogramIndex { get; set; }
+        public string Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            writer.WritePropertyName(nameof(Variogram));
+            writer.WriteValue(Variogram.Save());
+            writer.WritePropertyName(nameof(Probability));
+            writer.WriteValue(Probability);
+            writer.WritePropertyName(nameof(Facie));
+            writer.WriteValue(Facie);
+            writer.WriteEndObject();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
+        }
+
+        public void Open(string json)
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                JObject jo = JObject.Parse(json);
+                Variogram = new Variogram();
+                Variogram.Open(jo[nameof(Variogram)]?.ToString());
+                Probability = (double)jo[nameof(Probability)];
+                Facie = (int)jo[nameof(Facie)];
+            }
+        }
     }
 }

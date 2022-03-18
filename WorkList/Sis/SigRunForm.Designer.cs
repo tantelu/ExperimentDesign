@@ -31,9 +31,9 @@ namespace ExperimentDesign.WorkList.Sis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SigRunForm));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.probalities = new DevExpress.XtraEditors.TextEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.allsameCheck = new DevExpress.XtraEditors.CheckEdit();
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
             this.tabNavigationPage1 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
@@ -71,17 +71,17 @@ namespace ExperimentDesign.WorkList.Sis
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.probalities = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.variogramControl1 = new ExperimentDesign.WorkList.VariogramControl();
+            this.allsame = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.allsameCheck.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.probalities.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
             this.tabPane1.SuspendLayout();
             this.tabNavigationPage1.SuspendLayout();
@@ -118,21 +118,20 @@ namespace ExperimentDesign.WorkList.Sis
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.probalities.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.allsame);
             this.layoutControl1.Controls.Add(this.probalities);
             this.layoutControl1.Controls.Add(this.simpleButton2);
             this.layoutControl1.Controls.Add(this.simpleButton1);
-            this.layoutControl1.Controls.Add(this.allsameCheck);
             this.layoutControl1.Controls.Add(this.tabPane1);
             this.layoutControl1.Controls.Add(this.simpleButton_left);
             this.layoutControl1.Controls.Add(this.simpleButton_right);
@@ -145,6 +144,14 @@ namespace ExperimentDesign.WorkList.Sis
             this.layoutControl1.Size = new System.Drawing.Size(1030, 574);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // probalities
+            // 
+            this.probalities.Location = new System.Drawing.Point(151, 171);
+            this.probalities.Name = "probalities";
+            this.probalities.Size = new System.Drawing.Size(861, 28);
+            this.probalities.StyleController = this.layoutControl1;
+            this.probalities.TabIndex = 17;
             // 
             // simpleButton2
             // 
@@ -166,30 +173,18 @@ namespace ExperimentDesign.WorkList.Sis
             this.simpleButton1.Text = "确定";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
-            // allsameCheck
-            // 
-            this.allsameCheck.EditValue = true;
-            this.allsameCheck.Enabled = false;
-            this.allsameCheck.Location = new System.Drawing.Point(18, 205);
-            this.allsameCheck.Name = "allsameCheck";
-            this.allsameCheck.Properties.Caption = "全部相同";
-            this.allsameCheck.Size = new System.Drawing.Size(994, 26);
-            this.allsameCheck.StyleController = this.layoutControl1;
-            this.allsameCheck.TabIndex = 14;
-            this.allsameCheck.CheckedChanged += new System.EventHandler(this.allsameCheck_CheckedChanged);
-            // 
             // tabPane1
             // 
             this.tabPane1.Controls.Add(this.tabNavigationPage1);
             this.tabPane1.Controls.Add(this.tabNavigationPage2);
-            this.tabPane1.Location = new System.Drawing.Point(18, 237);
+            this.tabPane1.Location = new System.Drawing.Point(18, 205);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabNavigationPage1,
             this.tabNavigationPage2});
-            this.tabPane1.RegularSize = new System.Drawing.Size(994, 281);
+            this.tabPane1.RegularSize = new System.Drawing.Size(994, 313);
             this.tabPane1.SelectedPage = this.tabNavigationPage1;
-            this.tabPane1.Size = new System.Drawing.Size(994, 281);
+            this.tabPane1.Size = new System.Drawing.Size(994, 313);
             this.tabPane1.TabIndex = 12;
             this.tabPane1.Text = "参数";
             // 
@@ -199,7 +194,7 @@ namespace ExperimentDesign.WorkList.Sis
             this.tabNavigationPage1.Caption = "变差函数";
             this.tabNavigationPage1.Controls.Add(this.variogramControl1);
             this.tabNavigationPage1.Name = "tabNavigationPage1";
-            this.tabNavigationPage1.Size = new System.Drawing.Size(988, 230);
+            this.tabNavigationPage1.Size = new System.Drawing.Size(988, 262);
             // 
             // tabNavigationPage2
             // 
@@ -539,12 +534,12 @@ namespace ExperimentDesign.WorkList.Sis
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem3,
-            this.layoutControlItem11,
             this.layoutControlItem4,
             this.layoutControlItem12,
             this.emptySpaceItem3,
             this.emptySpaceItem4,
-            this.layoutControlItem10});
+            this.layoutControlItem10,
+            this.layoutControlItem20});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Size = new System.Drawing.Size(1030, 574);
@@ -597,20 +592,11 @@ namespace ExperimentDesign.WorkList.Sis
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.tabPane1;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 219);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 187);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1000, 287);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1000, 319);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
-            // 
-            // layoutControlItem11
-            // 
-            this.layoutControlItem11.Control = this.allsameCheck;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 187);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(1000, 32);
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem11.TextVisible = false;
             // 
             // layoutControlItem4
             // 
@@ -635,9 +621,9 @@ namespace ExperimentDesign.WorkList.Sis
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 506);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(146, 506);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(577, 38);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(431, 38);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
@@ -647,14 +633,6 @@ namespace ExperimentDesign.WorkList.Sis
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(83, 38);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // probalities
-            // 
-            this.probalities.Location = new System.Drawing.Point(151, 171);
-            this.probalities.Name = "probalities";
-            this.probalities.Size = new System.Drawing.Size(861, 28);
-            this.probalities.StyleController = this.layoutControl1;
-            this.probalities.TabIndex = 17;
             // 
             // layoutControlItem10
             // 
@@ -671,9 +649,28 @@ namespace ExperimentDesign.WorkList.Sis
             this.variogramControl1.Location = new System.Drawing.Point(0, 0);
             this.variogramControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.variogramControl1.Name = "variogramControl1";
-            this.variogramControl1.Size = new System.Drawing.Size(988, 230);
+            this.variogramControl1.Size = new System.Drawing.Size(988, 262);
             this.variogramControl1.TabIndex = 0;
             this.variogramControl1.Leave += new System.EventHandler(this.variogramControl1_Leave);
+            // 
+            // allsame
+            // 
+            this.allsame.Location = new System.Drawing.Point(18, 524);
+            this.allsame.Name = "allsame";
+            this.allsame.Size = new System.Drawing.Size(140, 32);
+            this.allsame.StyleController = this.layoutControl1;
+            this.allsame.TabIndex = 18;
+            this.allsame.Text = "统设变差函数";
+            this.allsame.Click += new System.EventHandler(this.allsame_Click);
+            // 
+            // layoutControlItem20
+            // 
+            this.layoutControlItem20.Control = this.allsame;
+            this.layoutControlItem20.Location = new System.Drawing.Point(0, 506);
+            this.layoutControlItem20.Name = "layoutControlItem20";
+            this.layoutControlItem20.Size = new System.Drawing.Size(146, 38);
+            this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem20.TextVisible = false;
             // 
             // SigRunForm
             // 
@@ -687,7 +684,7 @@ namespace ExperimentDesign.WorkList.Sis
             this.Text = "序贯指示模拟";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.allsameCheck.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.probalities.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).EndInit();
             this.tabPane1.ResumeLayout(false);
             this.tabNavigationPage1.ResumeLayout(false);
@@ -725,13 +722,12 @@ namespace ExperimentDesign.WorkList.Sis
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.probalities.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -761,8 +757,6 @@ namespace ExperimentDesign.WorkList.Sis
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraEditors.TextEdit MaxData;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private DevExpress.XtraEditors.CheckEdit allsameCheck;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
@@ -787,5 +781,7 @@ namespace ExperimentDesign.WorkList.Sis
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraEditors.TextEdit probalities;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private DevExpress.XtraEditors.SimpleButton allsame;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem20;
     }
 }

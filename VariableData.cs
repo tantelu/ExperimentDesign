@@ -40,6 +40,9 @@ namespace ExperimentDesign
         [Browsable(false)]
         public int CtrlIndex { get; set; }
 
+        [Browsable(false)]
+        public string Id { get; set; }
+
         public void CopyFromOther(VariableData other)
         {
             this.Arguments = other.Arguments;
@@ -60,6 +63,7 @@ namespace ExperimentDesign
                 this.Distribution = jo[nameof(Distribution)]?.ToString();
                 this.CtrlIndex = (int)jo[nameof(CtrlIndex)];
                 this.WorkControlTypeName = jo[nameof(WorkControlTypeName)]?.ToString();
+                this.Id = jo[nameof(Id)]?.ToString();
                 var strargu = jo[nameof(Arguments)]?.ToString();
                 if (!string.IsNullOrEmpty(strargu))
                 {
@@ -88,6 +92,8 @@ namespace ExperimentDesign
             writer.WriteValue(CtrlIndex);
             writer.WritePropertyName(nameof(WorkControlTypeName));
             writer.WriteValue(WorkControlTypeName);
+            writer.WritePropertyName(nameof(Id));
+            writer.WriteValue(Id);
             writer.WritePropertyName(nameof(Arguments));
             if (Arguments != null)
             {
@@ -108,7 +114,7 @@ namespace ExperimentDesign
             return jsonText;
         }
 
-        public static List<VariableData> ToVariables(List<VariableData> olds, object obj)
+        public static List<VariableData> ObjectToVariables(List<VariableData> olds, object obj)
         {
             List<VariableData> datas = new List<VariableData>();
             var allproperties = obj.GetType().GetProperties();
@@ -128,6 +134,8 @@ namespace ExperimentDesign
                             data.ParDescription = property.GetCustomAttribute<DescriptionAttribute>().Description;
                             var nameProperty = property.PropertyType.GetProperty("DesignName", typeof(string));
                             data.Name = ((string)nameProperty.GetValue(propertyObj)).Trim();
+                            var idProperty = property.PropertyType.GetProperty("Id", typeof(string));
+                            data.Id = ((string)idProperty.GetValue(propertyObj));
                             var find = olds.Find(_ => string.Equals(data.Name, _.Name) && string.Equals(data.ParDescription, _.ParDescription));
                             if (find != null)
                             {
@@ -157,7 +165,7 @@ namespace ExperimentDesign
                         for (int i = 0; i < count; i++)
                         {
                             var listobj = getProperty.Invoke(propertyObj, new object[] { i });
-                            var nextdatas = ToVariables(datas, listobj);
+                            var nextdatas = ObjectToVariables(datas, listobj);
                             datas.AddRange(nextdatas);
                         }
                     }
@@ -169,60 +177,11 @@ namespace ExperimentDesign
                 var propertyObj = item.GetValue(obj);
                 if (propertyObj != null)
                 {
-                    var nextdatas = ToVariables(datas, propertyObj);
+                    var nextdatas = ObjectToVariables(datas, propertyObj);
                     datas.AddRange(nextdatas);
                 }
             }
             return datas;
-        }
-
-        public static object VariablesToSis(List<VariableData> datas, Type type, IReadOnlyDictionary<string, object> designVaribles)
-        {
-            object obj = Activator.CreateInstance(type);
-            var allproperties = obj.GetType().GetProperties();
-            var propeties = allproperties.Where(_ => _.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
-            foreach (var property in propeties)
-            {
-                var par = datas.FirstOrDefault(_ => string.Equals(property.GetCustomAttribute<DescriptionAttribute>().Description, _.ParDescription));
-                if (par != null)
-                {
-                    object _value = null;
-                    if (designVaribles?.Count > 0 && par.Name.Contains("$"))
-                    {
-                        if (!designVaribles.TryGetValue(par.Name, out _value))
-                        {
-                            return null;
-                        }
-                    }
-                    else
-                    {
-                        _value = par.BaseValue;
-                    }
-                    property.SetValue(obj, Convert.ChangeType(_value, property.PropertyType));
-                }
-            }
-            var grouplists = allproperties.Where(_ => _.GetCustomAttribute<GroupListAttribute>() != null).ToList();
-            foreach (var item in grouplists)
-            {
-                var list = Activator.CreateInstance(item.PropertyType);
-                var intype = item.PropertyType.GetElementType();
-                if (intype != null)
-                {
-                    var propertyobj = VariablesToSis(datas, intype, designVaribles);
-                    if (propertyobj != null)
-                    {
-                        MethodInfo methodInfo = item.PropertyType.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-                        methodInfo.Invoke(list, new object[] { propertyobj });//相当于List<T>调用Add方法
-                    }
-                }
-            }
-            var groups = allproperties.Where(_ => _.GetCustomAttribute<GroupAttribute>() != null).ToList();
-            foreach (var item in groups)
-            {
-                var propertyobj = VariablesToSis(datas, item.PropertyType, designVaribles);
-                item.SetValue(obj, propertyobj);
-            }
-            return obj;
         }
     }
 }
