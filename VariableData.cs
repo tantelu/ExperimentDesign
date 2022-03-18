@@ -1,7 +1,6 @@
 ﻿using ExperimentDesign.General;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -165,7 +164,7 @@ namespace ExperimentDesign
                         for (int i = 0; i < count; i++)
                         {
                             var listobj = getProperty.Invoke(propertyObj, new object[] { i });
-                            var nextdatas = ObjectToVariables(datas, listobj);
+                            var nextdatas = ObjectToVariables(olds, listobj);
                             datas.AddRange(nextdatas);
                         }
                     }
@@ -177,7 +176,7 @@ namespace ExperimentDesign
                 var propertyObj = item.GetValue(obj);
                 if (propertyObj != null)
                 {
-                    var nextdatas = ObjectToVariables(datas, propertyObj);
+                    var nextdatas = ObjectToVariables(olds, propertyObj);
                     datas.AddRange(nextdatas);
                 }
             }

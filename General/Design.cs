@@ -83,5 +83,17 @@ namespace ExperimentDesign.General
         {
             return value.Value;
         }
+
+        public override string ToString()
+        {
+            if (IsDesign)
+            {
+                return DesignName;
+            }
+            else
+            {
+                return Value.ToString();
+            }
+        }
     }
 }

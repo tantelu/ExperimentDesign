@@ -1,5 +1,5 @@
 ﻿
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Base
 {
     partial class WorkControl
     {

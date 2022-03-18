@@ -1,7 +1,8 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.WorkList.Grid;
 using System.Collections.Generic;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Base
 {
     public class EditorForm : XtraForm
     {

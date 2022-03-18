@@ -1,4 +1,6 @@
 ﻿using ExperimentDesign.General;
+using ExperimentDesign.WorkList.Base;
+using ExperimentDesign.WorkList.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -31,33 +33,6 @@ namespace ExperimentDesign.WorkList.Sis
                 par.MaxData = 12;
                 return par;
             }
-        }
-
-        public void UpdateSis(List<VariableData> datas, IReadOnlyDictionary<string, object> designVaribles)
-        {
-            var allproperties = this.GetType().GetProperties();
-            var propeties = allproperties.Where(_ => _.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
-            foreach (var property in propeties)
-            {
-                var par = datas.FirstOrDefault(_ => string.Equals(property.GetCustomAttribute<DescriptionAttribute>().Description, _.ParDescription));
-                if (par != null)
-                {
-                    object _value = null;
-                    if (designVaribles?.Count > 0 && par.Name.Contains("$"))
-                    {
-                        if (!designVaribles.TryGetValue(par.Name, out _value))
-                        {
-                            
-                        }
-                    }
-                    else
-                    {
-                        _value = par.BaseValue;
-                    }
-                    property.SetValue(this, Convert.ChangeType(_value, property.PropertyType));
-                }
-            }
-            var groups = allproperties.Where(_ => _.GetCustomAttribute<GroupAttribute>() != null).ToList();
         }
 
         public SisPar()
@@ -96,15 +71,15 @@ namespace ExperimentDesign.WorkList.Sis
         [Description("是否使用中值克里金")]
         public bool MedianIK { get; set; }
 
-        public void Save(string file,Grid3D Grid3D)
+        public void Save(string file,Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("              Parameters for SISIM                                         ");
             sb.AppendLine("              ********************                                         ");
             sb.AppendLine("                                                                           ");
             sb.AppendLine("START OF PARAMETERS:                                                        ");
-            sb.AppendLine("1                             -1=continuous(cdf), 0=categorical(pdf)");
-            sb.AppendLine("5                             -number thresholds/categories");
+            sb.AppendLine("0                             -1=continuous(cdf), 0=categorical(pdf)");
+            sb.AppendLine($"{this.Vars.Count}                             -number thresholds/categories");
             foreach (var item in Vars)
             {
                 sb.Append($"{item.Facie}  ");
@@ -152,6 +127,10 @@ namespace ExperimentDesign.WorkList.Sis
                 sb.AppendLine($"{1.0}   {item.Variogram.Nug}   - nst, nugget effect");
                 sb.AppendLine($"{(int)item.Variogram.VarType} {item.Variogram.Sill} {item.Variogram.MajorAzi} {item.Variogram.MajorDip} 0.0 - it,cc,ang1,ang2,ang3");
                 sb.AppendLine($"{item.Variogram.MajorRange} {item.Variogram.MinorRange} {item.Variogram.VerRange} -a_hmax, a_hmin, a_vert ");
+            }
+            foreach (var keyvalue in designVaribles)
+            {
+                sb.Replace(keyvalue.Key, keyvalue.Value.ToString());
             }
             File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
         }

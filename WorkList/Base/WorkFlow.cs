@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Base
 {
     public class WorkFlow
     {

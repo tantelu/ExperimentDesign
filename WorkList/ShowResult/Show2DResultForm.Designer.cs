@@ -1,5 +1,5 @@
 ﻿
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.ShowResult
 {
     partial class Show2DResultForm
     {

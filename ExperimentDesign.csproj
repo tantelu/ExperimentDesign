@@ -122,42 +122,37 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="VariableData.cs" />
-    <Compile Include="WorkList\EditorForm.cs">
+    <Compile Include="WorkList\Base\EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="General\GroupAttribute.cs" />
-    <Compile Include="WorkList\SisEditorForm.cs">
+    <Compile Include="WorkList\Sgs\SgsPar.cs" />
+    <Compile Include="WorkList\Sgs\SgsRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\SisEditorForm.Designer.cs">
-      <DependentUpon>SisEditorForm.cs</DependentUpon>
+    <Compile Include="WorkList\Sgs\SgsRunForm.Designer.cs">
+      <DependentUpon>SgsRunForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\SgsEditorForm.cs">
+    <Compile Include="WorkList\Sis\SisRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\SgsEditorForm.Designer.cs">
-      <DependentUpon>SgsEditorForm.cs</DependentUpon>
+    <Compile Include="WorkList\Sis\SisRunForm.Designer.cs">
+      <DependentUpon>SisRunForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\Sis\SigRunForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WorkList\Sis\SigRunForm.Designer.cs">
-      <DependentUpon>SigRunForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WorkList\Sis\Sispar.cs" />
+    <Compile Include="WorkList\Sis\SisPar.cs" />
     <Compile Include="WorkList\Sis\SisWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\SgsWorkControl.cs">
+    <Compile Include="WorkList\Sgs\SgsWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\GridEditWorkControl.cs">
+    <Compile Include="WorkList\Grid\GridEditWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\GridEditForm.cs">
+    <Compile Include="WorkList\Grid\GridEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\GridEditForm.Designer.cs">
+    <Compile Include="WorkList\Grid\GridEditForm.Designer.cs">
       <DependentUpon>GridEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InfoForm\DesignShowForm.cs">
@@ -166,7 +161,7 @@
     <Compile Include="InfoForm\DesignShowForm.Designer.cs">
       <DependentUpon>DesignShowForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\IWork.cs" />
+    <Compile Include="WorkList\Base\IWork.cs" />
     <Compile Include="IUpdateDesignTimes.cs" />
     <Compile Include="PBForm .cs">
       <SubType>Form</SubType>
@@ -188,36 +183,36 @@
     <Compile Include="UncertaintyForm.Designer.cs">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\Show2DResultForm.cs">
+    <Compile Include="WorkList\ShowResult\Show2DResultForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\Show2DResultForm.Designer.cs">
+    <Compile Include="WorkList\ShowResult\Show2DResultForm.Designer.cs">
       <DependentUpon>Show2DResultForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\Show2DWorkControl.cs">
+    <Compile Include="WorkList\ShowResult\Show2DWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\Show2DWorkControl.Designer.cs">
+    <Compile Include="WorkList\ShowResult\Show2DWorkControl.Designer.cs">
       <DependentUpon>Show2DWorkControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\VariogramControl.cs">
+    <Compile Include="WorkList\Base\VariogramControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\VariogramControl.Designer.cs">
+    <Compile Include="WorkList\Base\VariogramControl.Designer.cs">
       <DependentUpon>VariogramControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\WorkControl.cs">
+    <Compile Include="WorkList\Base\WorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkList\WorkControl.Designer.cs">
+    <Compile Include="WorkList\Base\WorkControl.Designer.cs">
       <DependentUpon>WorkControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\WorkFlow.cs" />
-    <Compile Include="WorkList\GlobalWorkCongfig.cs" />
-    <Compile Include="WorkList\WorkSelectForm.cs">
+    <Compile Include="WorkList\Base\WorkFlow.cs" />
+    <Compile Include="WorkList\Base\GlobalWorkCongfig.cs" />
+    <Compile Include="WorkList\Base\WorkSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\WorkSelectForm.Designer.cs">
+    <Compile Include="WorkList\Base\WorkSelectForm.Designer.cs">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="BBForm.resx">
@@ -247,7 +242,7 @@
     <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\GridEditForm.resx">
+    <EmbeddedResource Include="WorkList\Grid\GridEditForm.resx">
       <DependentUpon>GridEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoForm\DesignShowForm.resx">
@@ -267,28 +262,25 @@
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\SisEditorForm.resx">
-      <DependentUpon>SisEditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="WorkList\Sgs\SgsRunForm.resx">
+      <DependentUpon>SgsRunForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\SgsEditorForm.resx">
-      <DependentUpon>SgsEditorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\Show2DResultForm.resx">
+    <EmbeddedResource Include="WorkList\ShowResult\Show2DResultForm.resx">
       <DependentUpon>Show2DResultForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\Show2DWorkControl.resx">
+    <EmbeddedResource Include="WorkList\ShowResult\Show2DWorkControl.resx">
       <DependentUpon>Show2DWorkControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\Sis\SigRunForm.resx">
-      <DependentUpon>SigRunForm.cs</DependentUpon>
+    <EmbeddedResource Include="WorkList\Sis\SisRunForm.resx">
+      <DependentUpon>SisRunForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\VariogramControl.resx">
+    <EmbeddedResource Include="WorkList\Base\VariogramControl.resx">
       <DependentUpon>VariogramControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\WorkControl.resx">
+    <EmbeddedResource Include="WorkList\Base\WorkControl.resx">
       <DependentUpon>WorkControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\WorkSelectForm.resx">
+    <EmbeddedResource Include="WorkList\Base\WorkSelectForm.resx">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

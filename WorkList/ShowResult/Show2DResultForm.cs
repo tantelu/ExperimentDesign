@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.ShowResult
 {
     public partial class Show2DResultForm : XtraForm
     {

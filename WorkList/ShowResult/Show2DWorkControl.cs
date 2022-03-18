@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.WorkList.Base;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.ShowResult
 {
     public partial class Show2DWorkControl : WorkControl
     {

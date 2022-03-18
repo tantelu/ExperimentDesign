@@ -1,9 +1,10 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign;
+using ExperimentDesign.WorkList.Base;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Grid
 {
     public partial class GridEditForm : EditorForm
     {

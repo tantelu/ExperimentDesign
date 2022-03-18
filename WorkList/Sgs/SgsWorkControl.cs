@@ -9,19 +9,20 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList.Sis
+namespace ExperimentDesign.WorkList.Sgs
 {
-    public class SisWorkControl : WorkControl
+    public class SgsWorkControl : WorkControl
     {
         private Process process;
-        private SisPar par;
 
-        public SisWorkControl()
+        private SgsPar par;
+
+        public SgsWorkControl()
         {
 
         }
 
-        protected override string WorkName => "序贯指示模拟";
+        protected override string WorkName => "序贯高斯模拟";
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
 
@@ -30,26 +31,26 @@ namespace ExperimentDesign.WorkList.Sis
             string gridfile = Path.Combine(Main.GetWorkPath(), $"{index}", $"{nameof(Grid3D)}.json");
             if (!File.Exists(gridfile))
             {
-                XtraMessageBox.Show($"未找到工区网格定义文件,无法执行{WorkName}");
+                XtraMessageBox.Show("未找到工区网格定义文件,无法执行序贯高斯模拟");
                 return;
             }
             if (par == null)
             {
-                XtraMessageBox.Show($"未设置序贯指示模拟参数");
+                XtraMessageBox.Show($"未设置序贯高斯模拟参数");
                 return;
             }
             Grid3D grid = new Grid3D();
             grid.Open(gridfile);
-            string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"sisim.par");
+            string file = Path.Combine(Main.GetWorkPath(), $"{index}", $"sgsim.par");
             par.Save(file, grid, designVaribles);
-            string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sisim.exe");
-            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sis.out");
-            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sisim.exe"), exe, true);
+            string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgsim.exe");
+            string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
+            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = exe;
             info.WorkingDirectory = Path.Combine(Main.GetWorkPath(), $"{index}");
             info.UseShellExecute = false;
-            info.Arguments = "sisim.par";
+            info.Arguments = "sgsim.par";
             process = Process.Start(info);
         }
 
@@ -70,12 +71,12 @@ namespace ExperimentDesign.WorkList.Sis
 
         protected override void ShowParamForm()
         {
-            using (SisRunForm form = new SisRunForm())
+            using (SgsRunForm form = new SgsRunForm())
             {
                 form.InitForm(par);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    par = form.GetSisPar();
+                    par = form.GetSgsPar();
                     var newparam = VariableData.ObjectToVariables(this.param, par);
                     this.param.Clear();
                     this.param.AddRange(newparam);
@@ -112,7 +113,7 @@ namespace ExperimentDesign.WorkList.Sis
             var parstr = jobj[nameof(par)]?.ToString();
             if (!string.IsNullOrEmpty(parstr))
             {
-                par = new SisPar();
+                par = new SgsPar();
                 par.Open(parstr);
             }
             if (jobj[nameof(param)] is JArray ja)

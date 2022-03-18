@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.WorkList.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Grid
 {
     public class GridEditWorkControl : WorkControl
     {

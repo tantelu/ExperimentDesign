@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList
+namespace ExperimentDesign.WorkList.Base
 {
     public static class GlobalWorkCongfig
     {

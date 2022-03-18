@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.General;
+using ExperimentDesign.WorkList.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,11 +10,11 @@ using System.Linq;
 
 namespace ExperimentDesign.WorkList.Sis
 {
-    public partial class SigRunForm : XtraForm
+    public partial class SisRunForm : XtraForm
     {
         private Dictionary<object, Variogram> dic = new Dictionary<object, Variogram>();
 
-        public SigRunForm()
+        public SisRunForm()
         {
             InitializeComponent();
         }
