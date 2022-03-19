@@ -74,7 +74,7 @@ namespace ExperimentDesign.WorkList.Sgs
             sb.AppendLine($"0  {MaxData}  -min and max original data for sim");
             sb.AppendLine("12                            -number of simulated nodes to use            ");
             sb.AppendLine("0                             -assign data to nodes (0=no, 1=yes)          ");
-            sb.AppendLine($"{(UseMulti ? 1 : 0)}  {MultiGrid}   -multiple grid search (0=no, 1=yes),num");
+            sb.AppendLine($"{(UseMulti ? 1 : 0)}  {(MultiGrid == null ? 3 : MultiGrid)}   -multiple grid search (0=no, 1=yes),num");
             sb.AppendLine("0   -maximum data per octant (0=not used)");
             sb.AppendLine($"{SearchMaxRadius}  {SearchMedRadius}  {SearchMinRadius}  -maximum search  (hmax,hmin,vert)");
             sb.AppendLine($"{Azimuth}  {Dip}  {Rake}    -angles for search ellipsoid                 ");

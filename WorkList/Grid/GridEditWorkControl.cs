@@ -71,6 +71,40 @@ namespace ExperimentDesign.WorkList.Grid
             return File.Exists(file);
         }
 
+        public override string Save()
+        {
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartArray();
+            foreach (var item in param)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Data");
+                writer.WriteValue(item.Save());
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
+        }
+
+        public override void Open(string str)
+        {
+            param.Clear();
+            if (!string.IsNullOrEmpty(str))
+            {
+                JArray ja = JArray.Parse(str);
+                for (int i = 0; i < ja.Count; i++)
+                {
+                    JObject jo = ja[i] as JObject;
+                    VariableData data = new VariableData();
+                    data.Open(jo["Data"]?.ToString());
+                    param.Add(data);
+                }
+            }
+            UpdateText(param);
+        }
+
         protected override void ShowParamForm()
         {
             using (GridEditForm form = new GridEditForm())

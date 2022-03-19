@@ -380,11 +380,11 @@ namespace ExperimentDesign
                                     par.CopyFromOther(find);
                                 }
                                 designDatas.Add(par);
-                                //if (!distinct.Add(par.Name))
-                                //{
-                                //    XtraMessageBox.Show("不确定参数不能重名,请修改");
-                                //    return;
-                                //}
+                                if (!distinct.Add(par.Name))
+                                {
+                                    XtraMessageBox.Show("不确定参数不能重名,请修改");
+                                    return;
+                                }
                             }
                         }
                     }
