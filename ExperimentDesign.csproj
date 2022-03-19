@@ -133,6 +133,7 @@
     <Compile Include="WorkList\Sgs\SgsRunForm.Designer.cs">
       <DependentUpon>SgsRunForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\ShowResult\ColorBar.cs" />
     <Compile Include="WorkList\Sis\SisRunForm.cs">
       <SubType>Form</SubType>
     </Compile>

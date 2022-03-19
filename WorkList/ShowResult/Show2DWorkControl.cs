@@ -26,6 +26,7 @@ namespace ExperimentDesign.WorkList.ShowResult
 
         public override void Run(int index, IReadOnlyDictionary<string, object> designVaribles)
         {
+            ColorBar colorbar = ColorBar.Default;
             string file = Path.Combine(Main.GetWorkPath(), $"{index}", ShowFile);
             if (File.Exists(file))
             {
@@ -36,7 +37,7 @@ namespace ExperimentDesign.WorkList.ShowResult
                 Bitmap map = new Bitmap(xcount, ycount);
                 var max = gslib.Max();
                 var min = gslib.Min();
-                var det = max - min;
+                colorbar.SetMinMax(min, max);
                 for (int i = 0; i < xcount; i++)
                 {
                     for (int j = 0; j < ycount; j++)
@@ -44,9 +45,7 @@ namespace ExperimentDesign.WorkList.ShowResult
                         int index2 = i * xcount + j;
                         if (!float.IsNaN(gslib[index2]))
                         {
-                            var gray = (int)Math.Round((gslib[index2] - min) / det * 255);
-                            Color color = Color.FromArgb(gray, gray, gray);
-                            map.SetPixel(i, j, color);
+                            map.SetPixel(i, j, colorbar.GetColor(gslib[index2]));
                         }
                         else
                         {
