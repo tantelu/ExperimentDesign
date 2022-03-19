@@ -77,9 +77,8 @@ namespace ExperimentDesign.WorkList.Sgs
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     par = form.GetSgsPar();
-                    var newparam = VariableData.ObjectToVariables(this.param, par);
-                    this.param.Clear();
-                    this.param.AddRange(newparam);
+                    var newparam = VariableData.ObjectToVariables(par);
+                    UpdateText(newparam);
                 }
             }
         }
@@ -91,16 +90,6 @@ namespace ExperimentDesign.WorkList.Sgs
             writer.WriteStartObject();
             writer.WritePropertyName(nameof(par));
             writer.WriteValue(par?.Save());
-            writer.WritePropertyName(nameof(param));
-            writer.WriteStartArray();
-            foreach (var item in param)
-            {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Data");
-                writer.WriteValue(item.Save());
-                writer.WriteEndObject();
-            }
-            writer.WriteEndArray();
             writer.WriteEndObject();
             writer.Flush();
             return sw.GetStringBuilder().ToString();
@@ -108,7 +97,6 @@ namespace ExperimentDesign.WorkList.Sgs
 
         public override void Open(string str)
         {
-            param.Clear();
             JObject jobj = JObject.Parse(str);
             var parstr = jobj[nameof(par)]?.ToString();
             if (!string.IsNullOrEmpty(parstr))
@@ -116,22 +104,13 @@ namespace ExperimentDesign.WorkList.Sgs
                 par = new SgsPar();
                 par.Open(parstr);
             }
-            if (jobj[nameof(param)] is JArray ja)
-            {
-                if (ja?.Count > 0)
-                {
-                    for (int i = 0; i < ja.Count; i++)
-                    {
-                        JObject jo = ja[i] as JObject;
-                        VariableData data = new VariableData();
-                        data.Open(jo["Data"]?.ToString());
-                        param.Add(data);
-                    }
-                }
+            var newparam = VariableData.ObjectToVariables(par);
+            UpdateText(newparam);
+        }
 
-            }
-
-            UpdateText();
+        public override IReadOnlyList<VariableData> GetUncentainParam()
+        {
+            return VariableData.ObjectToVariables(par);
         }
     }
 }

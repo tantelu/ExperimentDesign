@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.DesignPanel;
 using ExperimentDesign.GridPopForm;
-using ExperimentDesign.WorkList;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,7 +13,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ExperimentDesign.WorkList;
 using ExperimentDesign.WorkList.Base;
 
 namespace ExperimentDesign
@@ -22,7 +20,6 @@ namespace ExperimentDesign
     public partial class UncertaintyForm : XtraForm, IUpdateDesignTimes, IWork
     {
         private List<WorkFlow> exitworks = new List<WorkFlow>();
-        private List<VariableData> olddatas = new List<VariableData>();
 
         private WorkFlow Current { get; set; }
 
@@ -145,14 +142,18 @@ namespace ExperimentDesign
             writer.WriteEndArray();
             writer.WritePropertyName("UncertainParam");
             writer.WriteStartArray();
-            foreach (var item in olddatas)
+            var datas = this.gridControl1.DataSource as List<VariableData>;
+            if (datas?.Count > 0)
             {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Type");
-                writer.WriteValue(item.GetType().FullName);
-                writer.WritePropertyName("Data");
-                writer.WriteValue(item.Save());
-                writer.WriteEndObject();
+                foreach (var item in datas)
+                {
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("Type");
+                    writer.WriteValue(item.GetType().FullName);
+                    writer.WritePropertyName("Data");
+                    writer.WriteValue(item.Save());
+                    writer.WriteEndObject();
+                }
             }
             writer.WriteEndArray();
             writer.WriteEndObject();
@@ -165,7 +166,6 @@ namespace ExperimentDesign
         {
             if (File.Exists(file))
             {
-                olddatas.Clear();
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 var jsonText = File.ReadAllText(file, Encoding.UTF8);
                 JObject jo = JObject.Parse(jsonText);
@@ -182,13 +182,18 @@ namespace ExperimentDesign
                 JToken t = jo["UncertainParam"];
                 if (t is JArray uncertains)
                 {
-                    for (int i = 0; i < uncertains.Count; i++)
+                    if (uncertains?.Count > 0)
                     {
-                        JObject uncertain = uncertains[i] as JObject;
-                        var obj = assembly.CreateInstance(uncertain["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as VariableData;
-                        var data = uncertain["Data"].ToString();
-                        obj.Open(data);
-                        olddatas.Add(obj);
+                        List<VariableData> datas = new List<VariableData>();
+                        for (int i = 0; i < uncertains.Count; i++)
+                        {
+                            JObject uncertain = uncertains[i] as JObject;
+                            var obj = assembly.CreateInstance(uncertain["Type"].ToString(), false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as VariableData;
+                            var data = uncertain["Data"].ToString();
+                            obj.Open(data);
+                            datas.Add(obj);
+                        }
+                        this.gridControl1.DataSource = datas;
                     }
                 }
                 if (ctrls?.Count > 0)
@@ -355,7 +360,7 @@ namespace ExperimentDesign
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             var workControls = this.workPanel.Controls;
-            olddatas.Clear();
+            var olds = this.gridControl1.DataSource as List<VariableData>;
             List<VariableData> designDatas = new List<VariableData>();
             HashSet<string> distinct = new HashSet<string>();
             foreach (var item in workControls)
@@ -369,15 +374,19 @@ namespace ExperimentDesign
                         {
                             if (par.Name.Contains("$"))
                             {
-                                designDatas.Add(par);
-                                if (!distinct.Add(par.Name))
+                                var find = olds?.Find(_ => string.Equals(_.Id, par.Id));
+                                if (find != null)
                                 {
-                                    XtraMessageBox.Show("不确定参数不能重名,请修改");
-                                    return;
+                                    par.CopyFromOther(find);
                                 }
+                                designDatas.Add(par);
+                                //if (!distinct.Add(par.Name))
+                                //{
+                                //    XtraMessageBox.Show("不确定参数不能重名,请修改");
+                                //    return;
+                                //}
                             }
                         }
-                        olddatas.AddRange(@params);
                     }
                 }
             }

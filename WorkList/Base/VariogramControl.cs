@@ -23,63 +23,14 @@ namespace ExperimentDesign.WorkList.Base
             try
             {
                 Variogram var = new Variogram();
-                if (sill.Text.Contains("$"))
-                {
-                    var.Sill = new Design<double>(Convert.ToDouble(sill.Tag), sill.Text);
-                }
-                else
-                {
-                    var.Sill = new Design<double>(Convert.ToDouble(sill.Text));
-                }
-                if (nug.Text.Contains("$"))
-                {
-                    var.Nug = new Design<double>(Convert.ToDouble(nug.Tag), nug.Text);
-                }
-                else
-                {
-                    var.Nug = new Design<double>(Convert.ToDouble(nug.Text));
-                }
                 var.VarType = (VariogramType)comboBoxEdit1.SelectedIndex;
-                if (majordir.Text.Contains("$"))
-                {
-                    var.MajorRange = new Design<double>(Convert.ToDouble(majordir.Tag), majordir.Text);
-                }
-                else
-                {
-                    var.MajorRange = new Design<double>(Convert.ToDouble(majordir.Text));
-                }
-                if (minordir.Text.Contains("$"))
-                {
-                    var.MinorRange = new Design<double>(Convert.ToDouble(minordir.Tag), minordir.Text);
-                }
-                else
-                {
-                    var.MinorRange = new Design<double>(Convert.ToDouble(minordir.Text));
-                }
-                if (verticaldir.Text.Contains("$"))
-                {
-                    var.VerRange = new Design<double>(Convert.ToDouble(verticaldir.Tag), verticaldir.Text);
-                }
-                else
-                {
-                    var.VerRange = new Design<double>(Convert.ToDouble(verticaldir.Text));
-                }
-                if (majorAzimuth.Text.Contains("$"))
-                {
-                    var.MajorAzi = new Design<double>(Convert.ToDouble(majorAzimuth.Tag), majorAzimuth.Text);
-                }
-                else
-                {
-                    var.MajorAzi = new Design<double>(Convert.ToDouble(majorAzimuth.Text));
-                }
-                if (majorDip.Text.Contains("$"))
-                {
-                    var.MajorDip = new Design<double>(Convert.ToDouble(majorDip.Tag), majorDip.Text);
-                }
-                else
-                {
-                    var.MajorDip = new Design<double>(Convert.ToDouble(majorDip.Text));
-                }
+                var.Sill = Design<double>.GeneralDesign(sill.Tag, sill.Text);
+                var.Nug = Design<double>.GeneralDesign(nug.Tag, nug.Text);
+                var.MajorRange = Design<double>.GeneralDesign(majordir.Tag, majordir.Text);
+                var.MinorRange = Design<double>.GeneralDesign(minordir.Tag, minordir.Text);
+                var.VerRange = Design<double>.GeneralDesign(verticaldir.Tag, verticaldir.Text);
+                var.MajorAzi = Design<double>.GeneralDesign(majorAzimuth.Tag, majorAzimuth.Text);
+                var.MajorDip = Design<double>.GeneralDesign(majorDip.Tag, majorDip.Text);
                 return var;
             }
             catch
@@ -92,104 +43,33 @@ namespace ExperimentDesign.WorkList.Base
         {
             if (var != null)
             {
-                if (var.Sill.IsDesign)
-                {
-                    sill.Text = var.Sill.DesignName;
-                    sill.Tag = var.Sill.Value;
-                }
-                else
-                {
-                    sill.Text = var.Sill.Value.ToString();
-                    sill.Tag = var.Sill.Value;
-                }
-                if (var.Nug.IsDesign)
-                {
-                    nug.Text = var.Nug.DesignName;
-                    nug.Tag = var.Nug.Value;
-                }
-                else
-                {
-                    nug.Text = var.Nug.Value.ToString();
-                    nug.Tag = var.Nug.Value;
-                }
+                sill.Tag = var.Sill;
+                sill.Text = var.Sill.IsDesign ? var.Sill.DesignName : var.Sill.Value.ToString();
+                nug.Tag = var.Nug;
+                nug.Text = var.Nug.IsDesign ? var.Nug.DesignName : var.Nug.Value.ToString();
+
                 comboBoxEdit1.SelectedIndex = (int)var.VarType;
-                if (var.MajorRange.IsDesign)
-                {
-                    majordir.Text = var.MajorRange.DesignName;
-                    majordir.Tag = var.MajorRange.Value;
-                }
-                else
-                {
-                    majordir.Text = var.MajorRange.Value.ToString();
-                    majordir.Tag = var.MajorRange.Value;
-                }
 
-                if (var.MinorRange.IsDesign)
-                {
-                    minordir.Text = var.MinorRange.DesignName;
-                    minordir.Tag = var.MinorRange.Value;
-                }
-                else
-                {
-                    minordir.Text = var.MinorRange.Value.ToString();
-                    minordir.Tag = var.MinorRange.Value;
-                }
+                majordir.Tag = var.MajorRange;
+                majordir.Text = var.MajorRange.IsDesign? var.MajorRange.DesignName: var.MajorRange.Value.ToString();
 
-                if (var.VerRange.IsDesign)
-                {
-                    verticaldir.Text = var.VerRange.DesignName;
-                    verticaldir.Tag = var.VerRange.Value;
-                }
-                else
-                {
-                    verticaldir.Text = var.VerRange.Value.ToString();
-                    verticaldir.Tag = var.VerRange.Value;
-                }
+                minordir.Tag = var.MinorRange;
+                minordir.Text = var.MinorRange.IsDesign? var.MinorRange.DesignName: var.MinorRange.Value.ToString();
 
-                if (var.MajorAzi.IsDesign)
-                {
-                    majorAzimuth.Text = var.MajorAzi.DesignName;
-                    majorAzimuth.Tag = var.MajorAzi.Value;
-                }
-                else
-                {
-                    majorAzimuth.Text = var.MajorAzi.Value.ToString();
-                    majorAzimuth.Tag = var.MajorAzi.Value;
-                }
+                verticaldir.Tag = var.VerRange;
+                verticaldir.Text = var.VerRange.IsDesign? var.VerRange.DesignName:var.VerRange.Value.ToString();
 
-                if (var.MajorDip.IsDesign)
-                {
-                    majorDip.Text = var.MajorDip.DesignName;
-                    majorDip.Tag = var.MajorDip.Value;
-                }
-                else
-                {
-                    majorDip.Text = var.MajorDip.Value.ToString();
-                    majorDip.Tag = var.MajorDip.Value;
-                }
+                majorAzimuth.Tag = var.MajorAzi;
+                majorAzimuth.Text = var.MajorAzi.IsDesign ? var.MajorAzi.DesignName:var.MajorAzi.Value.ToString();
+
+                majorDip.Tag = var.MajorDip;
+                majorDip.Text = var.MajorDip.IsDesign ? var.MajorDip.DesignName:var.MajorDip.Value.ToString();
             }
         }
     }
 
     public class Variogram
     {
-        public static Variogram Default
-        {
-            get
-            {
-                Variogram var = new Variogram();
-                var.Sill = 1.0;
-                var.Nug = 0.0001;
-                var.VarType = VariogramType.Spherical;
-                var.MajorRange = 500;
-                var.MinorRange = 500;
-                var.VerRange = 100;
-                var.MajorAzi = 0;
-                var.MajorDip = 0;
-                return var;
-            }
-        }
-
         [Description("基台值")]
         public Design<double> Sill { get; set; }
 

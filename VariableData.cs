@@ -113,7 +113,7 @@ namespace ExperimentDesign
             return jsonText;
         }
 
-        public static List<VariableData> ObjectToVariables(List<VariableData> olds, object obj)
+        public static List<VariableData> ObjectToVariables(object obj)
         {
             List<VariableData> datas = new List<VariableData>();
             var allproperties = obj.GetType().GetProperties();
@@ -135,16 +135,8 @@ namespace ExperimentDesign
                             data.Name = ((string)nameProperty.GetValue(propertyObj)).Trim();
                             var idProperty = property.PropertyType.GetProperty("Id", typeof(string));
                             data.Id = ((string)idProperty.GetValue(propertyObj));
-                            var find = olds.Find(_ => string.Equals(data.Name, _.Name) && string.Equals(data.ParDescription, _.ParDescription));
-                            if (find != null)
-                            {
-                                data.CopyFromOther(find);
-                            }
-                            else
-                            {
-                                var valueProperty = property.PropertyType.GetProperty("Value", property.PropertyType.GetGenericArguments()[0]);
-                                data.BaseValue = valueProperty.GetValue(propertyObj);
-                            }
+                            var valueProperty = property.PropertyType.GetProperty("Value", property.PropertyType.GetGenericArguments()[0]);
+                            data.BaseValue = valueProperty.GetValue(propertyObj);
                             datas.Add(data);
                         }
                     }
@@ -164,7 +156,7 @@ namespace ExperimentDesign
                         for (int i = 0; i < count; i++)
                         {
                             var listobj = getProperty.Invoke(propertyObj, new object[] { i });
-                            var nextdatas = ObjectToVariables(olds, listobj);
+                            var nextdatas = ObjectToVariables(listobj);
                             datas.AddRange(nextdatas);
                         }
                     }
@@ -176,7 +168,7 @@ namespace ExperimentDesign
                 var propertyObj = item.GetValue(obj);
                 if (propertyObj != null)
                 {
-                    var nextdatas = ObjectToVariables(olds, propertyObj);
+                    var nextdatas = ObjectToVariables(propertyObj);
                     datas.AddRange(nextdatas);
                 }
             }

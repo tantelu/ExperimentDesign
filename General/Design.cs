@@ -7,6 +7,51 @@ namespace ExperimentDesign.General
 {
     public class Design<T>
     {
+        public static Design<T> GeneralDesign(object tag, string text)
+        {
+            if (tag is Design<T> oldt)
+            {
+                if (text.Contains("$"))
+                {
+                    return new Design<T>(oldt.Value, true, text, oldt.Id);
+                }
+                else
+                {
+                    return new Design<T>((T)Convert.ChangeType(text, typeof(T)), false, string.Empty, oldt.Id);
+                }
+            }
+            else
+            {
+                if (tag == null)
+                {
+                    return GeneralDesign(text);
+                }
+                else
+                {
+                    if (text.Contains("$"))
+                    {
+                        return new Design<T>((T)Convert.ChangeType(tag, typeof(T)), true, text, Guid.NewGuid().ToString());
+                    }
+                    else
+                    {
+                        return new Design<T>((T)Convert.ChangeType(text, typeof(T)), false, string.Empty, Guid.NewGuid().ToString());
+                    }
+                }
+            }
+        }
+
+        public static Design<T> GeneralDesign(string text)
+        {
+            if (text.Contains("$"))
+            {
+                return new Design<T>(default(T), true, text, Guid.NewGuid().ToString());
+            }
+            else
+            {
+                return new Design<T>((T)Convert.ChangeType(text, typeof(T)), false, string.Empty, Guid.NewGuid().ToString());
+            }
+        }
+
         public string Id { get; private set; }
 
         public string DesignName { get; private set; }
@@ -15,28 +60,12 @@ namespace ExperimentDesign.General
 
         public T Value { get; private set; }
 
-        public Design(T t, string designName)
+        private Design(T t, bool isdesign, string designName, string id)
         {
             Value = t;
-            IsDesign = true;
+            IsDesign = isdesign;
             DesignName = designName;
-            Id = Guid.NewGuid().ToString();
-        }
-
-        public Design(string designName)
-        {
-            Value = default(T);
-            IsDesign = true;
-            DesignName = designName;
-            Id = Guid.NewGuid().ToString();
-        }
-
-        public Design(T t)
-        {
-            DesignName = string.Empty;
-            IsDesign = false;
-            Value = t;
-            Id = Guid.NewGuid().ToString();
+            Id = id;
         }
 
         internal Design()
@@ -74,10 +103,10 @@ namespace ExperimentDesign.General
             }
         }
 
-        public static implicit operator Design<T>(T value)
-        {
-            return new Design<T>(value);
-        }
+        //public static implicit operator Design<T>(T value)
+        //{
+        //    return new Design<T>(value,Guid.NewGuid().ToString());
+        //}
 
         public static implicit operator T(Design<T> value)
         {

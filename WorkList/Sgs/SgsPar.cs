@@ -43,7 +43,7 @@ namespace ExperimentDesign.WorkList.Sgs
         public bool UseMulti { get; set; } = false;
 
         [Description("多级网格")]
-        public Design<int> MultiGrid { get; set; } = 3;
+        public Design<int> MultiGrid { get; set; }
 
         public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {

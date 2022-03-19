@@ -15,26 +15,6 @@ namespace ExperimentDesign.WorkList.Sis
 {
     public class SisPar
     {
-        public static SisPar Default
-        {
-            get
-            {
-                SisPar par = new SisPar();
-                par.KrigType = KrigType.SK;
-                par.Vars = new List<CategoryIndicatorParam>();
-                for (int i = 0; i < 5; i++)
-                {
-                    CategoryIndicatorParam ipar = new CategoryIndicatorParam();
-                    ipar.Facie = i;
-                    ipar.Probability = 0.2;
-                    ipar.Variogram = Variogram.Default;
-                    par.Vars.Add(ipar);
-                }
-                par.MaxData = 12;
-                return par;
-            }
-        }
-
         public SisPar()
         {
 

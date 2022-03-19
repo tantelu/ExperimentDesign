@@ -16,6 +16,7 @@ namespace ExperimentDesign.WorkList.Grid
 {
     public class GridEditWorkControl : WorkControl
     {
+        List<VariableData> param = new List<VariableData>();
         public GridEditWorkControl()
         {
 
@@ -81,6 +82,11 @@ namespace ExperimentDesign.WorkList.Grid
                     this.param.AddRange(form.GetUncentainParam());
                 }
             }
+        }
+
+        public override IReadOnlyList<VariableData> GetUncentainParam()
+        {
+            return this.param;
         }
     }
 

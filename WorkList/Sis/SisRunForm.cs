@@ -40,64 +40,13 @@ namespace ExperimentDesign.WorkList.Sis
                 ipar.Probability = Convert.ToDouble(pros[this.selectedFacies.Items.IndexOf(item.Key)]);
                 sis.Vars.Add(ipar);
             }
-            if (SearchMaxRadius.Text.Contains("$"))
-            {
-                sis.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Tag), SearchMaxRadius.Text);
-            }
-            else
-            {
-                sis.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Text));
-            }
-            if (SearchMedRadius.Text.Contains("$"))
-            {
-                sis.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Tag), SearchMedRadius.Text);
-            }
-            else
-            {
-                sis.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Text));
-            }
-            if (SearchMinRadius.Text.Contains("$"))
-            {
-                sis.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Tag), SearchMinRadius.Text);
-            }
-            else
-            {
-                sis.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Text));
-            }
-
-            if (Azimuth.Text.Contains("$"))
-            {
-                sis.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Tag), Azimuth.Text);
-            }
-            else
-            {
-                sis.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Text));
-            }
-            if (Dip.Text.Contains("$"))
-            {
-                sis.Dip = new Design<double>(Convert.ToDouble(Dip.Tag), Dip.Text);
-            }
-            else
-            {
-                sis.Dip = new Design<double>(Convert.ToDouble(Dip.Text));
-            }
-            if (Rake.Text.Contains("$"))
-            {
-                sis.Rake = new Design<double>(Convert.ToDouble(Rake.Tag), Rake.Text);
-            }
-            else
-            {
-                sis.Rake = new Design<double>(Convert.ToDouble(Rake.Text));
-            }
-
-            if (MaxData.Text.Contains("$"))
-            {
-                sis.MaxData = new Design<int>(Convert.ToInt32(MaxData.Tag), MaxData.Text);
-            }
-            else
-            {
-                sis.MaxData = new Design<int>(Convert.ToInt32(MaxData.Text));
-            }
+            sis.SearchMaxRadius = Design<double>.GeneralDesign(SearchMaxRadius.Tag, SearchMaxRadius.Text);
+            sis.SearchMedRadius = Design<double>.GeneralDesign(SearchMedRadius.Tag, SearchMedRadius.Text);
+            sis.SearchMinRadius = Design<double>.GeneralDesign(SearchMinRadius.Tag, SearchMinRadius.Text);
+            sis.Azimuth = Design<double>.GeneralDesign(Azimuth.Tag, Azimuth.Text);
+            sis.Dip = Design<double>.GeneralDesign(Dip.Tag, Dip.Text);
+            sis.Rake = Design<double>.GeneralDesign(Rake.Tag, Rake.Text);
+            sis.MaxData = Design<int>.GeneralDesign(MaxData.Tag, MaxData.Text);
             sis.MedianIK = MedianIK.Checked;
             sis.KrigType = (KrigType)krigType.SelectedIndex;
             return sis;
@@ -109,82 +58,27 @@ namespace ExperimentDesign.WorkList.Sis
             {
                 MedianIK.Checked = sis.MedianIK;
                 krigType.SelectedIndex = (int)sis.KrigType;
-                if (sis.MaxData.IsDesign)
-                {
-                    MaxData.Text = sis.MaxData.DesignName;
-                    MaxData.Tag = sis.MaxData.Value;
-                }
-                else
-                {
-                    MaxData.Text = sis.MaxData.Value.ToString();
-                    MaxData.Tag = sis.MaxData.Value;
-                }
+                MaxData.Tag = sis.MaxData;
+                MaxData.Text = sis.MaxData.IsDesign ? sis.MaxData.DesignName : sis.MaxData.Value.ToString();
 
-                if (sis.Rake.IsDesign)
-                {
-                    Rake.Text = sis.Rake.DesignName;
-                    Rake.Tag = sis.Rake.Value;
-                }
-                else
-                {
-                    Rake.Text = sis.Rake.Value.ToString();
-                    Rake.Tag = sis.Rake.Value;
-                }
+                Rake.Tag = sis.Rake;
+                Rake.Text = sis.Rake.IsDesign ? sis.Rake.DesignName : sis.Rake.Value.ToString();
 
-                if (sis.Dip.IsDesign)
-                {
-                    Dip.Text = sis.Dip.DesignName;
-                    Dip.Tag = sis.Dip.Value;
-                }
-                else
-                {
-                    Dip.Text = sis.Dip.Value.ToString();
-                    Dip.Tag = sis.Dip.Value;
-                }
+                Dip.Tag = sis.Dip;
+                Dip.Text = sis.Dip.IsDesign ? sis.Dip.DesignName : sis.Dip.Value.ToString();
 
-                if (sis.Azimuth.IsDesign)
-                {
-                    Azimuth.Text = sis.Azimuth.DesignName;
-                    Azimuth.Tag = sis.Azimuth.Value;
-                }
-                else
-                {
-                    Azimuth.Text = sis.Azimuth.Value.ToString();
-                    Azimuth.Tag = sis.Azimuth.Value;
-                }
+                Azimuth.Tag = sis.Azimuth;
+                Azimuth.Text = sis.Azimuth.IsDesign? sis.Azimuth.DesignName: sis.Azimuth.Value.ToString();
 
-                if (sis.SearchMinRadius.IsDesign)
-                {
-                    SearchMinRadius.Text = sis.SearchMinRadius.DesignName;
-                    SearchMinRadius.Tag = sis.SearchMinRadius.Value;
-                }
-                else
-                {
-                    SearchMinRadius.Text = sis.SearchMinRadius.Value.ToString();
-                    SearchMinRadius.Tag = sis.SearchMinRadius.Value;
-                }
+                SearchMinRadius.Tag = sis.SearchMinRadius;
+                SearchMinRadius.Text = sis.SearchMinRadius.IsDesign?sis.SearchMinRadius.DesignName : sis.SearchMinRadius.Value.ToString();
+                
+                SearchMedRadius.Tag = sis.SearchMedRadius;
+                SearchMedRadius.Text = sis.SearchMedRadius.IsDesign? sis.SearchMedRadius.DesignName : sis.SearchMedRadius.Value.ToString();
 
-                if (sis.SearchMedRadius.IsDesign)
-                {
-                    SearchMedRadius.Text = sis.SearchMedRadius.DesignName;
-                    SearchMedRadius.Tag = sis.SearchMedRadius.Value;
-                }
-                else
-                {
-                    SearchMedRadius.Text = sis.SearchMedRadius.Value.ToString();
-                    SearchMedRadius.Tag = sis.SearchMedRadius.Value;
-                }
-
-                if (sis.SearchMaxRadius.IsDesign)
-                {
-                    SearchMaxRadius.Text = sis.SearchMaxRadius.DesignName;
-                    SearchMaxRadius.Tag = sis.SearchMaxRadius.Value;
-                }
-                else
-                {
-                    SearchMaxRadius.Text = sis.SearchMaxRadius.Value.ToString();
-                    SearchMaxRadius.Tag = sis.SearchMaxRadius.Value;
-                }
+                SearchMaxRadius.Tag = sis.SearchMaxRadius;
+                SearchMaxRadius.Text = sis.SearchMaxRadius.IsDesign?sis.SearchMaxRadius.DesignName: sis.SearchMaxRadius.Value.ToString();
+                
                 this.allFacies.Items.Clear();
                 dic.Clear();
                 string pro = string.Empty;
@@ -224,7 +118,7 @@ namespace ExperimentDesign.WorkList.Sis
             {
                 if (!selectedFacies.Items.Contains(allFacies.SelectedItem))
                 {
-                    dic.Add(allFacies.SelectedItem, Variogram.Default);
+                    dic.Add(allFacies.SelectedItem, this.variogramControl1.GetVariogram());
                     selectedFacies.Items.Add(allFacies.SelectedItem);
                     allFacies.Items.Remove(allFacies.SelectedItem);
                     var pros = string.Empty;

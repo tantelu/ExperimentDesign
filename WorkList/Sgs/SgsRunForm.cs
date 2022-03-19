@@ -15,64 +15,13 @@ namespace ExperimentDesign.WorkList.Sgs
         {
             SgsPar sgs = new SgsPar();
             sgs.Variogram = this.variogramControl1.GetVariogram();
-            if (SearchMaxRadius.Text.Contains("$"))
-            {
-                sgs.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Tag), SearchMaxRadius.Text);
-            }
-            else
-            {
-                sgs.SearchMaxRadius = new Design<double>(Convert.ToDouble(SearchMaxRadius.Text));
-            }
-            if (SearchMedRadius.Text.Contains("$"))
-            {
-                sgs.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Tag), SearchMedRadius.Text);
-            }
-            else
-            {
-                sgs.SearchMedRadius = new Design<double>(Convert.ToDouble(SearchMedRadius.Text));
-            }
-            if (SearchMinRadius.Text.Contains("$"))
-            {
-                sgs.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Tag), SearchMinRadius.Text);
-            }
-            else
-            {
-                sgs.SearchMinRadius = new Design<double>(Convert.ToDouble(SearchMinRadius.Text));
-            }
-
-            if (Azimuth.Text.Contains("$"))
-            {
-                sgs.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Tag), Azimuth.Text);
-            }
-            else
-            {
-                sgs.Azimuth = new Design<double>(Convert.ToDouble(Azimuth.Text));
-            }
-            if (Dip.Text.Contains("$"))
-            {
-                sgs.Dip = new Design<double>(Convert.ToDouble(Dip.Tag), Dip.Text);
-            }
-            else
-            {
-                sgs.Dip = new Design<double>(Convert.ToDouble(Dip.Text));
-            }
-            if (Rake.Text.Contains("$"))
-            {
-                sgs.Rake = new Design<double>(Convert.ToDouble(Rake.Tag), Rake.Text);
-            }
-            else
-            {
-                sgs.Rake = new Design<double>(Convert.ToDouble(Rake.Text));
-            }
-
-            if (MaxData.Text.Contains("$"))
-            {
-                sgs.MaxData = new Design<int>(Convert.ToInt32(MaxData.Tag), MaxData.Text);
-            }
-            else
-            {
-                sgs.MaxData = new Design<int>(Convert.ToInt32(MaxData.Text));
-            }
+            sgs.SearchMaxRadius = Design<double>.GeneralDesign(SearchMaxRadius.Tag, SearchMaxRadius.Text);
+            sgs.SearchMedRadius = Design<double>.GeneralDesign(SearchMedRadius.Tag, SearchMedRadius.Text);
+            sgs.SearchMinRadius = Design<double>.GeneralDesign(SearchMinRadius.Tag, SearchMinRadius.Text);
+            sgs.Azimuth = Design<double>.GeneralDesign(Azimuth.Tag, Azimuth.Text);
+            sgs.Dip = Design<double>.GeneralDesign(Dip.Tag, Dip.Text);
+            sgs.Rake = Design<double>.GeneralDesign(Rake.Tag, Rake.Text);
+            sgs.MaxData = Design<int>.GeneralDesign(MaxData.Tag, MaxData.Text);
             sgs.KrigType = (KrigType)krigType.SelectedIndex;
             return sgs;
         }
@@ -82,82 +31,26 @@ namespace ExperimentDesign.WorkList.Sgs
             if (sgs != null)
             {
                 krigType.SelectedIndex = (int)sgs.KrigType;
-                if (sgs.MaxData.IsDesign)
-                {
-                    MaxData.Text = sgs.MaxData.DesignName;
-                    MaxData.Tag = sgs.MaxData.Value;
-                }
-                else
-                {
-                    MaxData.Text = sgs.MaxData.Value.ToString();
-                    MaxData.Tag = sgs.MaxData.Value;
-                }
+                MaxData.Tag = sgs.MaxData;
+                MaxData.Text = sgs.MaxData.IsDesign ? sgs.MaxData.DesignName : sgs.MaxData.Value.ToString();
+                Rake.Tag = sgs.Rake;
+                Rake.Text = sgs.Rake.IsDesign? sgs.Rake.DesignName : sgs.Rake.Value.ToString();
 
-                if (sgs.Rake.IsDesign)
-                {
-                    Rake.Text = sgs.Rake.DesignName;
-                    Rake.Tag = sgs.Rake.Value;
-                }
-                else
-                {
-                    Rake.Text = sgs.Rake.Value.ToString();
-                    Rake.Tag = sgs.Rake.Value;
-                }
+                Dip.Tag = sgs.Dip;
+                Dip.Text = sgs.Dip.IsDesign? sgs.Dip.DesignName: sgs.Dip.Value.ToString();
 
-                if (sgs.Dip.IsDesign)
-                {
-                    Dip.Text = sgs.Dip.DesignName;
-                    Dip.Tag = sgs.Dip.Value;
-                }
-                else
-                {
-                    Dip.Text = sgs.Dip.Value.ToString();
-                    Dip.Tag = sgs.Dip.Value;
-                }
+                Azimuth.Tag = sgs.Azimuth;
+                Azimuth.Text = sgs.Azimuth.IsDesign ? sgs.Azimuth.DesignName : sgs.Azimuth.Value.ToString();
 
-                if (sgs.Azimuth.IsDesign)
-                {
-                    Azimuth.Text = sgs.Azimuth.DesignName;
-                    Azimuth.Tag = sgs.Azimuth.Value;
-                }
-                else
-                {
-                    Azimuth.Text = sgs.Azimuth.Value.ToString();
-                    Azimuth.Tag = sgs.Azimuth.Value;
-                }
+                SearchMinRadius.Tag = sgs.SearchMinRadius;
+                SearchMinRadius.Text = sgs.SearchMinRadius.IsDesign ? sgs.SearchMinRadius.DesignName : sgs.SearchMinRadius.Value.ToString();
 
-                if (sgs.SearchMinRadius.IsDesign)
-                {
-                    SearchMinRadius.Text = sgs.SearchMinRadius.DesignName;
-                    SearchMinRadius.Tag = sgs.SearchMinRadius.Value;
-                }
-                else
-                {
-                    SearchMinRadius.Text = sgs.SearchMinRadius.Value.ToString();
-                    SearchMinRadius.Tag = sgs.SearchMinRadius.Value;
-                }
+                SearchMedRadius.Tag = sgs.SearchMedRadius;
+                SearchMedRadius.Text = sgs.SearchMedRadius.IsDesign ? sgs.SearchMedRadius.DesignName : sgs.SearchMedRadius.Value.ToString();
 
-                if (sgs.SearchMedRadius.IsDesign)
-                {
-                    SearchMedRadius.Text = sgs.SearchMedRadius.DesignName;
-                    SearchMedRadius.Tag = sgs.SearchMedRadius.Value;
-                }
-                else
-                {
-                    SearchMedRadius.Text = sgs.SearchMedRadius.Value.ToString();
-                    SearchMedRadius.Tag = sgs.SearchMedRadius.Value;
-                }
-
-                if (sgs.SearchMaxRadius.IsDesign)
-                {
-                    SearchMaxRadius.Text = sgs.SearchMaxRadius.DesignName;
-                    SearchMaxRadius.Tag = sgs.SearchMaxRadius.Value;
-                }
-                else
-                {
-                    SearchMaxRadius.Text = sgs.SearchMaxRadius.Value.ToString();
-                    SearchMaxRadius.Tag = sgs.SearchMaxRadius.Value;
-                }
+                SearchMaxRadius.Tag = sgs.SearchMaxRadius;
+                SearchMaxRadius.Text = sgs.SearchMaxRadius.IsDesign ? sgs.SearchMaxRadius.DesignName : sgs.SearchMaxRadius.Value.ToString();
+                
                 this.variogramControl1.SetVariogram(sgs.Variogram);
             }
         }

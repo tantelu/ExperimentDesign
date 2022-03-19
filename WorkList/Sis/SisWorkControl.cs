@@ -23,7 +23,7 @@ namespace ExperimentDesign.WorkList.Sis
 
         protected override string WorkName => "序贯指示模拟";
 
-        protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
+        protected override Bitmap Picture => Properties.Resources.Sgs;
 
         public override void Run(int index, IReadOnlyDictionary<string, object> designVaribles)
         {
@@ -76,9 +76,8 @@ namespace ExperimentDesign.WorkList.Sis
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     par = form.GetSisPar();
-                    var newparam = VariableData.ObjectToVariables(this.param, par);
-                    this.param.Clear();
-                    this.param.AddRange(newparam);
+                    var newparam = VariableData.ObjectToVariables(par);
+                    UpdateText(newparam);
                 }
             }
         }
@@ -90,16 +89,6 @@ namespace ExperimentDesign.WorkList.Sis
             writer.WriteStartObject();
             writer.WritePropertyName(nameof(par));
             writer.WriteValue(par?.Save());
-            writer.WritePropertyName(nameof(param));
-            writer.WriteStartArray();
-            foreach (var item in param)
-            {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Data");
-                writer.WriteValue(item.Save());
-                writer.WriteEndObject();
-            }
-            writer.WriteEndArray();
             writer.WriteEndObject();
             writer.Flush();
             return sw.GetStringBuilder().ToString();
@@ -107,7 +96,6 @@ namespace ExperimentDesign.WorkList.Sis
 
         public override void Open(string str)
         {
-            param.Clear();
             JObject jobj = JObject.Parse(str);
             var parstr = jobj[nameof(par)]?.ToString();
             if (!string.IsNullOrEmpty(parstr))
@@ -115,22 +103,13 @@ namespace ExperimentDesign.WorkList.Sis
                 par = new SisPar();
                 par.Open(parstr);
             }
-            if (jobj[nameof(param)] is JArray ja)
-            {
-                if (ja?.Count > 0)
-                {
-                    for (int i = 0; i < ja.Count; i++)
-                    {
-                        JObject jo = ja[i] as JObject;
-                        VariableData data = new VariableData();
-                        data.Open(jo["Data"]?.ToString());
-                        param.Add(data);
-                    }
-                }
+            var newparam = VariableData.ObjectToVariables(par);
+            UpdateText(newparam);
+        }
 
-            }
-
-            UpdateText();
+        public override IReadOnlyList<VariableData> GetUncentainParam()
+        {
+            return VariableData.ObjectToVariables(par);
         }
     }
 }

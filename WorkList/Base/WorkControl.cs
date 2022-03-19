@@ -11,8 +11,6 @@ namespace ExperimentDesign.WorkList.Base
 {
     public partial class WorkControl : UserControl
     {
-        protected List<VariableData> param = new List<VariableData>();
-
         public IWork Main { get; set; }
 
         public WorkControl()
@@ -40,7 +38,6 @@ namespace ExperimentDesign.WorkList.Base
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
         {
             ShowParamForm();
-            UpdateText();
         }
 
         protected virtual void ShowParamForm() { }
@@ -48,15 +45,19 @@ namespace ExperimentDesign.WorkList.Base
         /// <summary>
         /// 界面上显示的设计参数
         /// </summary>
-        protected void UpdateText()
+        protected void UpdateText(List<VariableData> param)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var item in param)
+            if (param?.Count > 0)
             {
-                if (item.Name.ToString().Contains("$"))
+                
+                foreach (var item in param)
                 {
-                    sb.Append(item.Name);
-                    sb.Append(",");
+                    if (item.Name.ToString().Contains("$"))
+                    {
+                        sb.Append(item.Name);
+                        sb.Append(",");
+                    }
                 }
             }
             if (sb.Length > 0)
@@ -75,38 +76,17 @@ namespace ExperimentDesign.WorkList.Base
 
         public virtual string Save()
         {
-            StringWriter sw = new StringWriter();
-            JsonWriter writer = new JsonTextWriter(sw);
-            writer.WriteStartArray();
-            foreach (var item in param)
-            {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Data");
-                writer.WriteValue(item.Save());
-                writer.WriteEndObject();
-            }
-            writer.WriteEndArray();
-            writer.Flush();
-            return sw.GetStringBuilder().ToString();
+            return string.Empty;
         }
 
         public virtual void Open(string str)
         {
-            param.Clear();
-            JArray ja = JArray.Parse(str);
-            for (int i = 0; i < ja.Count; i++)
-            {
-                JObject jo = ja[i] as JObject;
-                VariableData data = new VariableData();
-                data.Open(jo["Data"]?.ToString());
-                param.Add(data);
-            }
-            UpdateText();
+            
         }
 
         public virtual IReadOnlyList<VariableData> GetUncentainParam()
         {
-            return param;
+            return null;
         }
 
         public override bool Focused => this.textEdit3.Focused;
