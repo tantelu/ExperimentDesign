@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid;
+using ExperimentDesign.WorkList.ShowResult;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -260,6 +260,18 @@ namespace ExperimentDesign
             info.Arguments = "sgsim.par";
             var process = Process.Start(info);
             return _out;
+        }
+
+        private void 不确定分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UncertaintyForm form = new UncertaintyForm();
+            form.Show();
+        }
+
+        private void 模型显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PictureGroupForm form = new PictureGroupForm();
+            form.Show();
         }
     }
 }

@@ -83,7 +83,7 @@ namespace ExperimentDesign.WorkList.Sgs
             sb.AppendLine("none.dat                      -  file with LVM, EXDR, or COLC variable");
             sb.AppendLine("4                             -  column for secondary variable");
             sb.AppendLine($"{1.0}  {Variogram.Nug}   -nst, nugget effect");
-            sb.AppendLine($"{(int)Variogram.VarType} {Variogram.Sill} {Variogram.MajorAzi}  {Variogram.MajorDip} {0.0}  -it,cc,ang1,ang2,ang3");
+            sb.AppendLine($"{(int)Variogram.VarType + 1} {Variogram.Sill} {Variogram.MajorAzi}  {Variogram.MajorDip} {0.0}  -it,cc,ang1,ang2,ang3");
             sb.AppendLine($"{Variogram.MajorRange} { Variogram.MinorRange} {Variogram.VerRange}  - a_hmax, a_hmin, a_vert");
             foreach (var keyvalue in designVaribles)
             {

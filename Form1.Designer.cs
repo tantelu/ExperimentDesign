@@ -37,17 +37,22 @@ namespace ExperimentDesign
             this.响应曲面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模拟ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.不确定分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.模型显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
             this.实验ToolStripMenuItem,
-            this.模拟ToolStripMenuItem});
+            this.模拟ToolStripMenuItem,
+            this.不确定分析ToolStripMenuItem,
+            this.模型显示ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1170, 32);
@@ -106,6 +111,20 @@ namespace ExperimentDesign
             this.panelControl1.Size = new System.Drawing.Size(1170, 620);
             this.panelControl1.TabIndex = 1;
             // 
+            // 不确定分析ToolStripMenuItem
+            // 
+            this.不确定分析ToolStripMenuItem.Name = "不确定分析ToolStripMenuItem";
+            this.不确定分析ToolStripMenuItem.Size = new System.Drawing.Size(116, 28);
+            this.不确定分析ToolStripMenuItem.Text = "不确定分析";
+            this.不确定分析ToolStripMenuItem.Click += new System.EventHandler(this.不确定分析ToolStripMenuItem_Click);
+            // 
+            // 模型显示ToolStripMenuItem
+            // 
+            this.模型显示ToolStripMenuItem.Name = "模型显示ToolStripMenuItem";
+            this.模型显示ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.模型显示ToolStripMenuItem.Text = "模型显示";
+            this.模型显示ToolStripMenuItem.Click += new System.EventHandler(this.模型显示ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -137,6 +156,8 @@ namespace ExperimentDesign
         private System.Windows.Forms.ToolStripMenuItem plackettBurman实验ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 响应曲面ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 模拟ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 不确定分析ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 模型显示ToolStripMenuItem;
     }
 }
 

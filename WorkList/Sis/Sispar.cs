@@ -51,7 +51,7 @@ namespace ExperimentDesign.WorkList.Sis
         [Description("是否使用中值克里金")]
         public bool MedianIK { get; set; }
 
-        public void Save(string file,Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
+        public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("              Parameters for SISIM                                         ");
@@ -105,7 +105,7 @@ namespace ExperimentDesign.WorkList.Sis
             foreach (var item in Vars)
             {
                 sb.AppendLine($"{1.0}  {item.Variogram.Nug}   -nst, nugget effect");
-                sb.AppendLine($"{(int)item.Variogram.VarType} {item.Variogram.Sill} {item.Variogram.MajorAzi}  {item.Variogram.MajorDip} {0.0}  -it,cc,ang1,ang2,ang3");
+                sb.AppendLine($"{(int)item.Variogram.VarType + 1} {item.Variogram.Sill} {item.Variogram.MajorAzi}  {item.Variogram.MajorDip} {0.0}  -it,cc,ang1,ang2,ang3");
                 sb.AppendLine($"{item.Variogram.MajorRange} { item.Variogram.MinorRange} {item.Variogram.VerRange}  - a_hmax, a_hmin, a_vert");
             }
             foreach (var keyvalue in designVaribles)
@@ -187,7 +187,7 @@ namespace ExperimentDesign.WorkList.Sis
                 SearchMaxRadius.Open(jo[nameof(SearchMaxRadius)]?.ToString());
 
                 Vars = new List<CategoryIndicatorParam>();
-                if(jo[nameof(Vars)] is JArray ja)
+                if (jo[nameof(Vars)] is JArray ja)
                 {
                     if (ja?.Count > 0)
                     {

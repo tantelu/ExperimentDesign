@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
+using System.Diagnostics;
 
 namespace ExperimentDesign
 {
@@ -525,6 +526,11 @@ namespace ExperimentDesign
         {
             Current = this.comboBoxEdit_exit.SelectedItem as WorkFlow;
             Open(Current?.GetWorkConfigFile());
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

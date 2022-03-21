@@ -54,7 +54,7 @@ namespace ExperimentDesign.WorkList.ShowResult
                     }
 
                 }
-                map.Save(Path.Combine(Main.GetWorkPath(), $"{index}", $"{WorkName}.png"));
+                map.Save(Path.ChangeExtension(file, "png"));
             }
             else
             {
@@ -66,7 +66,7 @@ namespace ExperimentDesign.WorkList.ShowResult
 
         public override bool GetRunState(int index)
         {
-            return canjump || File.Exists(Path.Combine(Main.GetWorkPath(), $"{index}", $"{WorkName}.png"));
+            return true;
         }
 
         public override string Save()
