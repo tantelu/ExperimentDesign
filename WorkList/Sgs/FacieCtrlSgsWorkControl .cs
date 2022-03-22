@@ -15,7 +15,7 @@ namespace ExperimentDesign.WorkList.Sgs
     {
         private Process process;
 
-        private Dictionary<string, SgsPar> pars=new Dictionary<string, SgsPar>();
+        private Dictionary<string, SgsPar> pars = new Dictionary<string, SgsPar>();
 
         public FacieCtrlSgsWorkControl()
         {
@@ -84,28 +84,33 @@ namespace ExperimentDesign.WorkList.Sgs
 
         public override string Save()
         {
-            //StringWriter sw = new StringWriter();
-            //JsonWriter writer = new JsonTextWriter(sw);
-            //writer.WriteStartObject();
-            //writer.WritePropertyName(nameof(par));
-            //writer.WriteValue(par?.Save());
-            //writer.WriteEndObject();
-            //writer.Flush();
-            //return sw.GetStringBuilder().ToString();
-            return string.Empty;
+            StringWriter sw = new StringWriter();
+            JsonWriter writer = new JsonTextWriter(sw);
+            writer.WriteStartObject();
+            if (pars.Count > 0)
+            {
+                foreach (var item in pars)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteValue(item.Value.Save());
+                }
+            }
+            writer.WriteEndObject();
+            writer.Flush();
+            return sw.GetStringBuilder().ToString();
         }
 
         public override void Open(string str)
         {
-            //JObject jobj = JObject.Parse(str);
-            //var parstr = jobj[nameof(par)]?.ToString();
-            //if (!string.IsNullOrEmpty(parstr))
-            //{
-            //    par = new SgsPar();
-            //    par.Open(parstr);
-            //}
-            //var newparam = VariableData.ObjectToVariables(par);
-            //UpdateText(newparam);
+            JObject jobj = JObject.Parse(str);
+            var propertys= jobj.Properties();
+            foreach (var property in propertys)
+            {
+                var par = new SgsPar();
+                par.Open(jobj[property.Name]?.ToString());
+                pars.Add(property.Name, par);
+            }
+            UpdateText(GetUncentainParam());
         }
 
         public override IReadOnlyList<VariableData> GetUncentainParam()

@@ -47,6 +47,11 @@ namespace ExperimentDesign.WorkList.Sgs
 
         public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {
+            Save(file, Grid3D, designVaribles, "sgs.out");
+        }
+
+        public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles,string outfilename)
+        {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("              Parameters for SGSIM                                         ");
             sb.AppendLine("              ********************                                         ");
@@ -65,7 +70,7 @@ namespace ExperimentDesign.WorkList.Sgs
             sb.AppendLine("1       4.0                   -  upper tail option, parameter              ");
             sb.AppendLine("3                             -debugging level: 0,1,2,3                    ");
             sb.AppendLine("sgs.dbg                      -file for debugging output                   ");
-            sb.AppendLine("sgs.out                  -file for simulation output                  ");
+            sb.AppendLine($"{outfilename}                  -file for simulation output                  ");
             sb.AppendLine($"{1}" + "                 -number of realizations to generate          ");
             sb.AppendLine($"{(int)((Grid3D.Xmax - Grid3D.Xmin) / Grid3D.Xsize)} {Grid3D.Xmin} {Grid3D.Xsize}  -nx,xmn,xsiz");
             sb.AppendLine($"{(int)((Grid3D.Ymax - Grid3D.Ymin) / Grid3D.Ysize)} {Grid3D.Ymin} {Grid3D.Ysize} -ny,ymn,ysiz");
