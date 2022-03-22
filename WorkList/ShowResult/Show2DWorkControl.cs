@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.General;
 using ExperimentDesign.WorkList.Base;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ExperimentDesign.WorkList.ShowResult
                 int xcount = 0;
                 int ycount = 0;
                 int zcount = 0;
-                var gslib = ReadGislib(file, out xcount, out ycount, out zcount);
+                var gslib = Gslib.ReadGislib(file, out xcount, out ycount, out zcount);
                 Bitmap map = new Bitmap(xcount, ycount);
                 var max = gslib.Max();
                 var min = gslib.Min();
@@ -88,36 +89,6 @@ namespace ExperimentDesign.WorkList.ShowResult
                 {
                     ShowFile = form.FileName;
                 }
-            }
-        }
-
-        private float[] ReadGislib(string gislibfile, out int xcount, out int ycount, out int zcount)
-        {
-            using (FileStream fileStream = new FileStream(gislibfile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                StreamReader reader = new StreamReader(fileStream);
-                reader.ReadLine();
-                var first = reader.ReadLine();
-                var gridcount = first.Split(new string[] { "x", "(", ")", " " }, StringSplitOptions.RemoveEmptyEntries);
-                xcount = Convert.ToInt32(gridcount[1]);
-                ycount = Convert.ToInt32(gridcount[2]);
-                zcount = Convert.ToInt32(gridcount[3]);
-                float[] fs = new float[xcount * ycount * zcount];
-                reader.ReadLine();
-                int index = 0;
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var strs = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                    if (strs.Length > 0 && strs[0].Trim().Length > 0)
-                    {
-                        float facie = Convert.ToSingle(strs[0].Trim());
-                        fs[index++] = facie;
-                    }
-                }
-                reader.Close();
-                reader.Dispose();
-                return fs;
             }
         }
     }

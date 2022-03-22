@@ -95,6 +95,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Design.cs" />
+    <Compile Include="General\Gslib.cs" />
     <Compile Include="General\KrigType.cs" />
     <Compile Include="General\VariogramType.cs" />
     <Compile Include="GridPopForm\MinMaxPopForm.cs">
