@@ -43,7 +43,7 @@ namespace ExperimentDesign.WorkList.Base
         /// <summary>
         /// 界面上显示的设计参数
         /// </summary>
-        protected void UpdateText(List<VariableData> param)
+        protected void UpdateText(IReadOnlyCollection<VariableData> param)
         {
             StringBuilder sb = new StringBuilder();
             if (param?.Count > 0)

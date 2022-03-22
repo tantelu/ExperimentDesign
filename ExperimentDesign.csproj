@@ -126,12 +126,33 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="General\GroupAttribute.cs" />
+    <Compile Include="WorkList\Sgs\FacieCtrlSgsRunForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Sgs\FacieCtrlSgsRunForm.Designer.cs">
+      <DependentUpon>FacieCtrlSgsRunForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Sgs\FacieSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Sgs\FacieSelectForm.Designer.cs">
+      <DependentUpon>FacieSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\Sgs\SgsPar.cs" />
+    <Compile Include="WorkList\Sgs\SgsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkList\Sgs\SgsUserControl.Designer.cs">
+      <DependentUpon>SgsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\Sgs\SgsRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WorkList\Sgs\SgsRunForm.Designer.cs">
       <DependentUpon>SgsRunForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Sgs\FacieCtrlSgsWorkControl .cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkList\ShowResult\ColorBar.cs" />
     <Compile Include="WorkList\ShowResult\PictureGroupForm.cs">
@@ -268,6 +289,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Sgs\FacieCtrlSgsRunForm.resx">
+      <DependentUpon>FacieCtrlSgsRunForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Sgs\FacieSelectForm.resx">
+      <DependentUpon>FacieSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Sgs\SgsUserControl.resx">
+      <DependentUpon>SgsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Sgs\SgsRunForm.resx">
       <DependentUpon>SgsRunForm.cs</DependentUpon>
