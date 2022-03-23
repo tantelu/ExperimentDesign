@@ -71,19 +71,6 @@ namespace ExperimentDesign.WorkList.Sgs
                     facies.RemoveAt(facies.Count - 1);
                 }
             }
-            if (facies.Count > 0)
-            {
-                string str = string.Empty;
-                foreach (var item in facies)
-                {
-                    str += $"{item} ";
-                }
-                this.buttonEdit1.Text = str;
-            }
-            else
-            {
-                this.buttonEdit1.Text = string.Empty;
-            }
             Refresh();
         }
 
@@ -106,11 +93,30 @@ namespace ExperimentDesign.WorkList.Sgs
             newpage.Size = new Size(1111, 376);
             this.tabPane1.Pages.Add(newpage);
             facies.Add(facie);
+            Refresh();
         }
 
         private void simpleButton1_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
+        }
+
+        public override void Refresh()
+        {
+            if (facies.Count > 0)
+            {
+                string str = string.Empty;
+                foreach (var item in facies)
+                {
+                    str += $"{item} ";
+                }
+                this.buttonEdit1.Text = str;
+            }
+            else
+            {
+                this.buttonEdit1.Text = string.Empty;
+            }
+            base.Refresh();
         }
     }
 }

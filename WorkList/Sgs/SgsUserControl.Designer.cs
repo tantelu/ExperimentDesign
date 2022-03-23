@@ -58,6 +58,12 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.DataFile = new DevExpress.XtraEditors.ButtonEdit();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.MinValue = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.MaxValue = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -87,6 +93,12 @@ namespace ExperimentDesign.WorkList.Sgs
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -146,6 +158,9 @@ namespace ExperimentDesign.WorkList.Sgs
             // 
             // layoutControl2
             // 
+            this.layoutControl2.Controls.Add(this.MaxValue);
+            this.layoutControl2.Controls.Add(this.MinValue);
+            this.layoutControl2.Controls.Add(this.DataFile);
             this.layoutControl2.Controls.Add(this.SearchMinRadius);
             this.layoutControl2.Controls.Add(this.SearchMedRadius);
             this.layoutControl2.Controls.Add(this.SearchMaxRadius);
@@ -167,7 +182,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // SearchMinRadius
             // 
             this.SearchMinRadius.EditValue = "300";
-            this.SearchMinRadius.Location = new System.Drawing.Point(753, 37);
+            this.SearchMinRadius.Location = new System.Drawing.Point(753, 105);
             this.SearchMinRadius.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SearchMinRadius.Name = "SearchMinRadius";
             this.SearchMinRadius.Properties.Appearance.Options.UseTextOptions = true;
@@ -180,7 +195,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // SearchMedRadius
             // 
             this.SearchMedRadius.EditValue = "300";
-            this.SearchMedRadius.Location = new System.Drawing.Point(418, 37);
+            this.SearchMedRadius.Location = new System.Drawing.Point(418, 105);
             this.SearchMedRadius.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SearchMedRadius.Name = "SearchMedRadius";
             this.SearchMedRadius.Properties.Appearance.Options.UseTextOptions = true;
@@ -193,7 +208,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // SearchMaxRadius
             // 
             this.SearchMaxRadius.EditValue = "500";
-            this.SearchMaxRadius.Location = new System.Drawing.Point(117, 37);
+            this.SearchMaxRadius.Location = new System.Drawing.Point(117, 105);
             this.SearchMaxRadius.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SearchMaxRadius.Name = "SearchMaxRadius";
             this.SearchMaxRadius.Properties.Appearance.Options.UseTextOptions = true;
@@ -206,7 +221,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // Rake
             // 
             this.Rake.EditValue = "0";
-            this.Rake.Location = new System.Drawing.Point(728, 71);
+            this.Rake.Location = new System.Drawing.Point(728, 139);
             this.Rake.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Rake.Name = "Rake";
             this.Rake.Properties.Appearance.Options.UseTextOptions = true;
@@ -219,7 +234,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // Dip
             // 
             this.Dip.EditValue = "0";
-            this.Dip.Location = new System.Drawing.Point(388, 71);
+            this.Dip.Location = new System.Drawing.Point(388, 139);
             this.Dip.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Dip.Name = "Dip";
             this.Dip.Properties.Appearance.Options.UseTextOptions = true;
@@ -232,7 +247,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // Azimuth
             // 
             this.Azimuth.EditValue = "0";
-            this.Azimuth.Location = new System.Drawing.Point(70, 71);
+            this.Azimuth.Location = new System.Drawing.Point(70, 139);
             this.Azimuth.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Azimuth.Name = "Azimuth";
             this.Azimuth.Properties.Appearance.Options.UseTextOptions = true;
@@ -244,7 +259,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(5, 7);
+            this.labelControl1.Location = new System.Drawing.Point(5, 75);
             this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(108, 22);
@@ -255,7 +270,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // MaxData
             // 
             this.MaxData.EditValue = "8";
-            this.MaxData.Location = new System.Drawing.Point(154, 139);
+            this.MaxData.Location = new System.Drawing.Point(154, 207);
             this.MaxData.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaxData.Name = "MaxData";
             this.MaxData.Properties.Appearance.Options.UseTextOptions = true;
@@ -268,7 +283,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // krigType
             // 
             this.krigType.EditValue = "简单克里金";
-            this.krigType.Location = new System.Drawing.Point(154, 105);
+            this.krigType.Location = new System.Drawing.Point(154, 173);
             this.krigType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.krigType.Name = "krigType";
             this.krigType.Properties.Appearance.Options.UseTextOptions = true;
@@ -297,7 +312,10 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem16,
             this.layoutControlItem17,
             this.layoutControlItem18,
-            this.layoutControlItem19});
+            this.layoutControlItem19,
+            this.layoutControlItem1,
+            this.layoutControlItem2,
+            this.layoutControlItem4});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
@@ -307,7 +325,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.krigType;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 100);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 168);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(911, 34);
             this.layoutControlItem7.Text = "克里金类型：";
@@ -316,15 +334,15 @@ namespace ExperimentDesign.WorkList.Sgs
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 168);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 236);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(885, 36);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(911, 13);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.MaxData;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 134);
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 202);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(911, 34);
             this.layoutControlItem8.Text = "最大条件点数量：";
@@ -333,7 +351,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem13
             // 
             this.layoutControlItem13.Control = this.labelControl1;
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 68);
             this.layoutControlItem13.Name = "layoutControlItem13";
             this.layoutControlItem13.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 5, 5);
             this.layoutControlItem13.Size = new System.Drawing.Size(911, 32);
@@ -343,7 +361,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem14
             // 
             this.layoutControlItem14.Control = this.Azimuth;
-            this.layoutControlItem14.Location = new System.Drawing.Point(0, 66);
+            this.layoutControlItem14.Location = new System.Drawing.Point(0, 134);
             this.layoutControlItem14.Name = "layoutControlItem14";
             this.layoutControlItem14.Size = new System.Drawing.Size(300, 34);
             this.layoutControlItem14.Text = "主方向:";
@@ -354,7 +372,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem15
             // 
             this.layoutControlItem15.Control = this.Dip;
-            this.layoutControlItem15.Location = new System.Drawing.Point(300, 66);
+            this.layoutControlItem15.Location = new System.Drawing.Point(300, 134);
             this.layoutControlItem15.Name = "layoutControlItem15";
             this.layoutControlItem15.Size = new System.Drawing.Size(340, 34);
             this.layoutControlItem15.Text = "倾角方向:";
@@ -365,7 +383,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem16
             // 
             this.layoutControlItem16.Control = this.Rake;
-            this.layoutControlItem16.Location = new System.Drawing.Point(640, 66);
+            this.layoutControlItem16.Location = new System.Drawing.Point(640, 134);
             this.layoutControlItem16.Name = "layoutControlItem16";
             this.layoutControlItem16.Size = new System.Drawing.Size(271, 34);
             this.layoutControlItem16.Text = "倾覆方向:";
@@ -376,7 +394,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem17
             // 
             this.layoutControlItem17.Control = this.SearchMaxRadius;
-            this.layoutControlItem17.Location = new System.Drawing.Point(0, 32);
+            this.layoutControlItem17.Location = new System.Drawing.Point(0, 100);
             this.layoutControlItem17.Name = "layoutControlItem17";
             this.layoutControlItem17.Size = new System.Drawing.Size(300, 34);
             this.layoutControlItem17.Text = "长半轴(max):";
@@ -387,7 +405,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem18
             // 
             this.layoutControlItem18.Control = this.SearchMedRadius;
-            this.layoutControlItem18.Location = new System.Drawing.Point(300, 32);
+            this.layoutControlItem18.Location = new System.Drawing.Point(300, 100);
             this.layoutControlItem18.Name = "layoutControlItem18";
             this.layoutControlItem18.Size = new System.Drawing.Size(340, 34);
             this.layoutControlItem18.Text = "中半轴(med):";
@@ -398,7 +416,7 @@ namespace ExperimentDesign.WorkList.Sgs
             // layoutControlItem19
             // 
             this.layoutControlItem19.Control = this.SearchMinRadius;
-            this.layoutControlItem19.Location = new System.Drawing.Point(640, 32);
+            this.layoutControlItem19.Location = new System.Drawing.Point(640, 100);
             this.layoutControlItem19.Name = "layoutControlItem19";
             this.layoutControlItem19.Size = new System.Drawing.Size(271, 34);
             this.layoutControlItem19.Text = "短半轴(min):";
@@ -426,6 +444,67 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem3.Size = new System.Drawing.Size(927, 310);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
+            // 
+            // DataFile
+            // 
+            this.DataFile.Location = new System.Drawing.Point(154, 5);
+            this.DataFile.Name = "DataFile";
+            this.DataFile.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.DataFile.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.DataFile.Size = new System.Drawing.Size(756, 28);
+            this.DataFile.StyleController = this.layoutControl2;
+            this.DataFile.TabIndex = 15;
+            this.DataFile.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.DataFile_ButtonClick);
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.DataFile;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(911, 34);
+            this.layoutControlItem1.Text = "条件数据：";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(144, 22);
+            // 
+            // MinValue
+            // 
+            this.MinValue.EditValue = "0";
+            this.MinValue.Location = new System.Drawing.Point(154, 39);
+            this.MinValue.Name = "MinValue";
+            this.MinValue.Properties.Appearance.Options.UseTextOptions = true;
+            this.MinValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.MinValue.Size = new System.Drawing.Size(300, 28);
+            this.MinValue.StyleController = this.layoutControl2;
+            this.MinValue.TabIndex = 16;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.MinValue;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 34);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(455, 34);
+            this.layoutControlItem2.Text = "最小值：";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(144, 22);
+            // 
+            // MaxValue
+            // 
+            this.MaxValue.EditValue = "1";
+            this.MaxValue.Location = new System.Drawing.Point(609, 39);
+            this.MaxValue.Name = "MaxValue";
+            this.MaxValue.Properties.Appearance.Options.UseTextOptions = true;
+            this.MaxValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.MaxValue.Size = new System.Drawing.Size(301, 28);
+            this.MaxValue.StyleController = this.layoutControl2;
+            this.MaxValue.TabIndex = 17;
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.MaxValue;
+            this.layoutControlItem4.Location = new System.Drawing.Point(455, 34);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(456, 34);
+            this.layoutControlItem4.Text = "最大值：";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(144, 22);
             // 
             // SgsUserControl
             // 
@@ -464,6 +543,12 @@ namespace ExperimentDesign.WorkList.Sgs
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -498,5 +583,11 @@ namespace ExperimentDesign.WorkList.Sgs
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem17;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem18;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
+        private DevExpress.XtraEditors.TextEdit MaxValue;
+        private DevExpress.XtraEditors.TextEdit MinValue;
+        private DevExpress.XtraEditors.ButtonEdit DataFile;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

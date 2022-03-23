@@ -45,6 +45,10 @@ namespace ExperimentDesign.WorkList.Sgs
             par.Save(file, grid, designVaribles);
             string exe = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgsim.exe");
             string _out = Path.Combine(Main.GetWorkPath(), $"{index}", @"sgs.out");
+            if (File.Exists(par.DataFileName))
+            {
+                File.Copy(par.DataFileName, Path.Combine(Main.GetWorkPath(), $"{index}", Path.GetFileName(par.DataFileName)), true);
+            }
             File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = exe;

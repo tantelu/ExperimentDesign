@@ -12,6 +12,15 @@ namespace ExperimentDesign.WorkList.Sgs
 {
     public class SgsPar
     {
+        [Description("条件数据<绝对路径")]
+        public string DataFileName { get; set; }
+
+        [Description("数据最小值")]
+        public Design<double> MinValue { get; set; }
+
+        [Description("数据最大值")]
+        public Design<double> MaxValue { get; set; }
+
         [Group]
         public Variogram Variogram { get; set; }
 
@@ -50,25 +59,26 @@ namespace ExperimentDesign.WorkList.Sgs
             Save(file, Grid3D, designVaribles, "sgs.out");
         }
 
-        public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles,string outfilename)
+        public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles, string outfilename)
         {
+            int dataexit = File.Exists(this.DataFileName) ? 1 : 0;
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("              Parameters for SGSIM                                         ");
             sb.AppendLine("              ********************                                         ");
             sb.AppendLine("                                                                           ");
             sb.AppendLine("START OF PARAMETER:                                                        ");
-            sb.AppendLine("none                          -file with data                              ");
-            sb.AppendLine("1  2  0  3  5  0              -  columns for X,Y,Z,vr,wt,sec.var.          ");
-            sb.AppendLine("-1.0e21 1.0e21                -  trimming limits                           ");
-            sb.AppendLine("0                             -transform the data (0=no, 1=yes)            ");
-            sb.AppendLine("none.trn                      -  file for output trans table               ");
-            sb.AppendLine("1                             -  consider ref. dist (0=no, 1=yes)          ");
+            sb.AppendLine($"{(dataexit == 1 ? Path.GetFileName(DataFileName) : "none")}                          -file with data                              ");
+            sb.AppendLine("1  2  0  4  0  0              -  columns for X,Y,Z,vr,wt,sec.var.          ");
+            sb.AppendLine("-1.0e21    1.0e21             -  trimming limits                           ");
+            sb.AppendLine($"{dataexit}                             -transform the data (0=no, 1=yes)            ");
+            sb.AppendLine("trans.trn                      -  file for output trans table               ");
+            sb.AppendLine("0                             -  consider ref. dist (0=no, 1=yes)          ");
             sb.AppendLine("none.dat                      -  file with ref. dist distribution          ");
-            sb.AppendLine("1  0                          -  columns for vr and wt                     ");
-            sb.AppendLine("-4.0    4.0                   -  zmin,zmax(tail extrapolation)             ");
-            sb.AppendLine("1      -4.0                   -  lower tail option, parameter              ");
-            sb.AppendLine("1       4.0                   -  upper tail option, parameter              ");
-            sb.AppendLine("3                             -debugging level: 0,1,2,3                    ");
+            sb.AppendLine("1  2                          -  columns for vr and wt                     ");
+            sb.AppendLine($"{MinValue}    {MaxValue}     -  zmin,zmax(tail extrapolation)             ");
+            sb.AppendLine("1      1.0                   -  lower tail option, parameter              ");
+            sb.AppendLine("1      1.0                   -  upper tail option, parameter              ");
+            sb.AppendLine("2                             -debugging level: 0,1,2,3                    ");
             sb.AppendLine("sgs.dbg                      -file for debugging output                   ");
             sb.AppendLine($"{outfilename}                  -file for simulation output                  ");
             sb.AppendLine($"{1}" + "                 -number of realizations to generate          ");
@@ -78,7 +88,7 @@ namespace ExperimentDesign.WorkList.Sgs
             sb.AppendLine($"{GlobalWorkCongfig.Seed}  -random number seed");
             sb.AppendLine($"0  {MaxData}  -min and max original data for sim");
             sb.AppendLine("12                            -number of simulated nodes to use            ");
-            sb.AppendLine("0                             -assign data to nodes (0=no, 1=yes)          ");
+            sb.AppendLine($"{dataexit}                             -assign data to nodes (0=no, 1=yes)          ");
             sb.AppendLine($"{(UseMulti ? 1 : 0)}  {(MultiGrid == null ? 3 : MultiGrid)}   -multiple grid search (0=no, 1=yes),num");
             sb.AppendLine("0   -maximum data per octant (0=not used)");
             sb.AppendLine($"{SearchMaxRadius}  {SearchMedRadius}  {SearchMinRadius}  -maximum search  (hmax,hmin,vert)");
@@ -118,6 +128,12 @@ namespace ExperimentDesign.WorkList.Sgs
             writer.WriteValue(SearchMedRadius.Save());
             writer.WritePropertyName(nameof(SearchMaxRadius));
             writer.WriteValue(SearchMaxRadius.Save());
+            writer.WritePropertyName(nameof(MaxValue));
+            writer.WriteValue(MaxValue.Save());
+            writer.WritePropertyName(nameof(MinValue));
+            writer.WriteValue(MinValue.Save());
+            writer.WritePropertyName(nameof(DataFileName));
+            writer.WriteValue(DataFileName);
             writer.WritePropertyName(nameof(Variogram));
             writer.WriteValue(Variogram.Save());
             writer.WriteEndObject();
@@ -133,6 +149,12 @@ namespace ExperimentDesign.WorkList.Sgs
                 KrigType = (KrigType)(int)jo[nameof(KrigType)];
                 MaxData = new Design<int>();
                 MaxData.Open(jo[nameof(MaxData)]?.ToString());
+
+                MinValue = new Design<double>();
+                MinValue.Open(jo[nameof(MinValue)]?.ToString());
+                MaxValue = new Design<double>();
+                MaxValue.Open(jo[nameof(MaxValue)]?.ToString());
+                DataFileName = jo[nameof(DataFileName)]?.ToString();
 
                 Rake = new Design<double>();
                 Rake.Open(jo[nameof(Rake)]?.ToString());

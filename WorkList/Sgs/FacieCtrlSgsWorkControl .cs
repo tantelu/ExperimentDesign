@@ -2,7 +2,6 @@
 using ExperimentDesign.General;
 using ExperimentDesign.WorkList.Base;
 using ExperimentDesign.WorkList.Grid;
-using ExperimentDesign.WorkList.ShowResult;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Sgs
