@@ -1,15 +1,17 @@
 ﻿using ExperimentDesign.General;
-using System.IO;
+using ExperimentDesign.WorkList.FacieCtrl;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Sgs
 {
-    public partial class SgsUserControl : UserControl
+    public partial class SgsUserControl : UserControl, IFacieCtrlUserControl
     {
         public SgsUserControl()
         {
             InitializeComponent();
         }
+
+        public UserControl Control => this;
 
         public SgsPar GetSgsPar()
         {
@@ -40,7 +42,7 @@ namespace ExperimentDesign.WorkList.Sgs
                 Rake.Tag = sgs.Rake;
                 Rake.Text = sgs.Rake.IsDesign ? sgs.Rake.DesignName : sgs.Rake.Value.ToString();
                 MaxValue.Tag = sgs.MaxValue;
-                MaxValue.Text= sgs.MaxValue.IsDesign ? sgs.MaxValue.DesignName : sgs.MaxValue.Value.ToString();
+                MaxValue.Text = sgs.MaxValue.IsDesign ? sgs.MaxValue.DesignName : sgs.MaxValue.Value.ToString();
                 MinValue.Tag = sgs.MinValue;
                 MinValue.Text = sgs.MinValue.IsDesign ? sgs.MinValue.DesignName : sgs.MinValue.Value.ToString();
 
@@ -74,6 +76,14 @@ namespace ExperimentDesign.WorkList.Sgs
             else
             {
                 DataFile.Text = string.Empty;
+            }
+        }
+
+        public void SetPar(IFacieCtrlPar par)
+        {
+            if (par is SgsPar sgspar)
+            {
+                SetSgsPar(sgspar);
             }
         }
     }

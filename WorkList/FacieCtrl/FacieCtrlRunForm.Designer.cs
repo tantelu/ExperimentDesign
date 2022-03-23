@@ -1,7 +1,7 @@
 ﻿
-namespace ExperimentDesign.WorkList.Sgs
+namespace ExperimentDesign.WorkList.FacieCtrl
 {
-    partial class FacieCtrlSgsRunForm
+    partial class FacieCtrlRunForm
     {
         /// <summary>
         /// Required designer variable.
@@ -148,16 +148,16 @@ namespace ExperimentDesign.WorkList.Sgs
             this.emptySpaceItem1.Size = new System.Drawing.Size(1004, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // FacieCtrlSgsRunForm
+            // FacieCtrlRunForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1153, 466);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "FacieCtrlSgsRunForm";
+            this.Name = "FacieCtrlRunForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "相控序贯高斯";
+            this.Text = "相控属性模拟";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).EndInit();

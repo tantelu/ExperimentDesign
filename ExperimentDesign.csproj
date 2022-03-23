@@ -127,16 +127,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="General\GroupAttribute.cs" />
-    <Compile Include="WorkList\Sgs\FacieCtrlSgsRunForm.cs">
+    <Compile Include="WorkList\FacieCtrl\FacieCtrlRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\Sgs\FacieCtrlSgsRunForm.Designer.cs">
-      <DependentUpon>FacieCtrlSgsRunForm.cs</DependentUpon>
+    <Compile Include="WorkList\FacieCtrl\FacieCtrlRunForm.Designer.cs">
+      <DependentUpon>FacieCtrlRunForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\Sgs\FacieSelectForm.cs">
+    <Compile Include="WorkList\FacieCtrl\IFacieCtrlUserControl.cs" />
+    <Compile Include="WorkList\FacieCtrl\IFacieCtrlPar.cs" />
+    <Compile Include="WorkList\FacieCtrl\FacieSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkList\Sgs\FacieSelectForm.Designer.cs">
+    <Compile Include="WorkList\FacieCtrl\FacieSelectForm.Designer.cs">
       <DependentUpon>FacieSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkList\Sgs\SgsPar.cs" />
@@ -152,7 +154,7 @@
     <Compile Include="WorkList\Sgs\SgsRunForm.Designer.cs">
       <DependentUpon>SgsRunForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkList\Sgs\FacieCtrlSgsWorkControl .cs">
+    <Compile Include="WorkList\FacieCtrl\FacieCtrlWorkControl .cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkList\ShowResult\ColorBar.cs" />
@@ -271,6 +273,9 @@
     <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\FacieCtrl\FacieCtrlRunForm.resx">
+      <DependentUpon>FacieCtrlRunForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Grid\GridEditForm.resx">
       <DependentUpon>GridEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,10 +296,7 @@
     <EmbeddedResource Include="UncertaintyForm.resx">
       <DependentUpon>UncertaintyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\Sgs\FacieCtrlSgsRunForm.resx">
-      <DependentUpon>FacieCtrlSgsRunForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorkList\Sgs\FacieSelectForm.resx">
+    <EmbeddedResource Include="WorkList\FacieCtrl\FacieSelectForm.resx">
       <DependentUpon>FacieSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Sgs\SgsUserControl.resx">

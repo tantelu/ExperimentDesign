@@ -14,7 +14,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
-using System.Diagnostics;
 
 namespace ExperimentDesign
 {

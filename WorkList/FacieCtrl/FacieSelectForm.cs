@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList.Sgs
+namespace ExperimentDesign.WorkList.FacieCtrl
 {
     public partial class FacieSelectForm : Form
     {
@@ -21,9 +21,23 @@ namespace ExperimentDesign.WorkList.Sgs
             InitializeComponent();
         }
 
+        public PropertyModelMethod Method
+        {
+            get
+            {
+                return (PropertyModelMethod)this.comboBoxEdit1.SelectedIndex;
+            }
+        }
+
         private void simpleButton1_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
+    }
+
+    public enum PropertyModelMethod
+    {
+        Sgs,
+        Direct,
     }
 }

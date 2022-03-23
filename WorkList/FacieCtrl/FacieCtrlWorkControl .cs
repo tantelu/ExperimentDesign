@@ -1,28 +1,29 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.General;
 using ExperimentDesign.WorkList.Base;
+using ExperimentDesign.WorkList.FacieCtrl;
 using ExperimentDesign.WorkList.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList.Sgs
+namespace ExperimentDesign.WorkList.FacieCtrl
 {
-    public class FacieCtrlSgsWorkControl : WorkControl
+    public class FacieCtrlWorkControl : WorkControl
     {
-        private Dictionary<string, SgsPar> pars = new Dictionary<string, SgsPar>();
+        private Dictionary<string, IFacieCtrlPar> pars = new Dictionary<string, IFacieCtrlPar>();
 
-        public FacieCtrlSgsWorkControl()
+        public FacieCtrlWorkControl()
         {
 
         }
 
-        protected override string WorkName => "相控序贯高斯模拟";
+        protected override string WorkName => "相控模拟";
 
         protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
 
@@ -45,30 +46,15 @@ namespace ExperimentDesign.WorkList.Sgs
                 Dictionary<string, float[]> sgses = new Dictionary<string, float[]>();
                 foreach (var item in pars)
                 {
+                    Grid3D grid = new Grid3D();
+                    grid.Open(gridfile);
                     var par = item.Value;
                     var workpath = Path.Combine(Main.GetWorkPath(), $"{index}", item.Key);
                     if (!Directory.Exists(workpath))
                     {
                         Directory.CreateDirectory(workpath);
                     }
-                    Grid3D grid = new Grid3D();
-                    grid.Open(gridfile);
-                    string file = Path.Combine(workpath, $"sgsim.par");
-                    par.Save(file, grid, designVaribles);
-                    string exe = Path.Combine(workpath, @"sgsim.exe");
-                    string _out = Path.Combine(workpath, @"sgs.out");
-                    File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
-                    ProcessStartInfo info = new ProcessStartInfo();
-                    info.FileName = exe;
-                    info.WorkingDirectory = workpath;
-                    info.UseShellExecute = false;
-                    info.Arguments = "sgsim.par";
-                    var process = Process.Start(info);
-                    process.WaitForExit();
-                    int xcount = 0;
-                    int ycount = 0;
-                    int zcount = 0;
-                    var sgs = Gslib.ReadGislib(_out, out xcount, out ycount, out zcount);
+                    var sgs = par.Run(grid, workpath, designVaribles);
                     //{
                     //    ColorBar colorbar = ColorBar.Default;
                     //    Bitmap map = new Bitmap(xcount, ycount);
@@ -129,7 +115,7 @@ namespace ExperimentDesign.WorkList.Sgs
 
         protected override void ShowParamForm()
         {
-            using (FacieCtrlSgsRunForm form = new FacieCtrlSgsRunForm())
+            using (FacieCtrlRunForm form = new FacieCtrlRunForm())
             {
                 form.SetAllPars(pars);
                 if (form.ShowDialog() == DialogResult.OK)
@@ -144,29 +130,45 @@ namespace ExperimentDesign.WorkList.Sgs
         {
             StringWriter sw = new StringWriter();
             JsonWriter writer = new JsonTextWriter(sw);
-            writer.WriteStartObject();
+            writer.WriteStartArray();
             if (pars.Count > 0)
             {
                 foreach (var item in pars)
                 {
-                    writer.WritePropertyName(item.Key);
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("Facie");
+                    writer.WriteValue(item.Key);
+                    writer.WritePropertyName("Type");
+                    writer.WriteValue(item.Value.GetType().FullName);
+                    writer.WritePropertyName("Data");
                     writer.WriteValue(item.Value.Save());
+                    writer.WriteEndObject();
                 }
             }
-            writer.WriteEndObject();
+            writer.WriteEndArray();
             writer.Flush();
             return sw.GetStringBuilder().ToString();
         }
 
         public override void Open(string str)
         {
-            JObject jobj = JObject.Parse(str);
-            var propertys = jobj.Properties();
-            foreach (var property in propertys)
+            JArray ja = JArray.Parse(str);
+            if (ja?.Count > 0)
             {
-                var par = new SgsPar();
-                par.Open(jobj[property.Name]?.ToString());
-                pars.Add(property.Name, par);
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                for (int i = 0; i < ja.Count; i++)
+                {
+                    JObject jo = ja[i] as JObject;
+                    if (jo != null)
+                    {
+                        var key = jo["Facie"]?.ToString();
+                        var vauleType = jo["Type"]?.ToString();
+                        var data = jo["Data"]?.ToString();
+                        IFacieCtrlPar obj = assembly.CreateInstance(vauleType, false, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, null, null, null, null) as IFacieCtrlPar;
+                        obj?.Open(data);
+                        pars.Add(key, obj);
+                    }
+                }
             }
             UpdateText(GetUncentainParam());
         }

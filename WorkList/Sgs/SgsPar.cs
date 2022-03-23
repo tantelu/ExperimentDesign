@@ -1,18 +1,21 @@
 ﻿using ExperimentDesign.General;
 using ExperimentDesign.WorkList.Base;
+using ExperimentDesign.WorkList.FacieCtrl;
 using ExperimentDesign.WorkList.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Sgs
 {
-    public class SgsPar
+    public class SgsPar: IFacieCtrlPar
     {
-        [Description("条件数据<绝对路径")]
+        [Description("条件数据绝对路径")]
         public string DataFileName { get; set; }
 
         [Description("数据最小值")]
@@ -53,6 +56,8 @@ namespace ExperimentDesign.WorkList.Sgs
 
         [Description("多级网格")]
         public Design<int> MultiGrid { get; set; }
+
+        public string TypeName => GetType().FullName;
 
         public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {
@@ -181,6 +186,27 @@ namespace ExperimentDesign.WorkList.Sgs
                     Variogram.Open(varjson);
                 }
             }
+        }
+
+        public float[] Run(Grid3D grid, string workpath, IReadOnlyDictionary<string, object> designVaribles)
+        {
+            string file = Path.Combine(workpath, $"sgsim.par");
+            this.Save(file, grid, designVaribles);
+            string exe = Path.Combine(workpath, @"sgsim.exe");
+            string _out = Path.Combine(workpath, @"sgs.out");
+            File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = exe;
+            info.WorkingDirectory = workpath;
+            info.UseShellExecute = false;
+            info.Arguments = "sgsim.par";
+            var process = Process.Start(info);
+            process.WaitForExit();
+            int xcount = 0;
+            int ycount = 0;
+            int zcount = 0;
+            var sgs = Gslib.ReadGislib(_out, out xcount, out ycount, out zcount);
+            return sgs;
         }
     }
 }

@@ -1,22 +1,24 @@
 ﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
+using ExperimentDesign.WorkList.Sgs;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ExperimentDesign.WorkList.Sgs
+namespace ExperimentDesign.WorkList.FacieCtrl
 {
-    public partial class FacieCtrlSgsRunForm : Form
+    public partial class FacieCtrlRunForm : Form
     {
-        public FacieCtrlSgsRunForm()
+        public FacieCtrlRunForm()
         {
             InitializeComponent();
         }
 
         private List<string> facies = new List<string>() { };
 
-        public Dictionary<string, SgsPar> GetAllPars()
+        public Dictionary<string, IFacieCtrlPar> GetAllPars()
         {
             if (facies.Distinct().Count() != facies.Count)
             {
@@ -25,7 +27,7 @@ namespace ExperimentDesign.WorkList.Sgs
             }
             else
             {
-                Dictionary<string, SgsPar> res = new Dictionary<string, SgsPar>();
+                Dictionary<string, IFacieCtrlPar> res = new Dictionary<string, IFacieCtrlPar>();
                 for (int i = 0; i < facies.Count; i++)
                 {
                     foreach (Control item in this.tabPane1.Pages[i].Controls)
@@ -41,7 +43,7 @@ namespace ExperimentDesign.WorkList.Sgs
             }
         }
 
-        public void SetAllPars(Dictionary<string, SgsPar> pars)
+        public void SetAllPars(Dictionary<string, IFacieCtrlPar> pars)
         {
             foreach (var item in pars)
             {
@@ -59,7 +61,7 @@ namespace ExperimentDesign.WorkList.Sgs
                     form.NewFacie = (this.tabPane1.Pages.Count).ToString();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        AddNew(form.NewFacie, null);
+                        AddNew(form.NewFacie, form.Method);
                     }
                 }
             }
@@ -74,21 +76,44 @@ namespace ExperimentDesign.WorkList.Sgs
             Refresh();
         }
 
-        private void AddNew(string facie, SgsPar par)
+        private void AddNew(string facie, IFacieCtrlPar par)
         {
             TabNavigationPage newpage = new TabNavigationPage();
             newpage.Caption = $"相 ‘{facie}’ 参数设置";
-            SgsUserControl newsgsctrl = new SgsUserControl();
-            newsgsctrl.Dock = DockStyle.Fill;
-            newsgsctrl.Location = new Point(0, 0);
-            newsgsctrl.Margin = new Padding(3, 2, 3, 2);
-            newsgsctrl.Name = $"sgsUserControl{this.tabPane1.Pages.Count}";
-            newsgsctrl.Size = new Size(1111, 307);
-            if (par != null)
+            IFacieCtrlUserControl ctrl = (IFacieCtrlUserControl)Activator.CreateInstance(Type.GetType(par.TypeName), false);
+            ctrl.Control.Dock = DockStyle.Fill;
+            ctrl.Control.Location = new Point(0, 0);
+            ctrl.Control.Margin = new Padding(3, 2, 3, 2);
+            ctrl.Control.Name = $"sgsUserControl{this.tabPane1.Pages.Count}";
+            ctrl.Control.Size = new Size(1111, 307);
+            ctrl.SetPar(par);
+            newpage.Controls.Add(ctrl.Control);
+            newpage.Name = $"tabNavigationPage{this.tabPane1.Pages.Count}";
+            newpage.Size = new Size(1111, 376);
+            this.tabPane1.Pages.Add(newpage);
+            facies.Add(facie);
+            Refresh();
+        }
+
+        private void AddNew(string facie, PropertyModelMethod method)
+        {
+            TabNavigationPage newpage = new TabNavigationPage();
+            newpage.Caption = $"相 ‘{facie}’ 参数设置";
+            IFacieCtrlUserControl ctrl = null;
+            if (method == PropertyModelMethod.Sgs)
             {
-                newsgsctrl.SetSgsPar(par);
+                ctrl = new SgsUserControl();
             }
-            newpage.Controls.Add(newsgsctrl);
+            else
+            {
+
+            }
+            ctrl.Control.Dock = DockStyle.Fill;
+            ctrl.Control.Location = new Point(0, 0);
+            ctrl.Control.Margin = new Padding(3, 2, 3, 2);
+            ctrl.Control.Name = $"sgsUserControl{this.tabPane1.Pages.Count}";
+            ctrl.Control.Size = new Size(1111, 307);
+            newpage.Controls.Add(ctrl.Control);
             newpage.Name = $"tabNavigationPage{this.tabPane1.Pages.Count}";
             newpage.Size = new Size(1111, 376);
             this.tabPane1.Pages.Add(newpage);
