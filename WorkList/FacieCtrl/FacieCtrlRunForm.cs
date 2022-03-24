@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
+using ExperimentDesign.WorkList.DirectAssign;
 using ExperimentDesign.WorkList.Sgs;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                         if (item is SgsUserControl sgsctrl)
                         {
                             res.Add(facies[i], sgsctrl.GetSgsPar());
+                            break;
+                        }
+                        else if(item is DirectAssginUserControl drctrl)
+                        {
+                            res.Add(facies[i], drctrl.GetAssignPar());
                             break;
                         }
                     }
@@ -80,7 +86,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
         {
             TabNavigationPage newpage = new TabNavigationPage();
             newpage.Caption = $"相 ‘{facie}’ 参数设置";
-            IFacieCtrlUserControl ctrl = (IFacieCtrlUserControl)Activator.CreateInstance(Type.GetType(par.TypeName), false);
+            IFacieCtrlUserControl ctrl = (IFacieCtrlUserControl)Activator.CreateInstance(Type.GetType(par.ControlTypeName), false);
             ctrl.Control.Dock = DockStyle.Fill;
             ctrl.Control.Location = new Point(0, 0);
             ctrl.Control.Margin = new Padding(3, 2, 3, 2);
@@ -104,9 +110,9 @@ namespace ExperimentDesign.WorkList.FacieCtrl
             {
                 ctrl = new SgsUserControl();
             }
-            else
+            else if(method== PropertyModelMethod.DirectAssign)
             {
-
+                ctrl = new DirectAssginUserControl();
             }
             ctrl.Control.Dock = DockStyle.Fill;
             ctrl.Control.Location = new Point(0, 0);

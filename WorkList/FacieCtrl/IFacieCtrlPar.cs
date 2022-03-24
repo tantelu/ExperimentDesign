@@ -6,12 +6,12 @@ namespace ExperimentDesign.WorkList.FacieCtrl
 {
     public interface IFacieCtrlPar
     {
-        string TypeName { get; }
+        string ControlTypeName { get; }
 
         void Open(string str);
 
         string Save();
 
-        float[] Run(Grid3D Grid3D,string workpath, IReadOnlyDictionary<string, object> designVaribles);
+        float[] FacieCtrlRun(Grid3D Grid3D,string workpath, IReadOnlyDictionary<string, object> designVaribles);
     }
 }

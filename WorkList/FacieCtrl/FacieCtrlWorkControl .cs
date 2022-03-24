@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.General;
 using ExperimentDesign.WorkList.Base;
-using ExperimentDesign.WorkList.FacieCtrl;
 using ExperimentDesign.WorkList.Grid;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -54,30 +53,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                     {
                         Directory.CreateDirectory(workpath);
                     }
-                    var sgs = par.Run(grid, workpath, designVaribles);
-                    //{
-                    //    ColorBar colorbar = ColorBar.Default;
-                    //    Bitmap map = new Bitmap(xcount, ycount);
-                    //    var max = sgs.Max();
-                    //    var min = sgs.Min();
-                    //    colorbar.SetMinMax(min, max);
-                    //    for (int i = 0; i < xcount; i++)
-                    //    {
-                    //        for (int j = 0; j < ycount; j++)
-                    //        {
-                    //            int index2 = i * xcount + j;
-                    //            if (!float.IsNaN(sgs[index2]))
-                    //            {
-                    //                map.SetPixel(i, j, colorbar.GetColor(sgs[index2]));
-                    //            }
-                    //            else
-                    //            {
-                    //                map.SetPixel(i, j, Color.Black);
-                    //            }
-                    //        }
-                    //    }
-                    //    map.Save(Path.ChangeExtension(file, "png"));
-                    //}
+                    var sgs = par.FacieCtrlRun(grid, workpath, designVaribles);
                     sgses.Add(item.Key, sgs);
                 }
                 //检查所有文件是否都已经存在  然后进行相替换操作

@@ -127,6 +127,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="General\GroupAttribute.cs" />
+    <Compile Include="WorkList\DirectAssign\DirectAssginUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkList\DirectAssign\DirectAssginUserControl.Designer.cs">
+      <DependentUpon>DirectAssginUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\DirectAssign\DirectAssignPar.cs" />
     <Compile Include="WorkList\FacieCtrl\FacieCtrlRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +280,9 @@
     <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\DirectAssign\DirectAssginUserControl.resx">
+      <DependentUpon>DirectAssginUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkList\FacieCtrl\FacieCtrlRunForm.resx">
       <DependentUpon>FacieCtrlRunForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -354,5 +364,6 @@
   <ItemGroup>
     <None Include="Resources\Show2D.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

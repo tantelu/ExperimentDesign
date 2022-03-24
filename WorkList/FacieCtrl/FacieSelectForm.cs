@@ -38,6 +38,6 @@ namespace ExperimentDesign.WorkList.FacieCtrl
     public enum PropertyModelMethod
     {
         Sgs,
-        Direct,
+        DirectAssign,
     }
 }

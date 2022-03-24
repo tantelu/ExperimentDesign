@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Sgs
 {
-    public class SgsPar: IFacieCtrlPar
+    public class SgsPar : IFacieCtrlPar
     {
         [Description("条件数据绝对路径")]
         public string DataFileName { get; set; }
@@ -57,7 +57,7 @@ namespace ExperimentDesign.WorkList.Sgs
         [Description("多级网格")]
         public Design<int> MultiGrid { get; set; }
 
-        public string TypeName => GetType().FullName;
+        public string ControlTypeName => typeof(SgsUserControl).FullName;
 
         public void Save(string file, Grid3D Grid3D, IReadOnlyDictionary<string, object> designVaribles)
         {
@@ -188,12 +188,16 @@ namespace ExperimentDesign.WorkList.Sgs
             }
         }
 
-        public float[] Run(Grid3D grid, string workpath, IReadOnlyDictionary<string, object> designVaribles)
+        public float[] FacieCtrlRun(Grid3D grid, string workpath, IReadOnlyDictionary<string, object> designVaribles)
         {
             string file = Path.Combine(workpath, $"sgsim.par");
             this.Save(file, grid, designVaribles);
             string exe = Path.Combine(workpath, @"sgsim.exe");
             string _out = Path.Combine(workpath, @"sgs.out");
+            if (File.Exists(this.DataFileName))
+            {
+                File.Copy(this.DataFileName, Path.Combine(workpath, Path.GetFileName(this.DataFileName)), true);
+            }
             File.Copy(Path.Combine(Application.StartupPath, "geostatspy", "sgsim.exe"), exe, true);
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = exe;
