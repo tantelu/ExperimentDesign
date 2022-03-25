@@ -368,9 +368,6 @@
     <None Include="Resources\Sgs.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\uncertain.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -384,6 +381,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FacieCtrl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

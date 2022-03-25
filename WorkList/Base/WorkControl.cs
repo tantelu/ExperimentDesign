@@ -93,5 +93,15 @@ namespace ExperimentDesign.WorkList.Base
         {
             Main?.Delete(this);
         }
+
+        private void pictureEdit3_Click(object sender, EventArgs e)
+        {
+            Main?.Up(this);
+        }
+
+        private void pictureEdit4_Click(object sender, EventArgs e)
+        {
+            Main?.Down(this);
+        }
     }
 }

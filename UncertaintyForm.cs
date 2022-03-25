@@ -115,6 +115,42 @@ namespace ExperimentDesign
             this.workPanel.ResumeLayout();
             this.ResumeLayout(false);
         }
+
+        public void Up(WorkControl control)
+        {
+            int index = this.workPanel.Controls.IndexOf(control);
+            if (index > 0)
+            {
+                this.SuspendLayout();
+                this.workPanel.SuspendLayout();
+                var upctrl = this.workPanel.Controls[index - 1];
+                var cur = this.workPanel.Controls[index];
+                var tempLoc = upctrl.Location;
+                upctrl.Location = cur.Location;
+                cur.Location = tempLoc;
+                this.workPanel.Controls.SetChildIndex(control, index - 1);
+                this.workPanel.ResumeLayout();
+                this.ResumeLayout(false);
+            }
+        }
+
+        public void Down(WorkControl control)
+        {
+            int index = this.workPanel.Controls.IndexOf(control);
+            if (index >= 0 && index < this.workPanel.Controls.Count - 1)
+            {
+                this.SuspendLayout();
+                this.workPanel.SuspendLayout();
+                var downctrl = this.workPanel.Controls[index + 1];
+                var cur = this.workPanel.Controls[index];
+                var tempLoc = downctrl.Location;
+                downctrl.Location = cur.Location;
+                cur.Location = tempLoc;
+                this.workPanel.Controls.SetChildIndex(control, index + 1);
+                this.workPanel.ResumeLayout();
+                this.ResumeLayout(false);
+            }
+        }
         //保存工作流
         public void Save()
         {
@@ -531,5 +567,7 @@ namespace ExperimentDesign
         {
             this.Close();
         }
+
+
     }
 }

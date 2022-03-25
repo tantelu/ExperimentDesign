@@ -57,6 +57,10 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                     }
                     var sgs = par.FacieCtrlRun(grid, workpath, designVaribles);
                     sgses.Add(item.Key, sgs);
+                    if (Directory.Exists(workpath))
+                    {
+                        Directory.Delete(workpath,true);
+                    }
                 }
                 //检查所有文件是否都已经存在  然后进行相替换操作
                 {

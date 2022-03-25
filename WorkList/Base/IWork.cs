@@ -5,6 +5,10 @@ namespace ExperimentDesign.WorkList.Base
     {
         void Delete(WorkControl control);
 
+        void Up(WorkControl control);
+
+        void Down(WorkControl control);
+
         string GetWorkPath();
     }
 }

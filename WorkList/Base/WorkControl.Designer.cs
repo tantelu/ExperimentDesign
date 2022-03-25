@@ -31,7 +31,6 @@ namespace ExperimentDesign.WorkList.Base
         {
             DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
@@ -41,10 +40,14 @@ namespace ExperimentDesign.WorkList.Base
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.pictureEdit4 = new DevExpress.XtraEditors.PictureEdit();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
@@ -54,12 +57,19 @@ namespace ExperimentDesign.WorkList.Base
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
             this.layoutControl1.AutoScroll = false;
+            this.layoutControl1.Controls.Add(this.pictureEdit4);
+            this.layoutControl1.Controls.Add(this.pictureEdit3);
             this.layoutControl1.Controls.Add(this.pictureEdit2);
             this.layoutControl1.Controls.Add(this.textEdit3);
             this.layoutControl1.Controls.Add(this.pictureEdit1);
@@ -73,30 +83,19 @@ namespace ExperimentDesign.WorkList.Base
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // pictureEdit2
-            // 
-            this.pictureEdit2.EditValue = global::ExperimentDesign.Properties.Resources.Delete;
-            this.pictureEdit2.Location = new System.Drawing.Point(748, 3);
-            this.pictureEdit2.Name = "pictureEdit2";
-            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit2.Size = new System.Drawing.Size(31, 29);
-            this.pictureEdit2.StyleController = this.layoutControl1;
-            this.pictureEdit2.TabIndex = 8;
-            this.pictureEdit2.DoubleClick += new System.EventHandler(this.pictureEdit2_DoubleClick);
-            // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(420, 3);
+            this.textEdit3.Location = new System.Drawing.Point(305, 3);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.AllowFocused = false;
             this.textEdit3.Properties.ReadOnly = true;
-            this.textEdit3.Size = new System.Drawing.Size(322, 28);
+            this.textEdit3.Size = new System.Drawing.Size(347, 28);
             this.textEdit3.StyleController = this.layoutControl1;
             this.textEdit3.TabIndex = 7;
             // 
             // pictureEdit1
             // 
-            this.pictureEdit1.Location = new System.Drawing.Point(381, 3);
+            this.pictureEdit1.Location = new System.Drawing.Point(266, 3);
             this.pictureEdit1.Name = "pictureEdit1";
             contextButton1.Caption = "contextButton1";
             contextButton1.Id = new System.Guid("df8aa8b9-f172-4972-aa8b-cb0cfcdedfc4");
@@ -116,7 +115,7 @@ namespace ExperimentDesign.WorkList.Base
             this.textEdit2.Properties.AllowFocused = false;
             this.textEdit2.Properties.AutoHeight = false;
             this.textEdit2.Properties.ReadOnly = true;
-            this.textEdit2.Size = new System.Drawing.Size(316, 29);
+            this.textEdit2.Size = new System.Drawing.Size(201, 29);
             this.textEdit2.StyleController = this.layoutControl1;
             this.textEdit2.TabIndex = 5;
             // 
@@ -142,7 +141,9 @@ namespace ExperimentDesign.WorkList.Base
             this.layoutControlItem2,
             this.layoutControlItem3,
             this.layoutControlItem4,
-            this.layoutControlItem5});
+            this.layoutControlItem5,
+            this.layoutControlItem6,
+            this.layoutControlItem7});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
@@ -163,7 +164,7 @@ namespace ExperimentDesign.WorkList.Base
             this.layoutControlItem2.Control = this.textEdit2;
             this.layoutControlItem2.Location = new System.Drawing.Point(56, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(322, 35);
+            this.layoutControlItem2.Size = new System.Drawing.Size(207, 35);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -173,7 +174,7 @@ namespace ExperimentDesign.WorkList.Base
             this.layoutControlItem3.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem3.Control = this.pictureEdit1;
             this.layoutControlItem3.HighlightFocusedItem = DevExpress.Utils.DefaultBoolean.True;
-            this.layoutControlItem3.Location = new System.Drawing.Point(378, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(263, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(39, 35);
             this.layoutControlItem3.Text = "创建网格";
@@ -184,18 +185,69 @@ namespace ExperimentDesign.WorkList.Base
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.textEdit3;
-            this.layoutControlItem4.Location = new System.Drawing.Point(417, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(302, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(328, 35);
+            this.layoutControlItem4.Size = new System.Drawing.Size(353, 35);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
+            // 
+            // pictureEdit3
+            // 
+            this.pictureEdit3.EditValue = global::ExperimentDesign.Properties.Resources.Up;
+            this.pictureEdit3.Location = new System.Drawing.Point(700, 3);
+            this.pictureEdit3.Name = "pictureEdit3";
+            this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit3.Size = new System.Drawing.Size(36, 29);
+            this.pictureEdit3.StyleController = this.layoutControl1;
+            this.pictureEdit3.TabIndex = 9;
+            this.pictureEdit3.Click += new System.EventHandler(this.pictureEdit3_Click);
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.pictureEdit3;
+            this.layoutControlItem6.Location = new System.Drawing.Point(697, 0);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(42, 35);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // pictureEdit4
+            // 
+            this.pictureEdit4.EditValue = global::ExperimentDesign.Properties.Resources.Down;
+            this.pictureEdit4.Location = new System.Drawing.Point(742, 3);
+            this.pictureEdit4.Name = "pictureEdit4";
+            this.pictureEdit4.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit4.Size = new System.Drawing.Size(37, 29);
+            this.pictureEdit4.StyleController = this.layoutControl1;
+            this.pictureEdit4.TabIndex = 10;
+            this.pictureEdit4.Click += new System.EventHandler(this.pictureEdit4_Click);
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.pictureEdit4;
+            this.layoutControlItem7.Location = new System.Drawing.Point(739, 0);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(43, 35);
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem7.TextVisible = false;
+            // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.EditValue = global::ExperimentDesign.Properties.Resources.Delete;
+            this.pictureEdit2.Location = new System.Drawing.Point(658, 3);
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit2.Size = new System.Drawing.Size(36, 29);
+            this.pictureEdit2.StyleController = this.layoutControl1;
+            this.pictureEdit2.TabIndex = 8;
+            this.pictureEdit2.DoubleClick += new System.EventHandler(this.pictureEdit2_DoubleClick);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.pictureEdit2;
-            this.layoutControlItem5.Location = new System.Drawing.Point(745, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(655, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(37, 35);
+            this.layoutControlItem5.Size = new System.Drawing.Size(42, 35);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -208,7 +260,6 @@ namespace ExperimentDesign.WorkList.Base
             this.Size = new System.Drawing.Size(782, 35);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
@@ -218,6 +269,11 @@ namespace ExperimentDesign.WorkList.Base
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             this.ResumeLayout(false);
 
@@ -237,5 +293,9 @@ namespace ExperimentDesign.WorkList.Base
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit4;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
     }
 }
