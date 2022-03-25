@@ -32,7 +32,7 @@ namespace ExperimentDesign.WorkList.Volume
             string gridfile = Path.Combine(Main.GetWorkPath(), $"{index}", $"{nameof(Grid3D)}.json");
             if (!File.Exists(gridfile))
             {
-                XtraMessageBox.Show("未找到工区网格定义文件,无法执行序贯高斯模拟");
+                XtraMessageBox.Show("未找到工区网格定义文件");
                 return;
             }
             Grid3D grid = new Grid3D();

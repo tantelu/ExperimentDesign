@@ -21,6 +21,6 @@ namespace ExperimentDesign.WorkList.Base
             }
         }
 
-        public static int Seed { get; set; } = 12345;
+        public static int Seed { get; set; } = 32323;
     }
 }

@@ -129,6 +129,11 @@ namespace ExperimentDesign
                 upctrl.Location = cur.Location;
                 cur.Location = tempLoc;
                 this.workPanel.Controls.SetChildIndex(control, index - 1);
+
+                for (int i = 0; i < this.workPanel.Controls.Count; i++)
+                {
+                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i + 1);
+                }
                 this.workPanel.ResumeLayout();
                 this.ResumeLayout(false);
             }
@@ -147,6 +152,10 @@ namespace ExperimentDesign
                 downctrl.Location = cur.Location;
                 cur.Location = tempLoc;
                 this.workPanel.Controls.SetChildIndex(control, index + 1);
+                for (int i = 0; i < this.workPanel.Controls.Count; i++)
+                {
+                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i+1);
+                }
                 this.workPanel.ResumeLayout();
                 this.ResumeLayout(false);
             }
