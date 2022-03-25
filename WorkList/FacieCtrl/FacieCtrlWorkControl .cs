@@ -17,6 +17,8 @@ namespace ExperimentDesign.WorkList.FacieCtrl
     {
         private Dictionary<string, IFacieCtrlPar> pars = new Dictionary<string, IFacieCtrlPar>();
 
+        private string OutFileName { get; set; } = "porosity.out";
+
         public FacieCtrlWorkControl()
         {
 
@@ -24,7 +26,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
 
         protected override string WorkName => "相控模拟";
 
-        protected override Bitmap Picture => global::ExperimentDesign.Properties.Resources.Sgs;
+        protected override Bitmap Picture => Properties.Resources.FacieCtrl;
 
         public override void Run(int index, IReadOnlyDictionary<string, object> designVaribles)
         {
@@ -74,7 +76,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                             }
                         }
                     }
-                    Gslib.WriteGislib(Path.Combine(Main.GetWorkPath(), $"{index}", "faciesgs.out"), res, xcount, ycount, zcount);
+                    Gslib.WriteGislib(Path.Combine(Main.GetWorkPath(), $"{index}", OutFileName), res, xcount, ycount, zcount);
                 }
             }
             else
@@ -86,7 +88,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
 
         public override bool GetRunState(int index)
         {
-            return File.Exists(Path.Combine(Main.GetWorkPath(), $"{index}", "faciesgs.out"));
+            return File.Exists(Path.Combine(Main.GetWorkPath(), $"{index}", OutFileName));
         }
 
         protected override void ShowParamForm()

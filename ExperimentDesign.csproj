@@ -253,6 +253,15 @@
     <Compile Include="WorkList\Base\WorkSelectForm.Designer.cs">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\Volume\VolumeCalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Volume\VolumeCalForm.Designer.cs">
+      <DependentUpon>VolumeCalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Volume\VolumeCalWorkControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="BBForm.resx">
       <DependentUpon>BBForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,6 +345,9 @@
     <EmbeddedResource Include="WorkList\Base\WorkSelectForm.resx">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Volume\VolumeCalForm.resx">
+      <DependentUpon>VolumeCalForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -364,6 +376,14 @@
   <ItemGroup>
     <None Include="Resources\Show2D.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Volume.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FacieCtrl.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

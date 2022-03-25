@@ -23,7 +23,7 @@ namespace ExperimentDesign.WorkList.Sis
 
         protected override string WorkName => "序贯指示模拟";
 
-        protected override Bitmap Picture => Properties.Resources.Sgs;
+        protected override Bitmap Picture => Properties.Resources.Sis;
 
         public override void Run(int index, IReadOnlyDictionary<string, object> designVaribles)
         {
