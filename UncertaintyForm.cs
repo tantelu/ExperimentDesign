@@ -576,7 +576,5 @@ namespace ExperimentDesign
         {
             this.Close();
         }
-
-
     }
 }

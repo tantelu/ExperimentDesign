@@ -104,7 +104,10 @@ namespace ExperimentDesign.WorkList.Volume
                 }
                 double percentage = (all / volumns.Length);
                 all = all * (grid.Xmax - grid.Xmin) * (grid.Ymax - grid.Ymin) * (grid.Zmax - grid.Zmin);
-                File.WriteAllText(Path.Combine(Main.GetWorkPath(), $"{index}", VolumnCalPar.VolumnOutFileName), $"总储量:{all.ToString()}  百分比:{percentage.ToString()}");
+                JObject obj = new JObject();
+                obj.Add("总储量(m3)", all);
+                obj.Add("percentage", all);
+                File.WriteAllText(Path.Combine(Main.GetWorkPath(), $"{index}", VolumnCalPar.VolumnOutFileName), obj.ToString());
             }
         }
 

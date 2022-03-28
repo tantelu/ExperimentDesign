@@ -30,10 +30,10 @@ namespace ExperimentDesign.WorkList.Volume
                 porosityfile.Text = par.PorosityFileName;
                 penetrationfile.Text = par.PenetrationFileName;
 
-                porositylow.Tag = par.Porosity.Value;
+                porositylow.Tag = par.Porosity;
                 porositylow.Text = par.Porosity.IsDesign? par.Porosity.DesignName : par.Porosity.Value.ToString();
 
-                penetrationlow.Tag = par.Penetration.Value;
+                penetrationlow.Tag = par.Penetration;
                 penetrationlow.Text = par.Penetration.IsDesign ? par.Penetration.DesignName : par.Penetration.Value.ToString();
             }
         }
