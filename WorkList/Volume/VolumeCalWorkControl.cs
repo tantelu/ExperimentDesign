@@ -106,7 +106,7 @@ namespace ExperimentDesign.WorkList.Volume
                 all = all * (grid.Xmax - grid.Xmin) * (grid.Ymax - grid.Ymin) * (grid.Zmax - grid.Zmin);
                 JObject obj = new JObject();
                 obj.Add("总储量(m3)", all);
-                obj.Add("percentage", all);
+                obj.Add("percentage", percentage);
                 File.WriteAllText(Path.Combine(Main.GetWorkPath(), $"{index}", VolumnCalPar.VolumnOutFileName), obj.ToString());
             }
         }

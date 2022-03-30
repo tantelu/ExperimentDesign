@@ -31,6 +31,7 @@ namespace ExperimentDesign
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UncertaintyForm));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.simpleButton_exporttable = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton_savework = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -71,6 +72,7 @@ namespace ExperimentDesign
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -111,10 +113,12 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.simpleButton_exporttable);
             this.layoutControl1.Controls.Add(this.simpleButton_savework);
             this.layoutControl1.Controls.Add(this.simpleButton2);
             this.layoutControl1.Controls.Add(this.simpleButton1);
@@ -131,6 +135,16 @@ namespace ExperimentDesign
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // simpleButton_exporttable
+            // 
+            this.simpleButton_exporttable.Location = new System.Drawing.Point(171, 509);
+            this.simpleButton_exporttable.Name = "simpleButton_exporttable";
+            this.simpleButton_exporttable.Size = new System.Drawing.Size(143, 32);
+            this.simpleButton_exporttable.StyleController = this.layoutControl1;
+            this.simpleButton_exporttable.TabIndex = 12;
+            this.simpleButton_exporttable.Text = "导出设计表";
+            this.simpleButton_exporttable.Click += new System.EventHandler(this.simpleButton_exporttable_Click);
+            // 
             // simpleButton_savework
             // 
             this.simpleButton_savework.Location = new System.Drawing.Point(8, 509);
@@ -143,9 +157,9 @@ namespace ExperimentDesign
             // 
             // simpleButton2
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(1042, 509);
+            this.simpleButton2.Location = new System.Drawing.Point(1069, 509);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(223, 32);
+            this.simpleButton2.Size = new System.Drawing.Size(196, 32);
             this.simpleButton2.StyleController = this.layoutControl1;
             this.simpleButton2.TabIndex = 10;
             this.simpleButton2.Text = "取消";
@@ -153,9 +167,9 @@ namespace ExperimentDesign
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(815, 509);
+            this.simpleButton1.Location = new System.Drawing.Point(869, 509);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(221, 32);
+            this.simpleButton1.Size = new System.Drawing.Size(194, 32);
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 9;
             this.simpleButton1.Text = "运行";
@@ -483,7 +497,8 @@ namespace ExperimentDesign
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.layoutControlItem13});
+            this.layoutControlItem13,
+            this.layoutControlItem14});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
@@ -502,9 +517,9 @@ namespace ExperimentDesign
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(163, 501);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(312, 501);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(644, 38);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(549, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -546,18 +561,18 @@ namespace ExperimentDesign
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.simpleButton1;
-            this.layoutControlItem6.Location = new System.Drawing.Point(807, 501);
+            this.layoutControlItem6.Location = new System.Drawing.Point(861, 501);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(227, 38);
+            this.layoutControlItem6.Size = new System.Drawing.Size(200, 38);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.simpleButton2;
-            this.layoutControlItem7.Location = new System.Drawing.Point(1034, 501);
+            this.layoutControlItem7.Location = new System.Drawing.Point(1061, 501);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(229, 38);
+            this.layoutControlItem7.Size = new System.Drawing.Size(202, 38);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -569,6 +584,15 @@ namespace ExperimentDesign
             this.layoutControlItem13.Size = new System.Drawing.Size(163, 38);
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem13.TextVisible = false;
+            // 
+            // layoutControlItem14
+            // 
+            this.layoutControlItem14.Control = this.simpleButton_exporttable;
+            this.layoutControlItem14.Location = new System.Drawing.Point(163, 501);
+            this.layoutControlItem14.Name = "layoutControlItem14";
+            this.layoutControlItem14.Size = new System.Drawing.Size(149, 38);
+            this.layoutControlItem14.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem14.TextVisible = false;
             // 
             // UncertaintyForm
             // 
@@ -620,6 +644,7 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -667,5 +692,7 @@ namespace ExperimentDesign
         private DevExpress.XtraEditors.SimpleButton simpleButton_savework;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraEditors.TextEdit textEdit_new;
+        private DevExpress.XtraEditors.SimpleButton simpleButton_exporttable;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
     }
 }

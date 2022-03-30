@@ -1,5 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
+using ExperimentDesign.General;
+using ExperimentDesign.InfoForm;
 using ExperimentDesign.WorkList.ShowResult;
 using System;
 using System.Collections.Generic;
@@ -272,6 +274,41 @@ namespace ExperimentDesign
         {
             PictureGroupForm form = new PictureGroupForm();
             form.Show();
+        }
+
+        private void 方差分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.Multiselect = false;
+            of.Filter = "实验分析表|*.xlsx";
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                DataTable table = ExcelEx.ExcelToTable(of.FileName);
+                var vars = UniVarianceAnalysis.FromTable(table);
+                var newtable = UniVarianceAnalysis.VarianceAnalysisTable(vars);
+                using (DesignValueShowForm form = new DesignValueShowForm())
+                {
+                    form.SetGrid(newtable);
+                    form.ShowDialog();
+                }
+            }
+        }
+
+        private void 多元回归分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.Multiselect = false;
+            of.Filter = "实验分析表|*.xlsx";
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                DataTable table = ExcelEx.ExcelToTable(of.FileName);
+                var newtable = UniMultipleLineRegression.VarianceAnalysisTable(table);
+                using (DesignValueShowForm form = new DesignValueShowForm())
+                {
+                    form.SetGrid(newtable);
+                    form.ShowDialog();
+                }
+            }
         }
     }
 }

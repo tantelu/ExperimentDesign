@@ -77,7 +77,6 @@ namespace ExperimentDesign.InfoForm
             this.MinimizeBox = false;
             this.Name = "DesignValueShowForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

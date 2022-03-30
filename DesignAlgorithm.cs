@@ -639,6 +639,51 @@ namespace ExperimentDesign
             return table;
         }
 
+        public virtual DataTable ToSaveDataTable(IReadOnlyList<VariableData> datas)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add($"实验\\因数", Type.GetType("System.String"));
+            for (int col = 0; col < datas.Count; col++)
+            {
+                var name = datas[col].ParDescription;
+                table.Columns.Add(name, Type.GetType("System.String"));
+            }
+            for (int i = 0; i < GetTestCount(); i++)
+            {
+                DataRow row = table.NewRow();
+                row["实验\\因数"] = $"实验{i + 1}";
+                for (int col = 0; col < datas.Count; col++)
+                {
+                    if (datas[col].Arguments != null)
+                    {
+                        var design = GetValue(i, col);
+                        if (char.Equals(design, '-'))
+                        {
+                            row[datas[col].ParDescription] = datas[col].Arguments.GetMin();
+                        }
+                        else if (char.Equals(design, '+'))
+                        {
+                            row[datas[col].ParDescription] = datas[col].Arguments.GetMax();
+                        }
+                        else if (char.Equals(design, '0'))
+                        {
+                            row[datas[col].ParDescription] = datas[col].BaseValue;
+                        }
+                        else if (design is int intdesgin)
+                        {
+                            row[datas[col].ParDescription] = datas[col].Arguments.GetLevel(intdesgin);
+                        }
+                    }
+                    else
+                    {
+                        row[datas[col].ParDescription] = "NaN";
+                    }
+                }
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
         public virtual IReadOnlyList<IReadOnlyDictionary<string, object>> ToDesignList(IReadOnlyList<VariableData> datas, out bool exitNaN)
         {
             List<IReadOnlyDictionary<string, object>> res = new List<IReadOnlyDictionary<string, object>>();

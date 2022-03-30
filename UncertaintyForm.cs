@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
+using ExperimentDesign.InfoForm;
 
 namespace ExperimentDesign
 {
@@ -154,7 +155,7 @@ namespace ExperimentDesign
                 this.workPanel.Controls.SetChildIndex(control, index + 1);
                 for (int i = 0; i < this.workPanel.Controls.Count; i++)
                 {
-                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i+1);
+                    (this.workPanel.Controls[i] as WorkControl)?.SetIndex(i + 1);
                 }
                 this.workPanel.ResumeLayout();
                 this.ResumeLayout(false);
@@ -340,6 +341,21 @@ namespace ExperimentDesign
         {
             this.designTimes.Enabled = false;
             this.designTimes.Value = times;
+        }
+
+        public DataTable GetSaveDesignTable()
+        {
+            var datas = this.gridControl1.DataSource as List<VariableData>;
+            if (this.panelControl_design.Controls?.Count > 0 && datas?.Count > 0)
+            {
+                var property = this.panelControl_design.Controls[0].GetType().GetProperties().Where(_ => _.GetMethod.ReturnType.IsSubclassOf(typeof(Table))).FirstOrDefault();
+                if (property != null)
+                {
+                    var table = property.GetValue(this.panelControl_design.Controls[0]) as Table;
+                    return table.ToSaveDataTable(datas);
+                }
+            }
+            return null;
         }
 
         //获取当前工作流的工作路径
@@ -575,6 +591,15 @@ namespace ExperimentDesign
         private void simpleButton2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void simpleButton_exporttable_Click(object sender, EventArgs e)
+        {
+            using (VolumnSelectForm form = new VolumnSelectForm())
+            {
+                form.UncertaintyForm = this;
+                form.ShowDialog();
+            }
         }
     }
 }
