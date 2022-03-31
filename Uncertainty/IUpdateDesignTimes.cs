@@ -1,5 +1,4 @@
-﻿
-namespace ExperimentDesign
+﻿namespace ExperimentDesign.Uncertainty
 {
     public interface IUpdateDesignTimes
     {

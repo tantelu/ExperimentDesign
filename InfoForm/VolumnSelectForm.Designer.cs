@@ -29,12 +29,17 @@ namespace ExperimentDesign.InfoForm
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.volumnfilename = new DevExpress.XtraEditors.ButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -46,7 +51,7 @@ namespace ExperimentDesign.InfoForm
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumnfilename.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
@@ -62,7 +67,7 @@ namespace ExperimentDesign.InfoForm
             this.layoutControl1.Controls.Add(this.simpleButton1);
             this.layoutControl1.Controls.Add(this.textBox1);
             this.layoutControl1.Controls.Add(this.comboBoxEdit1);
-            this.layoutControl1.Controls.Add(this.textEdit1);
+            this.layoutControl1.Controls.Add(this.volumnfilename);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -114,17 +119,20 @@ namespace ExperimentDesign.InfoForm
             this.comboBoxEdit1.TabIndex = 5;
             this.comboBoxEdit1.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
             // 
-            // textEdit1
+            // volumnfilename
             // 
-            this.textEdit1.EditValue = "volumn.json";
-            this.textEdit1.Location = new System.Drawing.Point(167, 18);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Options.UseTextOptions = true;
-            this.textEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.textEdit1.Size = new System.Drawing.Size(615, 28);
-            this.textEdit1.StyleController = this.layoutControl1;
-            this.textEdit1.TabIndex = 4;
-            this.textEdit1.TextChanged += new System.EventHandler(this.textEdit1_TextChanged);
+            this.volumnfilename.EditValue = "volumn.json";
+            this.volumnfilename.Location = new System.Drawing.Point(167, 18);
+            this.volumnfilename.Name = "volumnfilename";
+            this.volumnfilename.Properties.Appearance.Options.UseTextOptions = true;
+            this.volumnfilename.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            editorButtonImageOptions1.Image = global::ExperimentDesign.Properties.Resources.Refresh;
+            this.volumnfilename.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.volumnfilename.Size = new System.Drawing.Size(615, 28);
+            this.volumnfilename.StyleController = this.layoutControl1;
+            this.volumnfilename.TabIndex = 4;
+            this.volumnfilename.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.volumnfilename_ButtonClick);
             // 
             // layoutControlGroup1
             // 
@@ -144,7 +152,7 @@ namespace ExperimentDesign.InfoForm
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.textEdit1;
+            this.layoutControlItem1.Control = this.volumnfilename;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(770, 34);
@@ -209,7 +217,7 @@ namespace ExperimentDesign.InfoForm
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumnfilename.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
@@ -225,7 +233,6 @@ namespace ExperimentDesign.InfoForm
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
@@ -236,5 +243,6 @@ namespace ExperimentDesign.InfoForm
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraEditors.ButtonEdit volumnfilename;
     }
 }

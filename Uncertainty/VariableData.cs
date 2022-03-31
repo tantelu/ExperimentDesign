@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ExperimentDesign
+namespace ExperimentDesign.Uncertainty
 {
     public class VariableData
     {

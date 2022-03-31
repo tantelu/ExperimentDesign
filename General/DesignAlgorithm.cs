@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExperimentDesign.Uncertainty;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExperimentDesign
+namespace ExperimentDesign.General
 {
     public class DesignAlgorithm
     {

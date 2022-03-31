@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign.General;
+using ExperimentDesign.Uncertainty;
 using ExperimentDesign.WorkList.Base;
 using ExperimentDesign.WorkList.Grid;
 using Newtonsoft.Json;

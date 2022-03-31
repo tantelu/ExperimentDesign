@@ -85,28 +85,7 @@ namespace ExperimentDesign.InfoForm
             if (volumns?.Count > 0 && !string.IsNullOrEmpty(this.buttonEdit1.Text))
             {
                 ToExcel(UncertaintyForm.GetSaveDesignTable());
-            }
-        }
-
-        private void textEdit1_TextChanged(object sender, System.EventArgs e)
-        {
-            var path = GlobalWorkCongfig.WorkBasePath;
-            if (Directory.Exists(WorkPath))
-            {
-                DirectoryInfo info = new DirectoryInfo(WorkPath);
-                if (info.GetDirectories().Length > 0)
-                {
-                    var first = info.GetDirectories()[0];
-                    var itemfile = Path.Combine(first.FullName, this.textEdit1.Text);
-                    if (!File.Exists(itemfile))
-                    {
-                        XtraMessageBox.Show($"文件: {itemfile} 不存在！");
-                        return;
-                    }
-                    JObject obj = JObject.Parse(File.ReadAllText(itemfile, Encoding.UTF8));
-                    this.comboBoxEdit1.Properties.Items.Clear();
-                    this.comboBoxEdit1.Properties.Items.AddRange(obj.Properties().Select(_ => _.Name).ToList());
-                }
+                XtraMessageBox.Show("完成");
             }
         }
 
@@ -121,7 +100,7 @@ namespace ExperimentDesign.InfoForm
                 {
                     foreach (var item in info.GetDirectories())
                     {
-                        var itemfile = Path.Combine(item.FullName, this.textEdit1.Text);
+                        var itemfile = Path.Combine(item.FullName, this.volumnfilename.Text);
                         JObject obj = JObject.Parse(File.ReadAllText(itemfile, Encoding.UTF8));
                         volumns.Add((double)obj[this.comboBoxEdit1.Text]);
                     }
@@ -135,6 +114,33 @@ namespace ExperimentDesign.InfoForm
             if (sb.Length > 0)
             {
                 this.textBox1.Text = sb.ToString();
+            }
+        }
+
+        private void volumnfilename_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            RefreshProperty();
+        }
+
+        private void RefreshProperty()
+        {
+            var path = GlobalWorkCongfig.WorkBasePath;
+            if (Directory.Exists(WorkPath))
+            {
+                DirectoryInfo info = new DirectoryInfo(WorkPath);
+                if (info.GetDirectories().Length > 0)
+                {
+                    var first = info.GetDirectories()[0];
+                    var itemfile = Path.Combine(first.FullName, this.volumnfilename.Text);
+                    if (!File.Exists(itemfile))
+                    {
+                        XtraMessageBox.Show($"文件: {itemfile} 不存在！");
+                        return;
+                    }
+                    JObject obj = JObject.Parse(File.ReadAllText(itemfile, Encoding.UTF8));
+                    this.comboBoxEdit1.Properties.Items.Clear();
+                    this.comboBoxEdit1.Properties.Items.AddRange(obj.Properties().Select(_ => _.Name).ToList());
+                }
             }
         }
     }

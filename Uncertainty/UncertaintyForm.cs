@@ -15,6 +15,8 @@ using System.Threading;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
 using ExperimentDesign.InfoForm;
+using ExperimentDesign.Uncertainty;
+using ExperimentDesign.General;
 
 namespace ExperimentDesign
 {
@@ -40,7 +42,7 @@ namespace ExperimentDesign
         {
             if (Current != null)
             {
-                DirectoryInfo info = new DirectoryInfo(GetWorkPath());
+                DirectoryInfo info = new DirectoryInfo(((IWork)this).GetWorkPath());
                 if (info.GetDirectories().Length > 0)
                 {
                     var dialog = XtraMessageBox.Show("当前工作流已经运行过,运行会覆盖原有结果,是否继续？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -99,7 +101,7 @@ namespace ExperimentDesign
             }
         }
         //删除某一工作流
-        public void Delete(WorkControl control)
+        void IWork.Delete(WorkControl control)
         {
             int index = this.workPanel.Controls.IndexOf(control);
             this.SuspendLayout();
@@ -117,7 +119,7 @@ namespace ExperimentDesign
             this.ResumeLayout(false);
         }
 
-        public void Up(WorkControl control)
+        void IWork.Up(WorkControl control)
         {
             int index = this.workPanel.Controls.IndexOf(control);
             if (index > 0)
@@ -140,7 +142,7 @@ namespace ExperimentDesign
             }
         }
 
-        public void Down(WorkControl control)
+        void IWork.Down(WorkControl control)
         {
             int index = this.workPanel.Controls.IndexOf(control);
             if (index >= 0 && index < this.workPanel.Controls.Count - 1)

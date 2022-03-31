@@ -1,4 +1,6 @@
-﻿using ExperimentDesign.InfoForm;
+﻿using ExperimentDesign.General;
+using ExperimentDesign.InfoForm;
+using ExperimentDesign.Uncertainty;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

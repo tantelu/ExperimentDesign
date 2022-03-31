@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.Uncertainty;
 using ExperimentDesign.WorkList.Grid;
 using System.Collections.Generic;
 

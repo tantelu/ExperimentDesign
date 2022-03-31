@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using ExperimentDesign;
+using ExperimentDesign.Uncertainty;
 using ExperimentDesign.WorkList.Base;
 using System.Collections.Generic;
 using System.Windows.Forms;

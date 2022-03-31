@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.Uncertainty;
 using ExperimentDesign.WorkList.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

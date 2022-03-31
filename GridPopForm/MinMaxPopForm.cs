@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using ExperimentDesign.Uncertainty;
 using System;
 
 namespace ExperimentDesign.GridPopForm
