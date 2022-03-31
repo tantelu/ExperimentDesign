@@ -310,5 +310,19 @@ namespace ExperimentDesign
                 }
             }
         }
+
+        private void pareto图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.Multiselect = false;
+            of.Filter = "实验分析表|*.xlsx";
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                DataTable table = ExcelEx.ExcelToTable(of.FileName);
+                var bars = UniMultipleLineRegression.VarianceAnalysisBars(table);
+                ParetoShowForm form = new ParetoShowForm();
+                form.ShowPareto(bars);
+            }
+        }
     }
 }

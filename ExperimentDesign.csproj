@@ -36,10 +36,14 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.8.9\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Charts.v17.2.Core, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.Data.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.Utils.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
+    <Reference Include="DevExpress.XtraCharts.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.UI, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.Wizard, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
     <Reference Include="DevExpress.XtraLayout.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=58eb2150d286b637" />
@@ -69,6 +73,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -142,6 +147,12 @@
     </Compile>
     <Compile Include="InfoForm\DesignValueShowForm.Designer.cs">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoForm\ParetoShowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoForm\ParetoShowForm.Designer.cs">
+      <DependentUpon>ParetoShowForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InfoForm\VolumnSelectForm.cs">
       <SubType>Form</SubType>
@@ -320,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm\ParetoShowForm.resx">
+      <DependentUpon>ParetoShowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoForm\VolumnSelectForm.resx">
       <DependentUpon>VolumnSelectForm.cs</DependentUpon>

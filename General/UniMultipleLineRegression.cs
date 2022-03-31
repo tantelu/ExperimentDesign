@@ -86,5 +86,63 @@ namespace ExperimentDesign.General
                 return null;
             }
         }
+
+        /// <summary>
+        /// 因子标准系数
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static List<BarData> VarianceAnalysisBars(DataTable table)
+        {
+            if (table.Columns.Count > 2)
+            {
+                UniMultipleLineRegression data = new UniMultipleLineRegression();
+                data.x = CreateMatrix.Dense(table.Rows.Count, table.Columns.Count - 2, (int i, int j) => { return Convert.ToDouble(table.Rows[i][j + 1]); });
+                data.y = CreateVector.Dense(table.Rows.Count, (int i) => { return Convert.ToDouble(table.Rows[i][table.Columns.Count - 1]); });
+                List<BarData> bars = new List<BarData>();
+                var bs = data.GetBs();
+                var normalbs = data.GetNormalBs();
+                List<Tuple<double, int>> list = new List<Tuple<double, int>>();
+                for (int i = 0; i < normalbs.Length; i++)
+                {
+                    list.Add(new Tuple<double, int>(Math.Abs(normalbs[i]), i));
+                }
+                var sortlist = list.OrderByDescending(_ => _.Item1).ToList();
+                for (int i = 0; i < bs.Length; i++)
+                {
+                    BarData bar = new BarData(table.Columns[i + 1].ColumnName,Math.Abs( normalbs[i]));
+                    bars.Add(bar);
+                }
+                return bars.OrderBy(_ => _.FactorLevel).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    public class BarData
+    {
+        double level;
+
+        string name;
+
+        public BarData(string name, double level)
+        {
+            this.name = name;
+            this.level = level;
+        }
+        public string FactorName
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public double FactorLevel
+        {
+            get { return level; }
+            set { level = value; }
+        }
     }
 }

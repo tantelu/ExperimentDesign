@@ -40,8 +40,9 @@ namespace ExperimentDesign
             this.模型显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模型分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.方差分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.多元回归分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.pareto图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
@@ -125,7 +126,8 @@ namespace ExperimentDesign
             // 
             this.模型分析ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.方差分析ToolStripMenuItem,
-            this.多元回归分析ToolStripMenuItem});
+            this.多元回归分析ToolStripMenuItem,
+            this.pareto图ToolStripMenuItem});
             this.模型分析ToolStripMenuItem.Name = "模型分析ToolStripMenuItem";
             this.模型分析ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
             this.模型分析ToolStripMenuItem.Text = "模型分析";
@@ -137,6 +139,13 @@ namespace ExperimentDesign
             this.方差分析ToolStripMenuItem.Text = "方差分析";
             this.方差分析ToolStripMenuItem.Click += new System.EventHandler(this.方差分析ToolStripMenuItem_Click);
             // 
+            // 多元回归分析ToolStripMenuItem
+            // 
+            this.多元回归分析ToolStripMenuItem.Name = "多元回归分析ToolStripMenuItem";
+            this.多元回归分析ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.多元回归分析ToolStripMenuItem.Text = "多元回归分析";
+            this.多元回归分析ToolStripMenuItem.Click += new System.EventHandler(this.多元回归分析ToolStripMenuItem_Click);
+            // 
             // panelControl1
             // 
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -145,12 +154,12 @@ namespace ExperimentDesign
             this.panelControl1.Size = new System.Drawing.Size(1170, 620);
             this.panelControl1.TabIndex = 1;
             // 
-            // 多元回归分析ToolStripMenuItem
+            // pareto图ToolStripMenuItem
             // 
-            this.多元回归分析ToolStripMenuItem.Name = "多元回归分析ToolStripMenuItem";
-            this.多元回归分析ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.多元回归分析ToolStripMenuItem.Text = "多元回归分析";
-            this.多元回归分析ToolStripMenuItem.Click += new System.EventHandler(this.多元回归分析ToolStripMenuItem_Click);
+            this.pareto图ToolStripMenuItem.Name = "pareto图ToolStripMenuItem";
+            this.pareto图ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.pareto图ToolStripMenuItem.Text = "Pareto图";
+            this.pareto图ToolStripMenuItem.Click += new System.EventHandler(this.pareto图ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -188,6 +197,7 @@ namespace ExperimentDesign
         private System.Windows.Forms.ToolStripMenuItem 模型分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 方差分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 多元回归分析ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pareto图ToolStripMenuItem;
     }
 }
 
