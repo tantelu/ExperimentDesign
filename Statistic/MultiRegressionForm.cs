@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraCharts;
+﻿using DevExpress.Utils;
+using DevExpress.XtraCharts;
 using DevExpress.XtraEditors;
 using ExperimentDesign.General;
 using MathNet.Numerics.Statistics;
@@ -17,8 +18,6 @@ namespace ExperimentDesign.Statistic
 {
     public partial class MultiRegressionForm : XtraForm
     {
-        private List<RegressionParam> param;
-
         public MultiRegressionForm()
         {
             InitializeComponent();
@@ -47,7 +46,7 @@ namespace ExperimentDesign.Statistic
                 var regression = UniMultipleLineRegression.Regression(table);
                 if (regression != null)
                 {
-                    param = regression.GetParam();
+                    var param = regression.GetParam();
                     StringBuilder sb = new StringBuilder();
                     sb.Append("y = ");
                     sb.Append(param[0].Coefficient.ToString("f2"));
@@ -64,7 +63,7 @@ namespace ExperimentDesign.Statistic
                     }
                     this.buttonEdit2.Text = sb.ToString();
                     SetGrid(regression.GetTable());
-                    SetParam(param.Where(_ => !string.IsNullOrEmpty(_.Name)).ToList());
+                    SetParam(param);
                     ShowPareto(regression.GetBars());
                     this.gridControl1.Refresh();
                 }
@@ -121,7 +120,8 @@ namespace ExperimentDesign.Statistic
 
         private void buttonEdit3_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            if (param?.Count > 0)
+            var pars = this.gridControl2.DataSource as List<RegressionParam>;
+            if (pars?.Count > 0)
             {
                 Random R = new Random();
                 List<double> volumns = new List<double>();
@@ -130,7 +130,7 @@ namespace ExperimentDesign.Statistic
                 while (i < max)
                 {
                     double y = 0;
-                    foreach (var par in param)
+                    foreach (var par in pars)
                     {
                         if (!string.IsNullOrEmpty(par.Name) && par.Max > par.Min)
                         {
@@ -149,15 +149,39 @@ namespace ExperimentDesign.Statistic
 
                 this.chartControl2.Series.Clear();
                 Series Series1 = new Series();
+                Series1.ToolTipEnabled = DefaultBoolean.False;
                 Series1.View = new SplineSeriesView();
                 for (int index = 1; index < 100; index++)
                 {
-                    var vol = Statistics.EmpiricalInvCDF(volumns, index / 100.0);
+                    var vol = Statistics.EmpiricalInvCDF(volumns, (100 - index) / 100.0);
                     SeriesPoint seriesPoint = new SeriesPoint(vol, index);
                     Series1.Points.Add(seriesPoint);
                 }
+                Series Series2 = new Series();
+                {
+                    Series2.LabelsVisibility = DefaultBoolean.True;
+                    Series2.ToolTipEnabled = DefaultBoolean.False;
+                    Series2.View = new PointSeriesView();
+                    var vol10 = Statistics.EmpiricalInvCDF(volumns, 0.9);
+                    SeriesPoint point10 = new SeriesPoint(vol10, 10);
+                    var vol50 = Statistics.EmpiricalInvCDF(volumns, 0.5);
+                    SeriesPoint point50 = new SeriesPoint(vol50, 50);
+                    var vol90 = Statistics.EmpiricalInvCDF(volumns, 0.1);
+                    SeriesPoint point90 = new SeriesPoint(vol90, 90);
+                    Series2.Points.Add(point10);
+                    Series2.Points.Add(point50);
+                    Series2.Points.Add(point90);
+
+                    PointSeriesLabel myLable1 = (PointSeriesLabel)Series2.Label;
+                    myLable1.Angle = 0;//获取或设置控制数据点标签位置的角度
+                    myLable1.TextPattern = "P{V}-储量:{A:F2}";//获取或设置一个字符串，该字符串表示指定要在系列标注标签中显示的文本的模式。
+                    myLable1.Position = PointLabelPosition.Outside;//获取或设置点标记所在的位置。
+                    myLable1.ResolveOverlappingMode = ResolveOverlappingMode.Default;//启用系列标签的自动冲突检测和解决
+                }
+
+
                 this.chartControl2.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        Series1};
+        Series1,Series2};
                 ((XYDiagram)chartControl2.Diagram).AxisY.Title.Text = "概率(%)";
                 ((XYDiagram)chartControl2.Diagram).AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 ((XYDiagram)chartControl2.Diagram).AxisX.Title.Text = "地质储量";

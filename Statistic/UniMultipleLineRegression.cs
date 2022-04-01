@@ -39,6 +39,12 @@ namespace ExperimentDesign.Statistic
                     param.Min = factorArray[i - 1].Min();
                     param.Max = factorArray[i - 1].Max();
                 }
+                else
+                {
+                    param.Name = "常数项";
+                    param.Min = coeff[i];
+                    param.Max = coeff[i];
+                }
                 pars.Add(param);
             }
             return pars;
@@ -112,7 +118,7 @@ namespace ExperimentDesign.Statistic
                 data.x = CreateMatrix.Dense(table.Rows.Count, table.Columns.Count - 2, (int i, int j) => { return Convert.ToDouble(table.Rows[i][j + 1]); });
                 data.y = CreateVector.Dense(table.Rows.Count, (int i) => { return Convert.ToDouble(table.Rows[i][table.Columns.Count - 1]); });
                 data.factors = new List<string>();
-                for (int i = 0; i < table.Columns.Count - 1; i++)
+                for (int i = 1; i < table.Columns.Count - 1; i++)
                 {
                     data.factors.Add(table.Columns[i].ColumnName);
                 }

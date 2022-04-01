@@ -283,7 +283,7 @@ namespace ExperimentDesign.Statistic
             this.chartControl2.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.chartControl2.Size = new System.Drawing.Size(996, 339);
             this.chartControl2.TabIndex = 5;
-            chartTitle2.Text = "储量累计概率分布图";
+            chartTitle2.Text = "储量概率分布图";
             this.chartControl2.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
             chartTitle2});
             // 
