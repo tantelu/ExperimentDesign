@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraCharts;
 using DevExpress.XtraEditors;
 using ExperimentDesign.General;
+using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace ExperimentDesign.Statistic
 {
     public partial class MultiRegressionForm : XtraForm
     {
+        private List<RegressionParam> param;
+
         public MultiRegressionForm()
         {
             InitializeComponent();
@@ -44,7 +47,7 @@ namespace ExperimentDesign.Statistic
                 var regression = UniMultipleLineRegression.Regression(table);
                 if (regression != null)
                 {
-                    var param = regression.GetParam();
+                    param = regression.GetParam();
                     StringBuilder sb = new StringBuilder();
                     sb.Append("y = ");
                     sb.Append(param[0].Coefficient.ToString("f2"));
@@ -91,6 +94,7 @@ namespace ExperimentDesign.Statistic
 
         public void ShowPareto(List<BarData> datas)
         {
+            this.chartControl1.Series.Clear();
             Series Series1 = new Series();
             Series1.ArgumentScaleType = ScaleType.Qualitative;
             Series1.ArgumentDataMember = nameof(BarData.FactorName);
@@ -101,7 +105,6 @@ namespace ExperimentDesign.Statistic
             ((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "标准化回归系数";
             ((XYDiagram)chartControl1.Diagram).AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
             chartControl1.Titles[0].Text = "标准化效应的Pareto图";
-            this.Show();
         }
 
         public void SetParam(List<RegressionParam> param)
@@ -114,6 +117,52 @@ namespace ExperimentDesign.Statistic
                 this.gridView2.Columns[i].DisplayFormat.FormatString = "{0:0.#######}";
             }
             this.gridView2.RefreshData();
+        }
+
+        private void buttonEdit3_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            if (param?.Count > 0)
+            {
+                Random R = new Random();
+                List<double> volumns = new List<double>();
+                int i = 0;
+                var max = Convert.ToDouble(this.buttonEdit3.Text);
+                while (i < max)
+                {
+                    double y = 0;
+                    foreach (var par in param)
+                    {
+                        if (!string.IsNullOrEmpty(par.Name) && par.Max > par.Min)
+                        {
+                            var x = par.Min + (par.Max - par.Min) * R.NextDouble();
+                            y += par.Coefficient * x;
+                        }
+                        else
+                        {
+                            y += par.Coefficient;
+                        }
+
+                    }
+                    volumns.Add(y);
+                    i++;
+                }
+
+                this.chartControl2.Series.Clear();
+                Series Series1 = new Series();
+                Series1.View = new SplineSeriesView();
+                for (int index = 1; index < 100; index++)
+                {
+                    var vol = Statistics.EmpiricalInvCDF(volumns, index / 100.0);
+                    SeriesPoint seriesPoint = new SeriesPoint(vol, index);
+                    Series1.Points.Add(seriesPoint);
+                }
+                this.chartControl2.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        Series1};
+                ((XYDiagram)chartControl2.Diagram).AxisY.Title.Text = "概率(%)";
+                ((XYDiagram)chartControl2.Diagram).AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                ((XYDiagram)chartControl2.Diagram).AxisX.Title.Text = "地质储量";
+                ((XYDiagram)chartControl2.Diagram).AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            }
         }
     }
 }
