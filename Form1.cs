@@ -2,6 +2,7 @@
 using DevExpress.XtraGrid;
 using ExperimentDesign.General;
 using ExperimentDesign.InfoForm;
+using ExperimentDesign.Statistic;
 using ExperimentDesign.WorkList.ShowResult;
 using System;
 using System.Collections.Generic;
@@ -297,22 +298,16 @@ namespace ExperimentDesign
 
         private void 多元回归分析ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog of = new OpenFileDialog();
-            of.Multiselect = false;
-            of.Filter = "实验分析表|*.xlsx";
-            if (of.ShowDialog() == DialogResult.OK)
-            {
-                DataTable table = ExcelEx.ExcelToTable(of.FileName);
-                var newtable = UniMultipleLineRegression.VarianceAnalysisTable(table);
-                using (DesignValueShowForm form = new DesignValueShowForm())
-                {
-                    form.SetGrid(newtable);
-                    form.ShowDialog();
-                }
-            }
+            MultiRegressionForm form = new MultiRegressionForm();
+            form.Show();
         }
 
         private void pareto图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog of = new OpenFileDialog();
             of.Multiselect = false;
@@ -320,9 +315,7 @@ namespace ExperimentDesign
             if (of.ShowDialog() == DialogResult.OK)
             {
                 DataTable table = ExcelEx.ExcelToTable(of.FileName);
-                var bars = UniMultipleLineRegression.VarianceAnalysisBars(table);
-                ParetoShowForm form = new ParetoShowForm();
-                form.ShowPareto(bars);
+                Probability.CPDF(table);
             }
         }
     }

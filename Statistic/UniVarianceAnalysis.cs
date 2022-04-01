@@ -1,10 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ExperimentDesign.General
+namespace ExperimentDesign.Statistic
 {
     /// <summary>
     /// 单变量方差分析 参考 数理统计与分析(陈希孺)335页 6.5.2单因数完全随机实验方差分析

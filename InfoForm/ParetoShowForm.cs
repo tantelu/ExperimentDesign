@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraCharts;
 using DevExpress.XtraEditors;
 using ExperimentDesign.General;
+using ExperimentDesign.Statistic;
 using System.Collections.Generic;
 
 namespace ExperimentDesign.InfoForm
