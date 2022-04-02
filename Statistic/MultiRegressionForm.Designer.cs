@@ -289,7 +289,7 @@ namespace ExperimentDesign.Statistic
             // 
             // buttonEdit3
             // 
-            this.buttonEdit3.EditValue = "1000";
+            this.buttonEdit3.EditValue = "5000";
             this.buttonEdit3.Location = new System.Drawing.Point(170, 3);
             this.buttonEdit3.Name = "buttonEdit3";
             this.buttonEdit3.Properties.Appearance.Options.UseTextOptions = true;

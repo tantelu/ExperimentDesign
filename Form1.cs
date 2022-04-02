@@ -301,22 +301,5 @@ namespace ExperimentDesign
             MultiRegressionForm form = new MultiRegressionForm();
             form.Show();
         }
-
-        private void pareto图ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog of = new OpenFileDialog();
-            of.Multiselect = false;
-            of.Filter = "实验分析表|*.xlsx";
-            if (of.ShowDialog() == DialogResult.OK)
-            {
-                DataTable table = ExcelEx.ExcelToTable(of.FileName);
-                Probability.CPDF(table);
-            }
-        }
     }
 }

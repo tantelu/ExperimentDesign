@@ -5,13 +5,9 @@ using ExperimentDesign.General;
 using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.Statistic
@@ -178,11 +174,9 @@ namespace ExperimentDesign.Statistic
                     myLable1.Position = PointLabelPosition.Outside;//获取或设置点标记所在的位置。
                     myLable1.ResolveOverlappingMode = ResolveOverlappingMode.Default;//启用系列标签的自动冲突检测和解决
                 }
-
-
-                this.chartControl2.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+                this.chartControl2.SeriesSerializable = new Series[] {
         Series1,Series2};
-                ((XYDiagram)chartControl2.Diagram).AxisY.Title.Text = "概率(%)";
+                ((XYDiagram)chartControl2.Diagram).AxisY.Title.Text = "储量概率(%)";
                 ((XYDiagram)chartControl2.Diagram).AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 ((XYDiagram)chartControl2.Diagram).AxisX.Title.Text = "地质储量";
                 ((XYDiagram)chartControl2.Diagram).AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
