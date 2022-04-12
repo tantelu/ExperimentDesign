@@ -77,10 +77,10 @@ namespace ExperimentDesign.GridPopForm
             this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.spinEdit2.Properties.MaxValue = new decimal(new int[] {
-            1,
+            10000,
             0,
             0,
-            327680});
+            0});
             this.spinEdit2.Properties.MinValue = new decimal(new int[] {
             1,
             0,

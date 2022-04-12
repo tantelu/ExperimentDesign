@@ -1,4 +1,5 @@
 ﻿using ExperimentDesign.Uncertainty;
+using ExperimentDesign.WorkList.Base;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -586,6 +587,142 @@ namespace ExperimentDesign.General
                 sb.AppendLine();
             }
             return sb.ToString();
+        }
+    }
+
+    public class MonteCarloTable : Table
+    {
+        private int samples;
+
+        public MonteCarloTable(int samples)
+        {
+            this.samples = samples;
+        }
+
+        public override int GetTestCount()
+        {
+            return samples;
+        }
+
+        public override object GetValue(int rowIndex, int colIndex)
+        {
+            return "sample";
+        }
+
+        public override IReadOnlyList<IReadOnlyDictionary<string, object>> ToDesignList(IReadOnlyList<VariableData> datas, out bool exitNaN)
+        {
+            List<Dictionary<string, object>> res = new List<Dictionary<string, object>>();
+            exitNaN = false;
+            for (int index = 0; index < GetTestCount(); index++)
+            {
+                res.Add(new Dictionary<string, object>());
+            }
+            for (int col = 0; col < datas.Count; col++)
+            {
+                if (datas[col].Arguments != null)
+                {
+                    var objs = datas[col].Arguments.MonteCarloSample(GetTestCount(), GlobalWorkCongfig.Seed);
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        res[i].Add(datas[col].Name, objs[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        res[i].Add(datas[col].Name, "NaN");
+                    }
+                    exitNaN = true;
+                }
+            }
+            return res;
+        }
+    }
+
+    public class EqualSpaceTable : Table
+    {
+        private int samples;
+
+        public EqualSpaceTable(int samples)
+        {
+            this.samples = samples;
+        }
+
+        public override int GetTestCount()
+        {
+            return samples;
+        }
+
+        public override object GetValue(int rowIndex, int colIndex)
+        {
+            return "sample";
+        }
+
+        public override DataTable ToDataTable(IReadOnlyList<VariableData> datas)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add($"实验\\因数", Type.GetType("System.String"));
+            for (int col = 0; col < datas.Count; col++)
+            {
+                var name = datas[col].Name;
+                table.Columns.Add(name, Type.GetType("System.String"));
+            }
+            for (int index = 0; index < GetTestCount(); index++)
+            {
+                DataRow row = table.NewRow();
+                row["实验\\因数"] = $"实验{index + 1}";
+                table.Rows.Add(row);
+            }
+            for (int col = 0; col < datas.Count; col++)
+            {
+                if (datas[col].Arguments != null)
+                {
+                    var objs = datas[col].Arguments.EqualSpaceSample(GetTestCount());
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        table.Rows[i][datas[col].Name] = objs[i];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        table.Rows[i][datas[col].Name] = "NaN";
+                    }
+                }
+            }
+            return table;
+        }
+
+        public override IReadOnlyList<IReadOnlyDictionary<string, object>> ToDesignList(IReadOnlyList<VariableData> datas, out bool exitNaN)
+        {
+            List<Dictionary<string, object>> res = new List<Dictionary<string, object>>();
+            exitNaN = false;
+            for (int index = 0; index < GetTestCount(); index++)
+            {
+                res.Add(new Dictionary<string, object>());
+            }
+            for (int col = 0; col < datas.Count; col++)
+            {
+                if (datas[col].Arguments != null)
+                {
+                    var objs = datas[col].Arguments.EqualSpaceSample(GetTestCount());
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        res[i].Add(datas[col].Name, objs[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < GetTestCount(); i++)
+                    {
+                        res[i].Add(datas[col].Name, "NaN");
+                    }
+                    exitNaN = true;
+                }
+            }
+            return res;
         }
     }
 

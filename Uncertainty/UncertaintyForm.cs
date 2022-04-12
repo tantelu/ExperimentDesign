@@ -173,6 +173,8 @@ namespace ExperimentDesign
             writer.WriteValue(Current.Name);
             writer.WritePropertyName("DesignMethod");
             writer.WriteValue(this.designMethod.SelectedIndex);
+            writer.WritePropertyName("DesignTimes");
+            writer.WriteValue((int)this.designTimes.Value);
             writer.WritePropertyName("Controls");
             writer.WriteStartArray();
             foreach (var item in this.workPanel.Controls)
@@ -217,6 +219,11 @@ namespace ExperimentDesign
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 var jsonText = File.ReadAllText(file, Encoding.UTF8);
                 JObject jo = JObject.Parse(jsonText);
+                var times = jo.GetValue("DesignTimes");
+                if (times != null)
+                {
+                    this.designTimes.Value = (int)times;
+                }
                 var temp = jo.GetValue("DesignMethod");
                 if (temp != null)
                 {
@@ -283,7 +290,7 @@ namespace ExperimentDesign
                 else
                 {
                     this.designTimes.Value = 0;
-                    XtraMessageBox.Show($"参数过少或者设置错误,无法进行{designMethod.SelectedText}实验设计");
+                    XtraMessageBox.Show($"参数过少或者设置错误,无法进行{designMethod.SelectedText}设计");
                 }
             }
         }
@@ -295,10 +302,24 @@ namespace ExperimentDesign
             if (methodIndex == 0)
             {
                 this.designTimes.ReadOnly = false;
+                MonteCarloTable res = new MonteCarloTable(Convert.ToInt32(this.designTimes.Value));
+                MonteCarloPanel panel = new MonteCarloPanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
             }
             else if (methodIndex == 1)
             {
                 this.designTimes.ReadOnly = false;
+                EqualSpaceTable res = new EqualSpaceTable(Convert.ToInt32(this.designTimes.Value));
+                EqualSpacePanel panel = new EqualSpacePanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
 
             }
             if (methodIndex == 2)
@@ -634,6 +655,14 @@ namespace ExperimentDesign
             {
                 form.UncertaintyForm = this;
                 form.ShowDialog();
+            }
+        }
+
+        private void designTimes_ValueChanged(object sender, EventArgs e)
+        {
+            if (!designTimes.ReadOnly)
+            {
+                UpdateDesign();
             }
         }
     }

@@ -82,7 +82,7 @@ namespace ExperimentDesign.Statistic
             for (int i = 0; i < this.gridView1.Columns.Count; i++)
             {
                 this.gridView1.Columns[i].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-                this.gridView1.Columns[i].DisplayFormat.FormatString = "{0:0.#######}";
+                this.gridView1.Columns[i].DisplayFormat.FormatString = "{0:0.######}";
             }
             this.gridView1.RefreshData();
         }
@@ -108,8 +108,8 @@ namespace ExperimentDesign.Statistic
             this.gridControl2.RefreshDataSource();
             for (int i = 0; i < this.gridView2.Columns.Count; i++)
             {
-                this.gridView2.Columns[i].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-                this.gridView2.Columns[i].DisplayFormat.FormatString = "{0:0.#######}";
+                this.gridView2.Columns[i].DisplayFormat.FormatType = FormatType.Numeric;
+                this.gridView2.Columns[i].DisplayFormat.FormatString = "{0:0.######}";
             }
             this.gridView2.RefreshData();
         }

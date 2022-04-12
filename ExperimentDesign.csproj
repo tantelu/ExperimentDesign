@@ -91,6 +91,18 @@
     <Compile Include="BBForm.Designer.cs">
       <DependentUpon>BBForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignPanel\EqualSpacePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\EqualSpacePanel.Designer.cs">
+      <DependentUpon>EqualSpacePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignPanel\MonteCarloPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignPanel\MonteCarloPanel.Designer.cs">
+      <DependentUpon>MonteCarloPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="General\DesignAlgorithm.cs" />
     <Compile Include="DesignPanel\OrthDesignPanel.cs">
       <SubType>UserControl</SubType>
@@ -325,6 +337,12 @@
     </Compile>
     <EmbeddedResource Include="BBForm.resx">
       <DependentUpon>BBForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\EqualSpacePanel.resx">
+      <DependentUpon>EqualSpacePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignPanel\MonteCarloPanel.resx">
+      <DependentUpon>MonteCarloPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesignPanel\OrthDesignPanel.resx">
       <DependentUpon>OrthDesignPanel.cs</DependentUpon>

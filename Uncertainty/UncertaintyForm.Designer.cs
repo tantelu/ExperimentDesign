@@ -396,14 +396,15 @@ namespace ExperimentDesign
             0,
             0,
             0});
-            this.designTimes.Enabled = false;
             this.designTimes.Location = new System.Drawing.Point(139, 8);
             this.designTimes.Name = "designTimes";
             this.designTimes.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.designTimes.Properties.ReadOnly = true;
             this.designTimes.Size = new System.Drawing.Size(1104, 28);
             this.designTimes.StyleController = this.layoutControl3;
             this.designTimes.TabIndex = 4;
+            this.designTimes.ValueChanged += new System.EventHandler(this.designTimes_ValueChanged);
             // 
             // layoutControlGroup3
             // 
