@@ -623,7 +623,7 @@ namespace ExperimentDesign.General
                         }
                         else if (char.Equals(design, '0'))
                         {
-                            row[datas[col].Name] = datas[col].BaseValue;
+                            row[datas[col].Name] = datas[col].Arguments.GetBase();
                         }
                         else if (design is int intdesgin)
                         {
@@ -668,7 +668,7 @@ namespace ExperimentDesign.General
                         }
                         else if (char.Equals(design, '0'))
                         {
-                            row[datas[col].ParDescription] = datas[col].BaseValue;
+                            row[datas[col].ParDescription] = datas[col].Arguments.GetBase();
                         }
                         else if (design is int intdesgin)
                         {
@@ -707,7 +707,7 @@ namespace ExperimentDesign.General
                         }
                         else if (char.Equals(design, '0'))
                         {
-                            dic.Add(datas[col].Name, datas[col].BaseValue);
+                            dic.Add(datas[col].Name, datas[col].Arguments.GetBase());
                         }
                         else if (design is int intdesgin)
                         {

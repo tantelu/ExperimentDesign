@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace ExperimentDesign.GridPopForm
 {
-    public partial class MinMaxPopForm : XtraForm
+    public partial class NormalPopForm : XtraForm
     {
-        public MinMaxPopForm()
+        public NormalPopForm()
         {
             InitializeComponent();
         }
@@ -16,36 +16,43 @@ namespace ExperimentDesign.GridPopForm
         {
             get
             {
-                return new MinMaxArgument(this.spinEdit1.Value, this.spinEdit2.Value);
+                return new NormalArgument(this.spinEdit1.Value, this.spinEdit2.Value);
             }
         }
 
-        private void simpleButton1_Click(object sender, System.EventArgs e)
+        private void simpleButton1_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
-
-    public class MinMaxArgument : IArgument
+    
+    public class NormalArgument : IArgument
     {
-        decimal min;
-        decimal max;
+        decimal mean;
+        decimal std;
 
-        public MinMaxArgument(decimal min, decimal max)
+        public NormalArgument(decimal mean, decimal std)
         {
-            this.min = min;
-            this.max = max;
+            this.mean = mean;
+            this.std = std;
         }
 
-        private MinMaxArgument() { }
+        private NormalArgument() { }
 
         public object GetBase()
         {
-            return (max + min) / (decimal)2.0;
+            return mean;
+        }
+
+        public object GetLevel(int level)
+        {
+            return double.NaN;
         }
 
         public IReadOnlyList<object> EqualSpaceSample(int sampletimes)
         {
+            decimal max = mean + (decimal)1.64485 * std;
+            decimal min = mean - (decimal)1.6448536 * std;
             decimal inte = (max - min) / (sampletimes - 1);
             List<object> vs = new List<object>();
             vs.Add(min);
@@ -59,6 +66,8 @@ namespace ExperimentDesign.GridPopForm
 
         public IReadOnlyList<object> MonteCarloSample(int sampletimes, int seed)
         {
+            decimal max = mean + (decimal)1.64485 * std;
+            decimal min = mean - (decimal)1.6448536 * std;
             Random R = new Random(seed);
             List<object> vs = new List<object>();
             for (int i = 0; i < sampletimes; i++)
@@ -68,47 +77,32 @@ namespace ExperimentDesign.GridPopForm
             return vs;
         }
 
-        public object GetLevel(int level)
-        {
-            if (level == 0)
-            {
-                return min;
-            }
-            else if (level == 1)
-            {
-                return max;
-            }
-            else
-            {
-                return double.NaN;
-            }
-        }
-
+        //90%置信区间 zp=1.644853
         public object GetMax()
         {
-            return max;
+            return mean + (decimal)1.64485 * std;
         }
 
         public object GetMin()
         {
-            return min;
+            return mean - (decimal)1.6448536 * std;
         }
 
         public void Open(string json)
         {
             string[] strs = json.Split(',');
-            min = Convert.ToDecimal(strs[0]);
-            max = Convert.ToDecimal(strs[1]);
+            mean = Convert.ToDecimal(strs[0]);
+            std = Convert.ToDecimal(strs[1]);
         }
 
         public string Save()
         {
-            return $"{min},{max}";
+            return $"{mean},{std}";
         }
 
         public override string ToString()
         {
-            return $"Min:{min};Max:{max}";
+            return $"Mean:{mean};Std:{std}";
         }
     }
 }

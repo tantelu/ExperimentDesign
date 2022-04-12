@@ -294,42 +294,55 @@ namespace ExperimentDesign
             this.panelControl_design.Controls.Clear();
             if (methodIndex == 0)
             {
+                this.designTimes.ReadOnly = false;
+            }
+            else if (methodIndex == 1)
+            {
+                this.designTimes.ReadOnly = false;
+
+            }
+            if (methodIndex == 2)
+            {
+                this.designTimes.ReadOnly = true;
                 var res = DesignAlgorithm.GenerateBoxBehnken(factornum);
                 BBDesignPanel panel = new BBDesignPanel();
                 panel.DesignTable = res;
                 panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else if (methodIndex == 1)
-            {
-                var res = DesignAlgorithm.GenerateComposite(factornum, CenteralCompositeType.FaceCentered);
-                CCDesignPanel panel = new CCDesignPanel();
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.panelControl_design.Controls.Add(panel);
-                return res;
-            }
-            else if (methodIndex == 2)
-            {
-                var res = DesignAlgorithm.GeneratePlackettBurman(factornum);
-                PBDesignPanel panel = new PBDesignPanel();
-                panel.DesignTimes = this;
-                panel.DesignTable = res;
-                panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                panel.Dock = DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
             }
             else if (methodIndex == 3)
             {
+                this.designTimes.ReadOnly = true;
+                var res = DesignAlgorithm.GenerateComposite(factornum, CenteralCompositeType.FaceCentered);
+                CCDesignPanel panel = new CCDesignPanel();
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else if (methodIndex == 4)
+            {
+                this.designTimes.ReadOnly = true;
+                var res = DesignAlgorithm.GeneratePlackettBurman(factornum);
+                PBDesignPanel panel = new PBDesignPanel();
+                panel.DesignTimes = this;
+                panel.DesignTable = res;
+                panel.Data = data;
+                panel.Dock = DockStyle.Fill;
+                this.panelControl_design.Controls.Add(panel);
+                return res;
+            }
+            else if (methodIndex == 5)
+            {
+                this.designTimes.ReadOnly = true;
                 var res = DesignAlgorithm.GenerateOrthGuide(factornum, factornum - 1);
                 OrthDesignPanel panel = new OrthDesignPanel();
                 panel.DesignTable = res;
                 panel.Data = data;
-                panel.Dock = System.Windows.Forms.DockStyle.Fill;
+                panel.Dock = DockStyle.Fill;
                 this.panelControl_design.Controls.Add(panel);
                 return res;
             }
@@ -532,6 +545,26 @@ namespace ExperimentDesign
             else if (string.Equals(distribution, "集合"))
             {
                 using (GridListPopForm form = new GridListPopForm())
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
+                    }
+                }
+            }
+            else if (string.Equals(distribution, "正态分布"))
+            {
+                using (NormalPopForm form = new NormalPopForm())
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
+                    }
+                }
+            }
+            else if (string.Equals(distribution, "三角分布"))
+            {
+                using (TrianglePopForm form = new TrianglePopForm())
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {

@@ -325,7 +325,9 @@ namespace ExperimentDesign
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.paramDistributed.Items.AddRange(new object[] {
             "均匀分布",
-            "集合"});
+            "集合",
+            "正态分布",
+            "三角分布"});
             this.paramDistributed.Name = "paramDistributed";
             this.paramDistributed.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.paramDistributed.SelectedIndexChanged += new System.EventHandler(this.paramDistributed_SelectedIndexChanged);
@@ -375,6 +377,8 @@ namespace ExperimentDesign
             this.designMethod.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.designMethod.Properties.Items.AddRange(new object[] {
+            "Monte-Carlo sampler",
+            "Equal space sampler",
             "Box-Behnken",
             "Center Composite",
             "Plackett-Burman",

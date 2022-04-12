@@ -126,6 +126,18 @@
     <Compile Include="General\ExcelEx.cs" />
     <Compile Include="General\Gslib.cs" />
     <Compile Include="General\KrigType.cs" />
+    <Compile Include="GridPopForm\MinMaxPopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridPopForm\MinMaxPopForm.Designer.cs">
+      <DependentUpon>MinMaxPopForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridPopForm\NormalPopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridPopForm\NormalPopForm.Designer.cs">
+      <DependentUpon>NormalPopForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Statistic\MultiRegressionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,11 +147,11 @@
     <Compile Include="Statistic\UniMultipleLineRegression.cs" />
     <Compile Include="Statistic\UniVarianceAnalysis.cs" />
     <Compile Include="General\VariogramType.cs" />
-    <Compile Include="GridPopForm\MinMaxPopForm.cs">
+    <Compile Include="GridPopForm\TrianglePopForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GridPopForm\MinMaxPopForm.Designer.cs">
-      <DependentUpon>MinMaxPopForm.cs</DependentUpon>
+    <Compile Include="GridPopForm\TrianglePopForm.Designer.cs">
+      <DependentUpon>TrianglePopForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GridPopForm\GridListPopForm.cs">
       <SubType>Form</SubType>
@@ -332,8 +344,14 @@
     <EmbeddedResource Include="GridPopForm\MinMaxPopForm.resx">
       <DependentUpon>MinMaxPopForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GridPopForm\TrianglePopForm.resx">
+      <DependentUpon>TrianglePopForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GridPopForm\GridListPopForm.resx">
       <DependentUpon>GridListPopForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridPopForm\NormalPopForm.resx">
+      <DependentUpon>NormalPopForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoForm\DesignValueShowForm.resx">
       <DependentUpon>DesignValueShowForm.cs</DependentUpon>
