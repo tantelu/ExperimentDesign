@@ -98,7 +98,6 @@ namespace ExperimentDesign.WorkList.Sis
                         this.allFacies.Items.Add(item);
                     }
                 }
-
                 this.probalities.Text = pro;
             }
         }
@@ -118,7 +117,7 @@ namespace ExperimentDesign.WorkList.Sis
             {
                 if (!selectedFacies.Items.Contains(allFacies.SelectedItem))
                 {
-                    dic.Add(allFacies.SelectedItem, this.variogramControl1.GetVariogram());
+                    dic.Add(allFacies.SelectedItem,this.variogramControl1.GetVariogram().Clone());//新建一个实例 ，否则会导致ID重复使用
                     selectedFacies.Items.Add(allFacies.SelectedItem);
                     allFacies.Items.Remove(allFacies.SelectedItem);
                     var pros = string.Empty;
@@ -188,7 +187,7 @@ namespace ExperimentDesign.WorkList.Sis
             var keys = dic.Keys.ToList();
             foreach (var key in keys)
             {
-                dic[key] = vari;
+                dic[key] = vari.Clone();
             }
         }
     }

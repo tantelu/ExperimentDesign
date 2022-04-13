@@ -51,7 +51,7 @@ namespace ExperimentDesign.GridPopForm
             vs.Add(min);
             for (int i = 1; i < sampletimes - 1; i++)
             {
-                vs.Add(min + inte);
+                vs.Add(min + inte * i);
             }
             vs.Add(max);
             return vs;

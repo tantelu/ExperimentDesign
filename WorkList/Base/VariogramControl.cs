@@ -149,5 +149,20 @@ namespace ExperimentDesign.WorkList.Base
             MajorDip = new Design<double>();
             MajorDip.Open(jo[nameof(MajorDip)]?.ToString());
         }
+
+        //克隆值 但不克隆ID
+        public Variogram Clone()
+        {
+            Variogram newvar = new Variogram();
+            newvar.MajorAzi = this.MajorAzi.Clone();
+            newvar.MajorDip = this.MajorDip.Clone();
+            newvar.MajorRange = this.MajorRange.Clone();
+            newvar.MinorRange = this.MinorRange.Clone();
+            newvar.VerRange = this.VerRange.Clone();
+            newvar.Nug = this.Nug.Clone();
+            newvar.Sill = this.Sill.Clone();
+            newvar.VarType = this.VarType;
+            return newvar;
+        }
     }
 }

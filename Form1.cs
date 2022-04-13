@@ -289,6 +289,7 @@ namespace ExperimentDesign
                 var newtable = UniVarianceAnalysis.VarianceAnalysisTable(vars);
                 using (DesignValueShowForm form = new DesignValueShowForm())
                 {
+                    form.Text = "方差分析";
                     form.SetGrid(newtable);
                     form.ShowDialog();
                 }

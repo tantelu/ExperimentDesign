@@ -124,5 +124,15 @@ namespace ExperimentDesign.General
                 return Value.ToString();
             }
         }
+
+        public Design<T> Clone()
+        {
+            Design<T> newdesign = new Design<T>();
+            newdesign.Id = Guid.NewGuid().ToString();
+            newdesign.IsDesign = this.IsDesign;
+            newdesign.DesignName = this.DesignName;
+            newdesign.Value = this.Value.Copy();
+            return newdesign;
+        }
     }
 }

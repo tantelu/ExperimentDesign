@@ -229,7 +229,7 @@ namespace ExperimentDesign
             this.editworkflow.Size = new System.Drawing.Size(142, 32);
             this.editworkflow.StyleController = this.layoutControl2;
             this.editworkflow.TabIndex = 4;
-            this.editworkflow.Text = "编辑工作流";
+            this.editworkflow.Text = "添加工作流";
             this.editworkflow.Click += new System.EventHandler(this.editworkflow_Click);
             // 
             // layoutControlGroup2
@@ -344,7 +344,7 @@ namespace ExperimentDesign
             // tabNavigationPage3
             // 
             this.tabNavigationPage3.BackgroundPadding = new System.Windows.Forms.Padding(2);
-            this.tabNavigationPage3.Caption = "实验设计";
+            this.tabNavigationPage3.Caption = "不确定性";
             this.tabNavigationPage3.Controls.Add(this.layoutControl3);
             this.tabNavigationPage3.Name = "tabNavigationPage3";
             this.tabNavigationPage3.Size = new System.Drawing.Size(1251, 376);
@@ -371,7 +371,7 @@ namespace ExperimentDesign
             // 
             // designMethod
             // 
-            this.designMethod.EditValue = "Box-Behnken";
+            this.designMethod.EditValue = "Monte-Carlo sampler";
             this.designMethod.Location = new System.Drawing.Point(139, 42);
             this.designMethod.Name = "designMethod";
             this.designMethod.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
