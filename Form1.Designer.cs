@@ -30,12 +30,6 @@ namespace ExperimentDesign
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.正交实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plackettBurman实验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.响应曲面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.模拟ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.不确定分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模型显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模型分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,9 +45,6 @@ namespace ExperimentDesign
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.文件ToolStripMenuItem,
-            this.实验ToolStripMenuItem,
-            this.模拟ToolStripMenuItem,
             this.不确定分析ToolStripMenuItem,
             this.模型显示ToolStripMenuItem,
             this.模型分析ToolStripMenuItem});
@@ -62,50 +53,6 @@ namespace ExperimentDesign
             this.menuStrip1.Size = new System.Drawing.Size(1170, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 文件ToolStripMenuItem
-            // 
-            this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(62, 28);
-            this.文件ToolStripMenuItem.Text = "文件";
-            // 
-            // 实验ToolStripMenuItem
-            // 
-            this.实验ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.正交实验ToolStripMenuItem,
-            this.plackettBurman实验ToolStripMenuItem,
-            this.响应曲面ToolStripMenuItem});
-            this.实验ToolStripMenuItem.Name = "实验ToolStripMenuItem";
-            this.实验ToolStripMenuItem.Size = new System.Drawing.Size(62, 28);
-            this.实验ToolStripMenuItem.Text = "实验";
-            // 
-            // 正交实验ToolStripMenuItem
-            // 
-            this.正交实验ToolStripMenuItem.Name = "正交实验ToolStripMenuItem";
-            this.正交实验ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
-            this.正交实验ToolStripMenuItem.Text = "正交实验";
-            this.正交实验ToolStripMenuItem.Click += new System.EventHandler(this.正交实验ToolStripMenuItem_Click);
-            // 
-            // plackettBurman实验ToolStripMenuItem
-            // 
-            this.plackettBurman实验ToolStripMenuItem.Name = "plackettBurman实验ToolStripMenuItem";
-            this.plackettBurman实验ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
-            this.plackettBurman实验ToolStripMenuItem.Text = "Plackett-Burman实验";
-            this.plackettBurman实验ToolStripMenuItem.Click += new System.EventHandler(this.plackettBurman实验ToolStripMenuItem_Click);
-            // 
-            // 响应曲面ToolStripMenuItem
-            // 
-            this.响应曲面ToolStripMenuItem.Name = "响应曲面ToolStripMenuItem";
-            this.响应曲面ToolStripMenuItem.Size = new System.Drawing.Size(307, 34);
-            this.响应曲面ToolStripMenuItem.Text = "响应曲面(Box-Behnken)";
-            this.响应曲面ToolStripMenuItem.Click += new System.EventHandler(this.响应曲面ToolStripMenuItem_Click);
-            // 
-            // 模拟ToolStripMenuItem
-            // 
-            this.模拟ToolStripMenuItem.Name = "模拟ToolStripMenuItem";
-            this.模拟ToolStripMenuItem.Size = new System.Drawing.Size(62, 28);
-            this.模拟ToolStripMenuItem.Text = "模拟";
-            this.模拟ToolStripMenuItem.Click += new System.EventHandler(this.模拟ToolStripMenuItem_Click);
             // 
             // 不确定分析ToolStripMenuItem
             // 
@@ -133,14 +80,14 @@ namespace ExperimentDesign
             // 方差分析ToolStripMenuItem
             // 
             this.方差分析ToolStripMenuItem.Name = "方差分析ToolStripMenuItem";
-            this.方差分析ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.方差分析ToolStripMenuItem.Size = new System.Drawing.Size(218, 34);
             this.方差分析ToolStripMenuItem.Text = "方差分析";
             this.方差分析ToolStripMenuItem.Click += new System.EventHandler(this.方差分析ToolStripMenuItem_Click);
             // 
             // 多元回归分析ToolStripMenuItem
             // 
             this.多元回归分析ToolStripMenuItem.Name = "多元回归分析ToolStripMenuItem";
-            this.多元回归分析ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.多元回归分析ToolStripMenuItem.Size = new System.Drawing.Size(218, 34);
             this.多元回归分析ToolStripMenuItem.Text = "多元回归分析";
             this.多元回归分析ToolStripMenuItem.Click += new System.EventHandler(this.多元回归分析ToolStripMenuItem_Click);
             // 
@@ -176,13 +123,7 @@ namespace ExperimentDesign
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 实验ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 正交实验ToolStripMenuItem;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private System.Windows.Forms.ToolStripMenuItem plackettBurman实验ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 响应曲面ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 模拟ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 不确定分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 模型显示ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 模型分析ToolStripMenuItem;
