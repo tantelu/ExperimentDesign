@@ -62,7 +62,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\QT\5.15.2\msvc2019_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Program Files\Geostatistics\Projects\ExperimentDesign\QT\Uncertainly\include;C:\QT\5.15.2\msvc2019_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Qt5Chartsd.lib;Qt5Charts.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -95,16 +95,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\QWorkUnitWidget.cpp" />
+    <ClCompile Include="src\qtui\QWorkWidget.cpp" />
+    <ClCompile Include="src\qtui\Uncertainly.cpp" />
     <QtRcc Include="Uncertainly.qrc" />
-    <QtMoc Include="Uncertainly.h" />
-    <ClCompile Include="Uncertainly.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Uncertainly.ui" />
+    <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
+    <ClInclude Include="include\qtui\QWorkWidget.h" />
+    <QtMoc Include="include\qtui\Uncertainly.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

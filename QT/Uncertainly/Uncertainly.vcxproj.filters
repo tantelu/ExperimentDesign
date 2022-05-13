@@ -21,20 +21,26 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Header Files\NewFilter1">
+      <UniqueIdentifier>{1d2e81c1-8154-4b8f-8222-ff50e2fb4801}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Uncertainly.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtMoc Include="Uncertainly.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="Uncertainly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\qtui\QWorkUnitWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\qtui\QWorkWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\qtui\Uncertainly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,8 +48,19 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Uncertainly.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qtui\QWorkWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\qtui\QWorkUnitWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\qtui\Uncertainly.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

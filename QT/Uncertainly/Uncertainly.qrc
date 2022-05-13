@@ -1,3 +1,19 @@
 <RCC>
-    <qresource prefix="/Uncertainly"/>
+    <qresource prefix="/Uncertainly">
+        <file>image/Delete.png</file>
+        <file>image/Down.png</file>
+        <file>image/FacieCtrl.png</file>
+        <file>image/Grid.png</file>
+        <file>image/Refresh.png</file>
+        <file>image/Run.png</file>
+        <file>image/Sgs.png</file>
+        <file>image/Show2D.png</file>
+        <file>image/Sis.png</file>
+        <file>image/uncertain.ico</file>
+        <file>image/Up.png</file>
+        <file>image/Volume.png</file>
+        <file>image/Delete32.png</file>
+        <file>image/Up32.png</file>
+        <file>image/Down32.png</file>
+    </qresource>
 </RCC>

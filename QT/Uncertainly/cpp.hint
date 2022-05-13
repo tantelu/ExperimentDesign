@@ -2,3 +2,7 @@
 // 如函数和宏的名称。
 // 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
 #define Q_OBJECT
+#define Q_SLOTS QT_ANNOTATE_ACCESS_SPECIFIER(qt_slot)
+#define Q_SLOTS
+#define Q_SIGNALS public QT_ANNOTATE_ACCESS_SPECIFIER(qt_signal)
+#define Q_SIGNALS
