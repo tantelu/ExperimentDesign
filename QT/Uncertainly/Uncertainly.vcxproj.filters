@@ -43,6 +43,12 @@
     <ClCompile Include="src\qtui\Uncertainly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\qtui\osg\OsgContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\qtui\osg\ModelShow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -60,6 +66,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\qtui\Uncertainly.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\qtui\osg\OsgContainer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\qtui\osg\ModelShow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

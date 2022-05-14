@@ -90,6 +90,8 @@ private:
 public:
     Uncertainly(QWidget *parent = Q_NULLPTR);
 
+    void Show3D();
+
 public Q_SLOTS:
     void Response();
 

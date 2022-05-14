@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets;charts</QtModules>
+    <QtModules>core;opengl;gui;widgets;3dcore;3danimation;3dextras;3dinput;3dlogic;3drender;3dquick;charts</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -55,17 +55,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <LibraryPath>C:\QT\5.15.2\msvc2019_64\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\sourcecode\OpenSceneGraph-3.6.5-VC2019-64-Debug\lib;C:\QT\5.15.2\msvc2019_64\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)ExperimentDesign\QT\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Program Files\Geostatistics\Projects\ExperimentDesign\QT\Uncertainly\include;C:\QT\5.15.2\msvc2019_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\sourcecode\OpenSceneGraph-3.6.5-VC2019-64-Debug\include;D:\Program Files\Geostatistics\Projects\ExperimentDesign\QT\Uncertainly\include;C:\QT\5.15.2\msvc2019_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Chartsd.lib;Qt5Charts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Chartsd.lib;OpenThreadsd.lib;osgd.lib;osgAnimationd.lib;osgDBd.lib;osgFXd.lib;osgGAd.lib;osgManipulatord.lib;osgParticled.lib;osgPresentationd.lib;osgQOpenGLd.lib;osgQt5d.lib;osgShadowd.lib;osgSimd.lib;osgTerraind.lib;osgTextd.lib;osgUId.lib;osgUtild.lib;osgViewerd.lib;osgVolumed.lib;osgWidgetd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>OpenThreads.lib;osg.lib;osgAnimation.lib;osgDB.lib;osgFX.lib;osgGA.lib;osgManipulator.lib;osgParticle.lib;osgPresentation.lib;osgQOpenGL.lib;osgQt5.lib;osgShadow.lib;osgSim.lib;osgTerrain.lib;osgText.lib;osgUI.lib;osgUtil.lib;osgViewer.lib;osgVolume.lib;osgWidget.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -95,6 +100,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\osg\ModelShow.cpp" />
+    <ClCompile Include="src\qtui\osg\OsgContainer.cpp" />
     <ClCompile Include="src\qtui\QWorkUnitWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkWidget.cpp" />
     <ClCompile Include="src\qtui\Uncertainly.cpp" />
@@ -108,6 +115,8 @@
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <ClInclude Include="include\qtui\QWorkWidget.h" />
     <QtMoc Include="include\qtui\Uncertainly.h" />
+    <QtMoc Include="include\qtui\osg\OsgContainer.h" />
+    <QtMoc Include="include\qtui\osg\ModelShow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

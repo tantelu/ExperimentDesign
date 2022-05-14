@@ -1,5 +1,7 @@
 #include "qtui/Uncertainly.h"
 #include "qmessagebox.h"
+#include <qtui/osg/OsgContainer.h>
+#include <qtui/osg/ModelShow.h>
 
 void Uncertainly::InitComponent()
 {
@@ -60,6 +62,8 @@ void Uncertainly::InitComponent()
 	layout1->addWidget(lastWidget, 3, 0, 1, 2);
 
 	center->setLayout(layout1);
+
+	connect(ok, &QPushButton::clicked, this, &Uncertainly::Show3D);
 }
 
 void Uncertainly::SetTable()
@@ -80,6 +84,17 @@ Uncertainly::Uncertainly(QWidget* parent)
 	: QMainWindow(parent)
 {
 	InitComponent();
+}
+
+void Uncertainly::Show3D()
+{
+	QDockWidget* dock = new QDockWidget("dock", this);
+	dock->setAttribute(Qt::WA_DeleteOnClose, true);
+	ModelShow* model = new ModelShow(dock);
+	dock->setWidget(model);
+	this->addDockWidget(Qt::RightDockWidgetArea, dock);
+
+	connect(dock, &QDockWidget::destroyed, this, &Uncertainly::Response);
 }
 
 void Uncertainly::Response()
