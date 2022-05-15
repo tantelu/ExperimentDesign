@@ -1,6 +1,5 @@
 #include "qtui/Uncertainly.h"
 #include "qmessagebox.h"
-#include <qtui/osg/OsgContainer.h>
 #include <qtui/osg/ModelShow.h>
 
 void Uncertainly::InitComponent()
@@ -93,8 +92,6 @@ void Uncertainly::Show3D()
 	ModelShow* model = new ModelShow(dock);
 	dock->setWidget(model);
 	this->addDockWidget(Qt::RightDockWidgetArea, dock);
-
-	connect(dock, &QDockWidget::destroyed, this, &Uncertainly::Response);
 }
 
 void Uncertainly::Response()

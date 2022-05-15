@@ -1,9 +1,9 @@
 #include "qtui/osg/ModelShow.h"
-#include "qtui/osg/OsgContainer.h"
+#include "qtui/osg/OsgBaseWidget.h"
 
 ModelShow::ModelShow(QWidget* parent)
 {
-	osgViewer = new OsgContainer(this);
+	osgViewer = new OsgBaseWidget(this);
 
 	button1 = new QPushButton(this);
 	button1->setText("Ìí¼Ó");
@@ -18,6 +18,6 @@ ModelShow::ModelShow(QWidget* parent)
 	unitlistLayout->addWidget(button2, 0, 1, 1, 1);
 	unitlistLayout->addWidget(osgViewer, 1, 0, 1, 2);
 
-	connect(button1, &QPushButton::clicked, osgViewer, &OsgContainer::addCylinder);
+	connect(button1, &QPushButton::clicked, osgViewer, &OsgBaseWidget::addCylinder);
 	connect(button2, &QPushButton::clicked, osgViewer, [=](){ osgViewer->getRoot()->removeChildren(0, osgViewer->getRoot()->getNumChildren()); });
 }

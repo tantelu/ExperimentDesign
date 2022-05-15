@@ -101,7 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\qtui\osg\ModelShow.cpp" />
-    <ClCompile Include="src\qtui\osg\OsgContainer.cpp" />
+    <ClCompile Include="src\qtui\osg\OsgBaseWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkUnitWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkWidget.cpp" />
     <ClCompile Include="src\qtui\Uncertainly.cpp" />
@@ -115,7 +115,7 @@
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <ClInclude Include="include\qtui\QWorkWidget.h" />
     <QtMoc Include="include\qtui\Uncertainly.h" />
-    <QtMoc Include="include\qtui\osg\OsgContainer.h" />
+    <QtMoc Include="include\qtui\osg\OsgBaseWidget.h" />
     <QtMoc Include="include\qtui\osg\ModelShow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
