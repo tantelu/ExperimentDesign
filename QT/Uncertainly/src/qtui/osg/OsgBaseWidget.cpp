@@ -61,4 +61,45 @@ void OsgBaseWidget::addCylinder() {
 	}
 }
 
+void OsgBaseWidget::addTestModel()
+{
+	auto root = getRoot();
+	size_t ij = 100;
+	auto z = rand() % 100;
+
+	osg::ref_ptr<osg::Geometry> geometry = new osg::Geometry;
+	osg::Vec4dArray* color = new osg::Vec4dArray;
+	osg::Vec3Array* vecArray = new osg::Vec3Array;
+	for (size_t i = 0; i < ij; i++)
+	{
+		for (size_t j = 0; j < ij; j++)
+		{
+			vecArray->push_back(osg::Vec3d(i, j, z));
+			color->push_back(osg::Vec4((float)rand() / (float)RAND_MAX, (float)rand() / (float)RAND_MAX, (float)rand() / (float)RAND_MAX, 1.f));
+		}
+	}
+	osg::ref_ptr<osg::DrawElementsUInt> drawElemUInt = new osg::DrawElementsUInt(GL_TRIANGLES);
+	for (size_t i = 0; i < ij - 1; i++)
+	{
+		for (size_t j = 0; j < ij - 1; j++)
+		{
+			size_t index = i + j * ij;
+			drawElemUInt->push_back(index);
+			drawElemUInt->push_back(index + ij);
+			drawElemUInt->push_back(index + ij + 1);
+
+			drawElemUInt->push_back(index);
+			drawElemUInt->push_back(index + 1);
+			drawElemUInt->push_back(index + ij + 1);
+		}
+	}
+	geometry->setVertexArray(vecArray);
+	geometry->setColorArray(color);
+	color->setBinding(osg::Array::BIND_PER_VERTEX);
+	geometry->addPrimitiveSet(drawElemUInt);
+	osg::ref_ptr < osg::Geode> geode = new osg::Geode;
+	geode->addDrawable(geometry);
+	root->addChild(geode);
+}
+
 

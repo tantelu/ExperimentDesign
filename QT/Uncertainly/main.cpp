@@ -1,11 +1,11 @@
-#include "qtui/Uncertainly.h"
+#include "qtui/MainWindow.h"
 #include "qtui/osg/ModelShow.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Uncertainly w;
+    MainWindow w;
     w.show();
     return a.exec();
     /*QApplication a(argc, argv);

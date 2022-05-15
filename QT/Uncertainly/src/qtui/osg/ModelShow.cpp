@@ -18,6 +18,6 @@ ModelShow::ModelShow(QWidget* parent)
 	unitlistLayout->addWidget(button2, 0, 1, 1, 1);
 	unitlistLayout->addWidget(osgViewer, 1, 0, 1, 2);
 
-	connect(button1, &QPushButton::clicked, osgViewer, &OsgBaseWidget::addCylinder);
+	connect(button1, &QPushButton::clicked, osgViewer, &OsgBaseWidget::addTestModel);
 	connect(button2, &QPushButton::clicked, osgViewer, [=](){ osgViewer->getRoot()->removeChildren(0, osgViewer->getRoot()->getNumChildren()); });
 }

@@ -100,6 +100,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\MainWindow.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="src\qtui\osg\ModelShow.cpp" />
     <ClCompile Include="src\qtui\osg\OsgBaseWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkUnitWidget.cpp" />
@@ -113,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
+    <QtMoc Include="include\qtui\MainWindow.h" />
     <ClInclude Include="include\qtui\QWorkWidget.h" />
     <QtMoc Include="include\qtui\Uncertainly.h" />
     <QtMoc Include="include\qtui\osg\OsgBaseWidget.h" />

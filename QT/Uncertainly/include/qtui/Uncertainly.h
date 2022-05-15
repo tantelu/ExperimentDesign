@@ -13,14 +13,10 @@ QT_CHARTS_USE_NAMESPACE
 #include <QtWidgets/QMainWindow>
 #include "qtui/QWorkWidget.h"
 
-class Uncertainly : public QMainWindow
+class Uncertainly : public QWidget
 {
     Q_OBJECT
 private:
-    /// <summary>
-    /// 主窗体中心Widget
-    /// </summary>
-    QWidget* center;
     /// <summary>
     /// 主窗体中心布局
     /// </summary>
@@ -89,12 +85,4 @@ private:
     
 public:
     Uncertainly(QWidget *parent = Q_NULLPTR);
-
-    void Show3D();
-
-public Q_SLOTS:
-    void Response();
-
-//private:
-//    Ui::UncertainlyClass ui;
 };

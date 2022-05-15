@@ -6,24 +6,21 @@ void Uncertainly::InitComponent()
 {
 	resize(1005, 627);
 	setMaximumSize(QSize(16777215, 16777215));
-	center = new QWidget(this);
-	setCentralWidget(center);//MainWindom本身有自己的布局,不能直接setLayout,MainWindom需要通过设置CentralWidget来布局
-	newproject = new QCheckBox(center);
+	newproject = new QCheckBox(this);
 	newproject->setText("新建");
 	newproject->setFixedSize(100, 30);
 
-	editExit = new QCheckBox(center);
+	editExit = new QCheckBox(this);
 	editExit->setText("编辑现有");
 
-	projectName = new QTextEdit(center);
+	projectName = new QTextEdit(this);
 	projectName->setFixedHeight(30);
 	QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Minimum);
 	projectName->setSizePolicy(sizePolicy1);
 
-	hasProject = new QComboBox(center);
+	hasProject = new QComboBox(this);
 
-
-	tab = new QTabWidget(center);
+	tab = new QTabWidget(this);
 	workTab = new QWorkWidget();
 	variableTab = new QTableWidget(4, 3);
 	uncertainTab = new QWidget();
@@ -35,7 +32,7 @@ void Uncertainly::InitComponent()
 	tab->tabBar()->setStyleSheet("QTabBar::tab{min-height: 30px; min-width: 80px;}");
 
 	//布局最后一行
-	lastWidget = new QWidget(center);
+	lastWidget = new QWidget(this);
 	ok = new QPushButton(lastWidget);
 	ok->setText("运行");
 	save = new QPushButton(lastWidget);
@@ -49,7 +46,7 @@ void Uncertainly::InitComponent()
 	lastlayout->addWidget(cancel, 0, 3, 1, 1);
 	lastlayout->addItem(lastRowSpace, 0, 1, 1, 1);
 
-	layout1 = new QGridLayout(center);
+	layout1 = new QGridLayout(this);
 	layout1->setSpacing(15);
 	layout1->setContentsMargins(20, 20, 20, 0);
 	layout1->setObjectName(QString::fromUtf8("gridLayout"));
@@ -60,9 +57,7 @@ void Uncertainly::InitComponent()
 	layout1->addWidget(tab, 2, 0, 1, 2);
 	layout1->addWidget(lastWidget, 3, 0, 1, 2);
 
-	center->setLayout(layout1);
-
-	connect(ok, &QPushButton::clicked, this, &Uncertainly::Show3D);
+	this->setLayout(layout1);
 }
 
 void Uncertainly::SetTable()
@@ -80,21 +75,7 @@ void Uncertainly::SetTable()
 }
 
 Uncertainly::Uncertainly(QWidget* parent)
-	: QMainWindow(parent)
+	: QWidget(parent)
 {
 	InitComponent();
-}
-
-void Uncertainly::Show3D()
-{
-	QDockWidget* dock = new QDockWidget("dock", this);
-	dock->setAttribute(Qt::WA_DeleteOnClose, true);
-	ModelShow* model = new ModelShow(dock);
-	dock->setWidget(model);
-	this->addDockWidget(Qt::RightDockWidgetArea, dock);
-}
-
-void Uncertainly::Response()
-{
-	QMessageBox::information(this, "提示", "信息已收到", QMessageBox::Yes);
 }

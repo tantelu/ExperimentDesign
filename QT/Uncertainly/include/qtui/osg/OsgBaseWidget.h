@@ -13,8 +13,6 @@ class OsgBaseWidget : public osgQOpenGLWidget{
 public:
     OsgBaseWidget(QWidget* parent = 0);
     ~OsgBaseWidget();
-    
-    void addCylinder();
 
     osg::Group* getRoot() {
         return getOsgViewer()->getSceneData()->asGroup();;
@@ -22,6 +20,11 @@ public:
 
 private Q_SLOTS:
     void initOsg();
+
+public Q_SLOTS:
+    void addCylinder();
+
+    void addTestModel();
 };
 #endif // OSGCONTAINER_H
 
