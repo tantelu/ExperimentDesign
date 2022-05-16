@@ -2,8 +2,7 @@
 
 DiscreteLayer::DiscreteLayer(const GslibModel<int>& model)
 {
-	osg::ref_ptr<osg::Switch> _switch = new osg::Switch;
-	sw = _switch.get();
+	sw = new osg::Switch;
 	map<int, int> sortfacie;
 	for (size_t i = 0; i < model.size(); i++)
 	{
@@ -96,6 +95,7 @@ DiscreteLayer::DiscreteLayer(const GslibModel<int>& model)
 		geometry->setColorArray(color);
 		color->setBinding(osg::Array::BIND_OVERALL);
 		geode->addDrawable(geometry);
+		sw.get()->addChild(geode, false);
 		facies.insert(make_pair((*fit).first, geode.get()));
 	}
 }

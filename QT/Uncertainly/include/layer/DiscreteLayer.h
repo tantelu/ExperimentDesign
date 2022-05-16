@@ -9,7 +9,7 @@ using namespace std;
 class DiscreteLayer
 {
 private:
-	osg::Switch* sw;
+	osg::ref_ptr<osg::Switch> sw;
 	map<int, osg::Geode*> facies;
 
 public:

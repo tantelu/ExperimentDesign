@@ -38,8 +38,9 @@ void OsgBaseWidget::initOsg() {
 void OsgBaseWidget::addDiscreteLayer(DiscreteLayer* layer)
 {
 	auto root = getRoot();
-	root->addChild(layer->getSwitch());
-	layer->getSwitch()->setAllChildrenOn();
+	auto _switch = layer->getSwitch();
+	root->addChild(_switch);
+	_switch->setAllChildrenOn();
 }
 
 void OsgBaseWidget::addTestModel()
