@@ -5,6 +5,7 @@
 
 MainWindow::MainWindow()
 {
+	setGeometry(200,100,1000, 800);
 	QMenuBar* mBar = this->menuBar();
 	QMenu* menu = mBar->addMenu("文件");
 	QAction* action1 = menu->addAction("不确定性分析");

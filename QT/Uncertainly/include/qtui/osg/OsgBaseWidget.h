@@ -5,7 +5,7 @@
 #include <QOpenGLWidget>
 #include <osgQOpenGL/osgQOpenGLWidget>
 #include <osgViewer/Viewer>
-
+#include "layer/DiscreteLayer.h"
 class QInputEvent;
 
 class OsgBaseWidget : public osgQOpenGLWidget{
@@ -22,7 +22,7 @@ private Q_SLOTS:
     void initOsg();
 
 public Q_SLOTS:
-    void addCylinder();
+    void addDiscreteLayer(DiscreteLayer* layer);
 
     void addTestModel();
 };

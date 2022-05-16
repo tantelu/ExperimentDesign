@@ -35,30 +35,11 @@ void OsgBaseWidget::initOsg() {
 	startTimer(10);
 }
 
-void OsgBaseWidget::addCylinder() {
-	for (size_t i = 0; i < 5; i++)
-	{
-		auto x = rand() % 10;
-		auto y = rand() % 10;
-		auto z = rand() % 10;
-		if (x > 5)
-		{
-			osg::ref_ptr<osg::Cylinder> cylinder = new osg::Cylinder(osg::Vec3(x, y, z), 0.25f, 0.5f);
-			osg::ref_ptr<osg::ShapeDrawable> sd = new osg::ShapeDrawable(cylinder);
-			sd->setColor(osg::Vec4(0.8f, 0.5f, 0.2f, 1.f));
-			osg::ref_ptr < osg::Geode> geode = new osg::Geode;
-			geode->addDrawable(sd);
-			getRoot()->addChild(geode);
-		}
-		else {
-			osg::ref_ptr<osg::Sphere> sphere = new osg::Sphere(osg::Vec3(x, y, z), 0.5f);
-			osg::ref_ptr<osg::ShapeDrawable> sd = new osg::ShapeDrawable(sphere);
-			sd->setColor(osg::Vec4(0.8f, 0.5f, 0.8f, 1.f));
-			osg::ref_ptr < osg::Geode> geode = new osg::Geode;
-			geode->addDrawable(sd);
-			getRoot()->addChild(geode);
-		}
-	}
+void OsgBaseWidget::addDiscreteLayer(DiscreteLayer* layer)
+{
+	auto root = getRoot();
+	root->addChild(layer->getSwitch());
+	auto facies = layer->getFacies();
 }
 
 void OsgBaseWidget::addTestModel()
@@ -67,39 +48,43 @@ void OsgBaseWidget::addTestModel()
 	size_t ij = 100;
 	auto z = rand() % 100;
 
+	osg::Vec4dArray* colorS = new osg::Vec4dArray;
+	colorS->push_back(osg::Vec4(0, 0, 1, 1.f));
+	colorS->push_back(osg::Vec4(0, 1.0, 0, 1.f));
+	colorS->push_back(osg::Vec4(1.0, 0, 0, 1.f));
+
 	osg::ref_ptr<osg::Geometry> geometry = new osg::Geometry;
 	osg::Vec4dArray* color = new osg::Vec4dArray;
 	osg::Vec3Array* vecArray = new osg::Vec3Array;
+	osg::ref_ptr<osg::DrawElementsUInt> drawElemUInt = new osg::DrawElementsUInt(GL_QUADS);
 	for (size_t i = 0; i < ij; i++)
 	{
 		for (size_t j = 0; j < ij; j++)
 		{
-			vecArray->push_back(osg::Vec3d(i, j, z));
-			color->push_back(osg::Vec4((float)rand() / (float)RAND_MAX, (float)rand() / (float)RAND_MAX, (float)rand() / (float)RAND_MAX, 1.f));
-		}
-	}
-	osg::ref_ptr<osg::DrawElementsUInt> drawElemUInt = new osg::DrawElementsUInt(GL_TRIANGLES);
-	for (size_t i = 0; i < ij - 1; i++)
-	{
-		for (size_t j = 0; j < ij - 1; j++)
-		{
-			size_t index = i + j * ij;
-			drawElemUInt->push_back(index);
-			drawElemUInt->push_back(index + ij);
-			drawElemUInt->push_back(index + ij + 1);
-
-			drawElemUInt->push_back(index);
-			drawElemUInt->push_back(index + 1);
-			drawElemUInt->push_back(index + ij + 1);
+			int cpos = int(2.999999 * (float)rand() / (float)RAND_MAX);
+			for (size_t index = 0; index < 4; index++)
+			{
+				auto start = vecArray->size();
+				vecArray->push_back(osg::Vec3d(i, j, z));
+				vecArray->push_back(osg::Vec3d(i + 1, j, z));
+				vecArray->push_back(osg::Vec3d(i + 1, j + 1, z));
+				vecArray->push_back(osg::Vec3d(i, j + 1, z));
+				color->push_back(colorS->at(cpos));
+				color->push_back(colorS->at(cpos));
+				color->push_back(colorS->at(cpos));
+				color->push_back(colorS->at(cpos));
+				drawElemUInt->push_back(start);
+				drawElemUInt->push_back(start + 1);
+				drawElemUInt->push_back(start + 2);
+				drawElemUInt->push_back(start + 3);
+			}
 		}
 	}
 	geometry->setVertexArray(vecArray);
 	geometry->setColorArray(color);
 	color->setBinding(osg::Array::BIND_PER_VERTEX);
 	geometry->addPrimitiveSet(drawElemUInt);
-	osg::ref_ptr < osg::Geode> geode = new osg::Geode;
+	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
 	geode->addDrawable(geometry);
 	root->addChild(geode);
 }
-
-
