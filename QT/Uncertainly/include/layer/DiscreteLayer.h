@@ -10,7 +10,7 @@ class DiscreteLayer
 {
 private:
 	osg::Switch* sw;
-	unordered_map<int, osg::Geode*> facies;
+	map<int, osg::Geode*> facies;
 
 public:
 	DiscreteLayer(const GslibModel<int>& model);

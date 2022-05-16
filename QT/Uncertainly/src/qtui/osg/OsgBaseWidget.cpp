@@ -39,12 +39,16 @@ void OsgBaseWidget::addDiscreteLayer(DiscreteLayer* layer)
 {
 	auto root = getRoot();
 	root->addChild(layer->getSwitch());
-	auto facies = layer->getFacies();
+	layer->getSwitch()->setAllChildrenOn();
 }
 
 void OsgBaseWidget::addTestModel()
 {
-	auto root = getRoot();
+	GslibModel<int> model("C:\\Users\\24249\\Desktop\\channel.gslib", 500, 500, 1);
+	DiscreteLayer* layer = new DiscreteLayer(model);
+	addDiscreteLayer(layer);
+
+	/*auto root = getRoot();
 	size_t ij = 100;
 	auto z = rand() % 100;
 
@@ -86,5 +90,5 @@ void OsgBaseWidget::addTestModel()
 	geometry->addPrimitiveSet(drawElemUInt);
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
 	geode->addDrawable(geometry);
-	root->addChild(geode);
+	root->addChild(geode);*/
 }
