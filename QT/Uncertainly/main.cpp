@@ -1,6 +1,4 @@
 #include "qtui/MainWindow.h"
-#include "evaluation/cc3d.hpp"
-#include "qtui/osg/ModelShow.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char* argv[])

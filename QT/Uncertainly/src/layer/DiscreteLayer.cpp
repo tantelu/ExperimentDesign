@@ -48,8 +48,8 @@ void DiscreteLayer::setVisibleFilter(set<int>& filter)
 		osg::ref_ptr<osg::Material> material = new osg::Material;
 		material->setAmbient(osg::Material::FRONT, (*fcolor).second);
 		material->setDiffuse(osg::Material::FRONT, (*fcolor).second);
-		material->setSpecular(osg::Material::FRONT, (*fcolor).second);
-		material->setShininess(osg::Material::FRONT, 60.0);
+		material->setSpecular(osg::Material::FRONT, osg::Vec4d(0.7f, 0.7f, 0.7f, 1.0f));
+		material->setShininess(osg::Material::FRONT, 90);
 		material->setColorMode(osg::Material::AMBIENT);
 		osg::DrawElementsUInt* drawElemUInt = drawElemUIntPt.get();
 		int vicount = inmodel->getIcount() + 1;

@@ -4,6 +4,7 @@
 #include <osg/Group>
 #include <osgViewer/Viewer>
 #include "gslib/model.h"
+#include "QVariant"
 using namespace std;
 
 class DiscreteLayer
@@ -24,4 +25,4 @@ public:
 
 	osg::Switch* getSwitch();
 };
-
+Q_DECLARE_METATYPE(DiscreteLayer)

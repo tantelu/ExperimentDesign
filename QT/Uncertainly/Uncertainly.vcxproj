@@ -100,6 +100,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\SolutionDockWidget.cpp" />
     <ClCompile Include="src\layer\DiscreteLayer.cpp" />
     <ClCompile Include="src\gslib\gslibfile.cpp" />
     <ClCompile Include="src\evaluation\connect.cpp" />
@@ -121,6 +122,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\qtui\SolutionDockWidget.h" />
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <QtMoc Include="include\qtui\MainWindow.h" />
     <ClInclude Include="include\evaluation\cc3d.hpp" />

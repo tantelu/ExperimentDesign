@@ -61,6 +61,9 @@
     <ClCompile Include="src\layer\DiscreteLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\qtui\SolutionDockWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -85,6 +88,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\evaluation\cc3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qtui\SolutionDockWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

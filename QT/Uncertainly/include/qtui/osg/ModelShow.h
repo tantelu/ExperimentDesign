@@ -1,6 +1,5 @@
 #pragma once
 #pragma execution_character_set("utf-8")
-#include <qmainwindow.h>
 #include "OsgBaseWidget.h"
 #include <QtWidgets>
 
