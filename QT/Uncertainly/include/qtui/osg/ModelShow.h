@@ -10,6 +10,7 @@ class ModelShow :
 	Q_OBJECT
 	QPushButton* button1;
 	QPushButton* button2;
+	QPushButton* button3;
 	QGridLayout* unitlistLayout;
 	OsgBaseWidget* osgViewer;  //（记得提前声明哦）
 

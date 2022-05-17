@@ -10,6 +10,8 @@ OsgBaseWidget::OsgBaseWidget(QWidget* parent)
 	setMouseTracking(true);
 	setFocusPolicy(Qt::StrongFocus);
 	connect(this, &osgQOpenGLWidget::initialized, this, &OsgBaseWidget::initOsg);
+	model = nullptr;
+	layer = nullptr;
 }
 
 OsgBaseWidget::~OsgBaseWidget()
@@ -45,10 +47,13 @@ void OsgBaseWidget::addDiscreteLayer(DiscreteLayer* layer)
 
 void OsgBaseWidget::addTestModel()
 {
-	GslibModel<int> model("C:\\Users\\24249\\Desktop\\channel.gslib", 500, 500, 1);
-	DiscreteLayer* layer = new DiscreteLayer(model);
-	addDiscreteLayer(layer);
-
+	if (model == nullptr) {
+		model = new GslibModel<int>("C:\\Users\\24249\\Desktop\\face.gslib", 204, 366, 40);
+		layer = new DiscreteLayer(model);
+		addDiscreteLayer(layer);
+		set<int> sets = { 0,1 };
+		layer->setVisibleFilter(sets);
+	}
 	/*auto root = getRoot();
 	size_t ij = 100;
 	auto z = rand() % 100;
@@ -92,4 +97,10 @@ void OsgBaseWidget::addTestModel()
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
 	geode->addDrawable(geometry);
 	root->addChild(geode);*/
+}
+
+void OsgBaseWidget::shift()
+{
+	set<int> sets = { 1 };
+	layer->setVisibleFilter(sets);
 }

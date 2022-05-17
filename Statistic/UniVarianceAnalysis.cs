@@ -43,12 +43,13 @@ namespace ExperimentDesign.Statistic
 
         public static DataTable VarianceAnalysisTable(List<UniVarianceAnalysis> vars)
         {
+            var se = vars[0].SS - vars.Sum(_ => _.SSA);
+            var degrees = vars[0].DegreesOfSS - vars.Sum(_ => _.DegreesOfSSA);
             DataTable table = new DataTable();
             var col = table.Columns.Add($"因数", Type.GetType("System.String"));
             table.Columns.Add($"因数平方和(SSA)", Type.GetType("System.Double"));
             table.Columns.Add($"自由度(SSA)", Type.GetType("System.Double"));
-            table.Columns.Add($"误差平方和(SSE)", Type.GetType("System.Double"));
-            table.Columns.Add($"自由度(SSE)", Type.GetType("System.Double"));
+            table.Columns.Add($"均方", Type.GetType("System.Double"));
             table.Columns.Add($"F比", Type.GetType("System.Double"));
             for (int i = 0; i < vars.Count; i++)
             {
@@ -56,9 +57,16 @@ namespace ExperimentDesign.Statistic
                 row["因数"] = vars[i].FactorName;
                 row["因数平方和(SSA)"] = vars[i].SSA;
                 row["自由度(SSA)"] = vars[i].DegreesOfSSA;
-                row["误差平方和(SSE)"] = vars[i].SSE;
-                row["自由度(SSE)"] = vars[i].DegreesOfSSE;
-                row["F比"] = vars[i].FRatio;
+                row["均方"] = vars[i].MSA;
+                row["F比"] = vars[i].MSA / (se / degrees);
+                table.Rows.Add(row);
+            }
+            {
+                DataRow row = table.NewRow();
+                row["因数"] = "误差";
+                row["因数平方和(SSA)"] = se;
+                row["自由度(SSA)"] = degrees;
+                row["均方"] = se / degrees;
                 table.Rows.Add(row);
             }
             return table;
@@ -187,14 +195,6 @@ namespace ExperimentDesign.Statistic
             get
             {
                 return SSE / DegreesOfSSE;
-            }
-        }
-
-        public double FRatio
-        {
-            get
-            {
-                return MSA / MSE;
             }
         }
     }

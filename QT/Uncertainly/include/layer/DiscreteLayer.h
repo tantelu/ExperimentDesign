@@ -9,11 +9,12 @@ using namespace std;
 class DiscreteLayer
 {
 private:
+	const GslibModel<int>* inmodel;
 	osg::ref_ptr<osg::Switch> sw;
-	map<int, osg::Geode*> facies;
-
+	osg::ref_ptr<osg::Vec3Array> vecArray;
+	map<int, osg::Vec4> colorS;
 public:
-	DiscreteLayer(const GslibModel<int>& model);
+	DiscreteLayer(const GslibModel<int>* model);
 
 	DiscreteLayer(const DiscreteLayer& other) = delete;
 
@@ -21,10 +22,6 @@ public:
 
 	void setVisibleFilter(set<int>& filter);
 
-	osg::Geode* getGeode(const int& facie);
-
 	osg::Switch* getSwitch();
-
-	vector<int> getFacies();
 };
 

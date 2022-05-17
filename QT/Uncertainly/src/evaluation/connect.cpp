@@ -55,7 +55,7 @@ unique_ptr<ConnectVolumn>  Connect::connectBodyVolumn(GslibModel<int>& gslibMode
 						if (topindex >= 0) {
 							neighbors.push(std::tuple<int, int, int>(curX, back, top));
 							tempConnected.insert(topindex);
-							
+
 						}
 						int bot = curZ - 1;
 						int botindex = canContinueSearch(curX, curY, bot, gslibModel, facies, hasConnected);
@@ -73,6 +73,28 @@ unique_ptr<ConnectVolumn>  Connect::connectBodyVolumn(GslibModel<int>& gslibMode
 	return unique_ptr<ConnectVolumn>(volumn);
 }
 
+unique_ptr<ConnectVolumn> Connect::connectBodyVolumn2(GslibModel<int>& gslibModel, vector<int>& facies, ConnectType connectType)
+{
+	ConnectVolumn* volumn = new ConnectVolumn();
+	int icount = gslibModel.getIcount();
+	int ijcount = gslibModel.getIcount() * gslibModel.getJcount();
+	for (int k = 0; k < gslibModel.getKcount(); k++)
+	{
+		for (int j = 0; j < gslibModel.getJcount(); j++)
+		{
+			for (int i = 0; i < gslibModel.getIcount(); i++)
+			{
+				int index = canContinueSearch(i, j, k, gslibModel, facies);
+				int curfacie = gslibModel.getValue(i, j, k);
+				if (std::find(facies.begin(), facies.end(), curfacie) != facies.end()) {
+
+				}
+			}
+		}
+	}
+	return unique_ptr<ConnectVolumn>(volumn);
+}
+
 int Connect::canContinueSearch(int& curi, int& curj, int& curk, GslibModel<int>& gslibModel, vector<int>& facies, set<int>& hasConnected)
 {
 	if (curk >= 0 && curk < gslibModel.getKcount() && curi >= 0 && curi < gslibModel.getIcount() && curj >= 0 && curj < gslibModel.getJcount())
@@ -80,6 +102,19 @@ int Connect::canContinueSearch(int& curi, int& curj, int& curk, GslibModel<int>&
 		auto curindex = curi + curj * gslibModel.getIcount() + curk * gslibModel.getIcount() * gslibModel.getJcount();
 		int curfacie = gslibModel.getValue(curindex);
 		if (std::find(facies.begin(), facies.end(), curfacie) != facies.end() && hasConnected.find(curindex) == hasConnected.end()) {
+			return curindex;
+		}
+	}
+	return -1;
+}
+
+int Connect::canContinueSearch(int& curi, int& curj, int& curk, GslibModel<int>& gslibModel, vector<int>& facies)
+{
+	if (curk >= 0 && curk < gslibModel.getKcount() && curi >= 0 && curi < gslibModel.getIcount() && curj >= 0 && curj < gslibModel.getJcount())
+	{
+		auto curindex = curi + curj * gslibModel.getIcount() + curk * gslibModel.getIcount() * gslibModel.getJcount();
+		int curfacie = gslibModel.getValue(curindex);
+		if (std::find(facies.begin(), facies.end(), curfacie) != facies.end()) {
 			return curindex;
 		}
 	}

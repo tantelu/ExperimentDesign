@@ -19,6 +19,12 @@ public:
 
 	T getValue(size_t index) const { return data->at(index); }
 
+	T* getValues() const { return &data->at(0); }
+
+	T getValue(size_t i, size_t j, size_t k) const { 
+		return data->at(i + j * icount + k * icount * jcount);
+	}
+
 	size_t getIcount() const { return icount; }
 	size_t getJcount() const { return jcount; }
 	size_t getKcount() const { return kcount; }

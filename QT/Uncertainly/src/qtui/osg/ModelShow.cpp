@@ -9,15 +9,20 @@ ModelShow::ModelShow(QWidget* parent)
 	button1->setText("添加");
 
 	button2 = new QPushButton(this);
-	button2->setText("清空");
+	button2->setText("控制");
+
+	button3 = new QPushButton(this);
+	button3->setText("清空");
 
 	unitlistLayout = new QGridLayout(this);
 	unitlistLayout->setSpacing(0);
 	unitlistLayout->setContentsMargins(0, 0, 0, 0);
 	unitlistLayout->addWidget(button1, 0, 0, 1, 1);
 	unitlistLayout->addWidget(button2, 0, 1, 1, 1);
-	unitlistLayout->addWidget(osgViewer, 1, 0, 1, 2);
+	unitlistLayout->addWidget(button3, 0, 2, 1, 1);
+	unitlistLayout->addWidget(osgViewer, 1, 0, 1, 3);
 
 	connect(button1, &QPushButton::clicked, osgViewer, &OsgBaseWidget::addTestModel);
-	connect(button2, &QPushButton::clicked, osgViewer, [=](){ osgViewer->getRoot()->removeChildren(0, osgViewer->getRoot()->getNumChildren()); });
+	connect(button2, &QPushButton::clicked, osgViewer, &OsgBaseWidget::shift);
+	connect(button3, &QPushButton::clicked, osgViewer, [=](){ osgViewer->getRoot()->removeChildren(0, osgViewer->getRoot()->getNumChildren()); });
 }

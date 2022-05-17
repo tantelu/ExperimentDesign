@@ -84,6 +84,9 @@
     <ClInclude Include="include\layer\DiscreteLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\evaluation\cc3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\qtui\QWorkUnitWidget.h">

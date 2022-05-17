@@ -49,10 +49,13 @@ public:
 
 	static	unique_ptr<ConnectVolumn> connectBodyVolumn(GslibModel<int>& gslibModel, vector<int>& facies, ConnectType connectType);
 
+	static	unique_ptr<ConnectVolumn> connectBodyVolumn2(GslibModel<int>& gslibModel, vector<int>& facies, ConnectType connectType);
+
 	static unique_ptr<ConnectVolumn> connectWellVolumn(GslibModel<int>& gslibModel, vector<size_t>& wellPos, vector<int>& wellFacies, ConnectType connectType);
 
 private:
 	static int canContinueSearch(int& curi, int& curj, int& curk, GslibModel<int>& gslibModel, vector<int>& facies, set<int>& hasConnected);
+	static int canContinueSearch(int& curi, int& curj, int& curk, GslibModel<int>& gslibModel, vector<int>& facies);
 	static void surfaceDfs(int& curi, int& curj, int& curk, GslibModel<int>& gslibModel, vector<int>& facies, set<int>& hasConnected);
 	static void surfaceEdgeDfs(GslibModel<int>& gslibModel, vector<int>& facies, int& curindex, set<int>& hasConnected);
 	static void surfaceEdgeDiagonalDfs(GslibModel<int>& gslibModel, vector<int>& facies, int& curindex, set<int>& hasConnected);

@@ -1,103 +1,28 @@
 #include "layer/DiscreteLayer.h"
+#include <osg/Material>
+#include <osgUtil/SmoothingVisitor>
 
-DiscreteLayer::DiscreteLayer(const GslibModel<int>& model)
+DiscreteLayer::DiscreteLayer(const GslibModel<int>* model)
 {
 	sw = new osg::Switch;
-	map<int, int> sortfacie;
-	for (size_t i = 0; i < model.size(); i++)
-	{
-		auto f = model.getValue(i);
-		auto it = sortfacie.find(f);
-		if (it != sortfacie.end()) {
-			(*it).second += 1;
-		}
-		else {
-			sortfacie.insert(make_pair(f, 1));
-		}
-	}
-	osg::ref_ptr<osg::Vec3Array> ptVecArray = new osg::Vec3Array;
-	osg::Vec3Array* vecArray = ptVecArray.get();
-	int vicount = model.getIcount() + 1;
-	int vjcount = model.getJcount() + 1;
+	this->inmodel = model;
+	vecArray = new osg::Vec3Array;
+	int vicount = inmodel->getIcount() + 1;
+	int vjcount = inmodel->getJcount() + 1;
 	int vijcount = vicount * vjcount;
-	int vkcount = model.getKcount() + 1;
+	int vkcount = inmodel->getKcount() + 1;
 	vecArray->reserve(vicount * vjcount * vkcount);
-	for (size_t k = 0; k <= model.getKcount(); k++)
+	for (size_t k = 0; k <= inmodel->getKcount(); k++)
 	{
-		for (size_t j = 0; j <= model.getJcount(); j++)
+		for (size_t j = 0; j <= inmodel->getJcount(); j++)
 		{
-			for (size_t i = 0; i <= model.getIcount(); i++)
+			for (size_t i = 0; i <= inmodel->getIcount(); i++)
 			{
 				vecArray->push_back(osg::Vec3d(i, j, k));
 			}
 		}
 	}
-	osg::Vec4dArray* colorS = new osg::Vec4dArray;
-	colorS->push_back(osg::Vec4(0, 0, 1, 1.f));
-	colorS->push_back(osg::Vec4(0, 1.0, 0, 1.f));
-	colorS->push_back(osg::Vec4(1.0, 0, 0, 1.f));
-	for (auto fit = sortfacie.begin(); fit != sortfacie.end(); fit++)
-	{
-		osg::ref_ptr<osg::Geometry> geometry = new osg::Geometry;
-		osg::Vec4dArray* color = new osg::Vec4dArray;
-		color->push_back(colorS->at((*fit).first));
-		osg::ref_ptr<osg::DrawElementsUInt> drawElemUIntPt = new osg::DrawElementsUInt(GL_QUADS);
-		osg::DrawElementsUInt* drawElemUInt = drawElemUIntPt.get();
-		drawElemUInt->reserve(24 * (*fit).second);
-		for (size_t k = 0; k < model.getKcount(); k++)
-		{
-			for (size_t j = 0; j < model.getJcount(); j++)
-			{
-				for (size_t i = 0; i < model.getIcount(); i++)
-				{
-					int modelindex = k * model.getIcount() * model.getJcount() + j * model.getIcount() + i;
-					auto f = model.getValue(modelindex);
-					if (f == (*fit).first) {
-
-						int vi = k * vijcount + j * vicount + i;
-						//底
-						drawElemUInt->push_back(vi);
-						drawElemUInt->push_back(vi + 1);
-						drawElemUInt->push_back(vi + vicount + 1);
-						drawElemUInt->push_back(vi + vicount);
-						//前
-						drawElemUInt->push_back(vi);
-						drawElemUInt->push_back(vi + 1);
-						drawElemUInt->push_back(vi + vijcount + 1);
-						drawElemUInt->push_back(vi + vijcount);
-						//左
-						drawElemUInt->push_back(vi);
-						drawElemUInt->push_back(vi + vicount);
-						drawElemUInt->push_back(vi + vicount + vijcount);
-						drawElemUInt->push_back(vi + vijcount);
-						//上
-						drawElemUInt->push_back(vi + vijcount);
-						drawElemUInt->push_back(vi + vijcount + 1);
-						drawElemUInt->push_back(vi + vijcount + vicount + 1);
-						drawElemUInt->push_back(vi + vicount + vijcount);
-						//右
-						drawElemUInt->push_back(vi + 1);
-						drawElemUInt->push_back(vi + vicount + 1);
-						drawElemUInt->push_back(vi + vijcount + vicount + 1);
-						drawElemUInt->push_back(vi + vijcount + 1);
-						//后
-						drawElemUInt->push_back(vi + vicount);
-						drawElemUInt->push_back(vi + vicount + 1);
-						drawElemUInt->push_back(vi + vijcount + vicount + 1);
-						drawElemUInt->push_back(vi + vijcount + vicount);
-					}
-				}
-			}
-		}
-		geometry->setVertexArray(vecArray);
-		geometry->addPrimitiveSet(drawElemUInt);
-		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-		geometry->setColorArray(color);
-		color->setBinding(osg::Array::BIND_OVERALL);
-		geode->addDrawable(geometry);
-		sw.get()->addChild(geode, false);
-		facies.insert(make_pair((*fit).first, geode.get()));
-	}
+	colorS = { {-99, osg::Vec4(0, 0, 1, 1.f)},{0,osg::Vec4(0, 0, 1, 1.f)}, {1,osg::Vec4(0, 1.0, 0, 1.f)} ,{2,osg::Vec4(1.0, 0, 0, 1.f)} };
 }
 
 void DiscreteLayer::setVisible(bool checked)
@@ -112,40 +37,101 @@ void DiscreteLayer::setVisible(bool checked)
 
 void DiscreteLayer::setVisibleFilter(set<int>& filter)
 {
-	for (auto it = facies.begin(); it != facies.end(); it++)
+	sw.get()->removeChildren(0, sw.get()->getNumChildren());
+	for (auto fit = filter.begin(); fit != filter.end(); fit++)
 	{
-		if (filter.find((*it).first) != filter.end()) {
-			sw->setChildValue((*it).second, true);
-		}
-		else {
-			sw->setChildValue((*it).second, false);
-		}
-	}
-}
+		auto fcolor = colorS.find(*fit);
+		osg::ref_ptr<osg::Geometry> geometry = new osg::Geometry;
 
-osg::Geode* DiscreteLayer::getGeode(const int& facie)
-{
-	auto it = facies.find(facie);
-	if (it != facies.end()) {
-		return (*it).second;
+		osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array;
+		osg::ref_ptr<osg::DrawElementsUInt> drawElemUIntPt = new osg::DrawElementsUInt(GL_QUADS);
+		osg::ref_ptr<osg::Material> material = new osg::Material;
+		material->setAmbient(osg::Material::FRONT, (*fcolor).second);
+		material->setDiffuse(osg::Material::FRONT, (*fcolor).second);
+		material->setSpecular(osg::Material::FRONT, (*fcolor).second);
+		material->setShininess(osg::Material::FRONT, 60.0);
+		material->setColorMode(osg::Material::AMBIENT);
+		osg::DrawElementsUInt* drawElemUInt = drawElemUIntPt.get();
+		int vicount = inmodel->getIcount() + 1;
+		int vjcount = inmodel->getJcount() + 1;
+		int vijcount = vicount * vjcount;
+		for (size_t k = 0; k < inmodel->getKcount(); k++)
+		{
+			for (size_t j = 0; j < inmodel->getJcount(); j++)
+			{
+				for (size_t i = 0; i < inmodel->getIcount(); i++)
+				{
+					if (inmodel->getValue(i, j, k) == *fit) {
+
+						int vi = k * vijcount + j * vicount + i;
+						if (k == 0 || filter.find(inmodel->getValue(i, j, k - 1)) == filter.end())
+						{   //底
+							drawElemUInt->push_back(vi);
+							drawElemUInt->push_back(vi + 1);
+							drawElemUInt->push_back(vi + vicount + 1);
+							drawElemUInt->push_back(vi + vicount);
+							n->push_back(osg::Vec3(0.f, 0.f, -1.f));
+						}
+						if (j == 0 || filter.find(inmodel->getValue(i, j - 1, k)) == filter.end())
+						{	//前
+							drawElemUInt->push_back(vi);
+							drawElemUInt->push_back(vi + 1);
+							drawElemUInt->push_back(vi + vijcount + 1);
+							drawElemUInt->push_back(vi + vijcount);
+							n->push_back(osg::Vec3(0.f, -1.f, 0.f));
+						}
+						if (i == 0 || filter.find(inmodel->getValue(i - 1, j, k)) == filter.end())
+						{	//左
+							drawElemUInt->push_back(vi);
+							drawElemUInt->push_back(vi + vicount);
+							drawElemUInt->push_back(vi + vicount + vijcount);
+							drawElemUInt->push_back(vi + vijcount);
+							n->push_back(osg::Vec3(-1.f, 0.f, 0.f));
+						}
+						if (k == inmodel->getKcount() - 1 || filter.find(inmodel->getValue(i, j, k + 1)) == filter.end())
+						{	//上
+							drawElemUInt->push_back(vi + vijcount);
+							drawElemUInt->push_back(vi + vijcount + 1);
+							drawElemUInt->push_back(vi + vijcount + vicount + 1);
+							drawElemUInt->push_back(vi + vicount + vijcount);
+							n->push_back(osg::Vec3(0.f, 0.f, 1.f));
+						}
+						if (i == inmodel->getIcount() - 1 || filter.find(inmodel->getValue(i + 1, j, k)) == filter.end())
+						{	//右
+							drawElemUInt->push_back(vi + 1);
+							drawElemUInt->push_back(vi + vicount + 1);
+							drawElemUInt->push_back(vi + vijcount + vicount + 1);
+							drawElemUInt->push_back(vi + vijcount + 1);
+							n->push_back(osg::Vec3(0.f, 1.f, 0.f));
+						}
+						if (j == inmodel->getJcount() - 1 || filter.find(inmodel->getValue(i, j + 1, k)) == filter.end())
+						{	//后
+							drawElemUInt->push_back(vi + vicount);
+							drawElemUInt->push_back(vi + vicount + 1);
+							drawElemUInt->push_back(vi + vijcount + vicount + 1);
+							drawElemUInt->push_back(vi + vijcount + vicount);
+							n->push_back(osg::Vec3(0.f, 1.f, 0.f));
+						}
+					}
+				}
+			}
+		}
+		geometry->setVertexArray(vecArray);
+		geometry->addPrimitiveSet(drawElemUInt);
+		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
+		geometry->setNormalArray(n.get());
+		auto bind = (osg::Geometry::AttributeBinding::BIND_OVERALL | osg::Geometry::AttributeBinding::BIND_PER_PRIMITIVE_SET);
+		geometry->setNormalBinding((osg::Geometry::AttributeBinding)bind);
+		geode->addDrawable(geometry);
+		geode->getOrCreateStateSet()->setAttributeAndModes(material.get(), osg::StateAttribute::ON);
+		geode->getOrCreateStateSet()->setMode(GL_BLEND, osg::StateAttribute::ON);//透明
+		geode->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);//深度测试
+		sw.get()->addChild(geode, false);
 	}
-	else {
-		return nullptr;
-	}
+	sw.get()->setAllChildrenOn();
 }
 
 osg::Switch* DiscreteLayer::getSwitch()
 {
 	return sw;
-}
-
-vector<int> DiscreteLayer::getFacies()
-{
-	std::vector<int> r;
-	r.reserve(facies.size());
-	for (const auto& kvp : facies)
-	{
-		r.push_back(kvp.first);
-	}
-	return r;
 }

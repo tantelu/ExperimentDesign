@@ -17,6 +17,9 @@ public:
     osg::Group* getRoot() {
         return getOsgViewer()->getSceneData()->asGroup();;
     }
+private:
+    GslibModel<int>* model;
+    DiscreteLayer* layer;
 
 private Q_SLOTS:
     void initOsg();
@@ -25,6 +28,8 @@ public Q_SLOTS:
     void addDiscreteLayer(DiscreteLayer* layer);
 
     void addTestModel();
+
+    void shift();
 };
 #endif // OSGCONTAINER_H
 
