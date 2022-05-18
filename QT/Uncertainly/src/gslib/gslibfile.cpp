@@ -17,10 +17,26 @@ unique_ptr<vector<int>> gslibfile::readfilei(const std::string& file)
 		getline(infile, buf);
 		while (getline(infile, buf))
 		{
-			data->push_back(std::stoi(buf));
+			data->push_back((int)std::stod(buf));
 		}
 	}
 	return unique_ptr<vector<int>>(data);
+}
+
+void gslibfile::readijk(const std::string& url,int& icount,int&jcount,int& kcount)
+{
+	ifstream infile;
+	infile.open(url, ios::in);
+	if (infile.is_open())
+	{
+		string buf;
+		getline(infile, buf);
+		icount = std::stoi(buf);
+		getline(infile, buf);
+		jcount = std::stoi(buf);
+		getline(infile, buf);
+		kcount = std::stoi(buf);
+	}
 }
 
 unique_ptr<vector<double>> gslibfile::readfiled(const std::string& file)

@@ -66,6 +66,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Qt5Chartsd.lib;OpenThreadsd.lib;osgd.lib;osgAnimationd.lib;osgDBd.lib;osgFXd.lib;osgGAd.lib;osgManipulatord.lib;osgParticled.lib;osgPresentationd.lib;osgQOpenGLd.lib;osgQt5d.lib;osgShadowd.lib;osgSimd.lib;osgTerraind.lib;osgTextd.lib;osgUId.lib;osgUtild.lib;osgViewerd.lib;osgVolumed.lib;osgWidgetd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -82,7 +83,6 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -100,6 +100,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\osg\OsgScene.cpp" />
     <ClCompile Include="src\qtui\SolutionDockWidget.cpp" />
     <ClCompile Include="src\layer\DiscreteLayer.cpp" />
     <ClCompile Include="src\gslib\gslibfile.cpp" />
@@ -110,11 +111,11 @@
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
-    <ClCompile Include="src\qtui\osg\ModelShow.cpp" />
     <ClCompile Include="src\qtui\osg\OsgBaseWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkUnitWidget.cpp" />
     <ClCompile Include="src\qtui\QWorkWidget.cpp" />
     <ClCompile Include="src\qtui\Uncertainly.cpp" />
+    <ClCompile Include="src\layer\TreeNodeData.cpp" />
     <QtRcc Include="Uncertainly.qrc" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\qtui\SolutionDockWidget.h" />
+    <ClInclude Include="include\layer\TreeNodeData.h" />
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <QtMoc Include="include\qtui\MainWindow.h" />
     <ClInclude Include="include\evaluation\cc3d.hpp" />
@@ -133,7 +135,7 @@
     <ClInclude Include="include\qtui\QWorkWidget.h" />
     <QtMoc Include="include\qtui\Uncertainly.h" />
     <QtMoc Include="include\qtui\osg\OsgBaseWidget.h" />
-    <QtMoc Include="include\qtui\osg\ModelShow.h" />
+    <ClInclude Include="include\qtui\osg\OsgScene.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

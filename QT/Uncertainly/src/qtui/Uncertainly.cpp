@@ -1,6 +1,5 @@
 #include "qtui/Uncertainly.h"
 #include "qmessagebox.h"
-#include <qtui/osg/ModelShow.h>
 
 void Uncertainly::InitComponent()
 {

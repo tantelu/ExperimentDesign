@@ -9,6 +9,7 @@ class MainWindow :
 {
     Q_OBJECT
 private:
+    int index = 0;
     QMenu* mainMenu;
     SolutionDockWidget* solu;
 public:

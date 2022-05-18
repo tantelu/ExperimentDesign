@@ -46,9 +46,6 @@
     <ClCompile Include="src\qtui\osg\OsgBaseWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\qtui\osg\ModelShow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\qtui\MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,6 +59,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\qtui\SolutionDockWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\qtui\osg\OsgScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\layer\TreeNodeData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,15 +96,18 @@
     <ClInclude Include="include\qtui\SolutionDockWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\qtui\osg\OsgScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\layer\TreeNodeData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\qtui\QWorkUnitWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\qtui\Uncertainly.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="include\qtui\osg\ModelShow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\qtui\osg\OsgBaseWidget.h">
