@@ -67,6 +67,9 @@
     <ClCompile Include="src\layer\TreeNodeData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\qtui\QModelTreeWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -93,9 +96,6 @@
     <ClInclude Include="include\evaluation\cc3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\qtui\SolutionDockWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\qtui\osg\OsgScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +114,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\qtui\MainWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\qtui\QModelTreeWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\qtui\SolutionDockWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

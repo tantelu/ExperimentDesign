@@ -100,6 +100,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\qtui\QModelTreeWidget.cpp" />
     <ClCompile Include="src\qtui\osg\OsgScene.cpp" />
     <ClCompile Include="src\qtui\SolutionDockWidget.cpp" />
     <ClCompile Include="src\layer\DiscreteLayer.cpp" />
@@ -123,7 +124,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\qtui\SolutionDockWidget.h" />
+    <QtMoc Include="include\qtui\SolutionDockWidget.h" />
     <ClInclude Include="include\layer\TreeNodeData.h" />
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <QtMoc Include="include\qtui\MainWindow.h" />
@@ -136,6 +137,7 @@
     <QtMoc Include="include\qtui\Uncertainly.h" />
     <QtMoc Include="include\qtui\osg\OsgBaseWidget.h" />
     <ClInclude Include="include\qtui\osg\OsgScene.h" />
+    <QtMoc Include="include\qtui\QModelTreeWidget.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
