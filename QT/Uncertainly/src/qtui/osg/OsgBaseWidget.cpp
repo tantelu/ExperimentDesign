@@ -11,8 +11,7 @@ OsgBaseWidget::OsgBaseWidget(QWidget* parent)
 }
 
 void OsgBaseWidget::initOsg() {
-	root = new osg::Group;
-	getRoot()->setName("Root");
+	auto root = getScene()->getRoot();
 	auto viewer = getOsgViewer();
 	viewer->setSceneData(root);
 	tm = new osgGA::TrackballManipulator();
@@ -26,8 +25,8 @@ void OsgBaseWidget::initOsg() {
 	viewer->addEventHandler(hp.get());
 	viewer->addEventHandler(sm.get());
 	viewer->getCamera()->setProjectionMatrixAsPerspective(30.0f, width() / height(), 1.0f, 10000.0f);
-	getRoot()->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::ON);
-	getRoot()->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+	root->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::ON);
+	root->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
 	viewer->realize();
 	startTimer(10);
 }

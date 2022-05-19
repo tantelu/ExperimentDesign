@@ -1,4 +1,7 @@
 #include "qtui\QModelTreeWidget.h"
+#include "qtui/osg/OsgBaseWidget.h"
+#include "QFileDialog"
+#include <layer/TreeNodeData.h>
 
 QMenu* QModelTreeWidget::getRootMenu()
 {
@@ -84,8 +87,14 @@ void QModelTreeWidget::addRoot()
 void QModelTreeWidget::addModel()
 {
 	if (currentItem()) {
-		QTreeWidgetItem* item = new QTreeWidgetItem(currentItem());
-		item->setText(0, "新节点");
+		QString fileName = QFileDialog::getOpenFileName(this, tr("文件对话框！"), "F:", tr("模型文件(*osgurl)"));
+		if (QFile::exists(fileName))
+		{
+			QTreeWidgetItem* item = new QTreeWidgetItem(currentItem());
+			item->setText(0, "新节点");
+			TreeNodeData nodeData(fileName, -1);
+			item->setData(0, 0, QVariant::fromValue(nodeData));
+		}
 	}
 }
 

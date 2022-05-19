@@ -32,7 +32,7 @@ DiscreteLayer::DiscreteLayer(const string& url)
 	{
 		allFacies.insert(getModel()->getValue(i));
 	}
-	colorS = { {-99, osg::Vec4(0, 0, 1, 1.f)},{0,osg::Vec4(0, 0, 1, 1.f)}, {1,osg::Vec4(0, 1.0, 0, 1.f)} ,{2,osg::Vec4(1.0, 0, 0, 1.f)} };
+	colorS = { {-99, osg::Vec4(0.7f, 0.7f, 0.7f, 1.f)},{0,osg::Vec4(0, 0, 1, 1.f)}, {1,osg::Vec4(0, 1.0, 0, 1.f)} ,{2,osg::Vec4(1.0, 0, 0, 1.f)} };
 }
 
 void DiscreteLayer::setVisible(bool checked)
@@ -239,6 +239,7 @@ void DiscreteLayer::showConnect()
 			geode->getOrCreateStateSet()->setAttributeAndModes(material.get(), osg::StateAttribute::ON);
 			geode->getOrCreateStateSet()->setMode(GL_BLEND, osg::StateAttribute::ON);//Í¸Ã÷
 			geode->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);//Éî¶È²âÊÔ
+			
 			sw.get()->addChild(geode, false);
 		}
 	}

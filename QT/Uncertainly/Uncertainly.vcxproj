@@ -100,12 +100,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scenes\Layer.cpp" />
+    <ClCompile Include="src\scenes\FacieGeode.cpp" />
     <ClCompile Include="src\qtui\QModelTreeWidget.cpp" />
-    <ClCompile Include="src\qtui\osg\OsgScene.cpp" />
+    <ClCompile Include="src\scenes\OsgScene.cpp" />
     <ClCompile Include="src\qtui\SolutionDockWidget.cpp" />
     <ClCompile Include="src\layer\DiscreteLayer.cpp" />
     <ClCompile Include="src\gslib\gslibfile.cpp" />
-    <ClCompile Include="src\evaluation\connect.cpp" />
     <ClCompile Include="src\qtui\MainWindow.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\qtui\SolutionDockWidget.h" />
+    <ClInclude Include="include\scenes\FacieGeode.h" />
     <ClInclude Include="include\layer\TreeNodeData.h" />
     <QtMoc Include="include\qtui\QWorkUnitWidget.h" />
     <QtMoc Include="include\qtui\MainWindow.h" />
@@ -132,12 +134,12 @@
     <ClInclude Include="include\layer\DiscreteLayer.h" />
     <ClInclude Include="include\gslib\gslibfile.h" />
     <ClInclude Include="include\gslib\model.h" />
-    <ClInclude Include="include\evaluation\connect.h" />
     <ClInclude Include="include\qtui\QWorkWidget.h" />
     <QtMoc Include="include\qtui\Uncertainly.h" />
     <QtMoc Include="include\qtui\osg\OsgBaseWidget.h" />
-    <ClInclude Include="include\qtui\osg\OsgScene.h" />
+    <ClInclude Include="include\scenes\OsgScene.h" />
     <QtMoc Include="include\qtui\QModelTreeWidget.h" />
+    <ClInclude Include="include\scenes\Layer.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
