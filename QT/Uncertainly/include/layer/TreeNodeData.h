@@ -11,7 +11,11 @@ public:
 
 	int getLayerIndex() { return index; }
 
+	void updateLayerIndex(int newi) { this->index = newi; }
+
 	QString getUrl() { return url; }
+
+
 };
 Q_DECLARE_METATYPE(TreeNodeData)
 

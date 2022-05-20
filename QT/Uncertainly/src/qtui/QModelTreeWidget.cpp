@@ -10,7 +10,10 @@ QMenu* QModelTreeWidget::getRootMenu()
 		auto ac1 = rootMenu->addAction("预览");
 		auto ac2 = rootMenu->addAction("添加模型");
 		auto ac3 = rootMenu->addAction("删除");
-		connect(ac1, SIGNAL(triggered(bool)), this, SLOT(previewScenes()));
+		connect(ac1, &QAction::triggered, this, [this](bool checked)
+			{ 
+				emit previewScenes(this); 
+			});
 		connect(ac2, SIGNAL(triggered(bool)), this, SLOT(addModel()));
 		connect(ac3, SIGNAL(triggered(bool)), this, SLOT(delModel()));
 	}
@@ -45,7 +48,7 @@ QModelTreeWidget::QModelTreeWidget(QWidget* parent) :QTreeWidget(parent)
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	this->connect(this, SIGNAL(customContextMenuRequested(QPoint)),
 		this, SLOT(showTreeRightMenu(QPoint)));
-	connect(this, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemClick(QTreeWidgetItem*, int)));
+	//connect(this, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemClick(QTreeWidgetItem*, int)));
 }
 
 void QModelTreeWidget::showTreeRightMenu(QPoint pos)
@@ -74,14 +77,10 @@ void QModelTreeWidget::showTreeRightMenu(QPoint pos)
 	}
 }
 
-void QModelTreeWidget::previewScenes()
-{
-}
-
 void QModelTreeWidget::addRoot()
 {
 	QTreeWidgetItem* item = new QTreeWidgetItem(this);
-	item->setText(0, "解决方案");
+	item->setText(0, tr("解决方案"));
 }
 
 void QModelTreeWidget::addModel()
@@ -91,9 +90,11 @@ void QModelTreeWidget::addModel()
 		if (QFile::exists(fileName))
 		{
 			QTreeWidgetItem* item = new QTreeWidgetItem(currentItem());
+			//item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsAutoTristate);
+			item->setCheckState(0, Qt::CheckState::Unchecked);
 			item->setText(0, "新节点");
 			TreeNodeData nodeData(fileName, -1);
-			item->setData(0, 0, QVariant::fromValue(nodeData));
+			item->setData(0, Qt::UserRole, QVariant::fromValue(nodeData));
 		}
 	}
 }
@@ -109,11 +110,6 @@ void QModelTreeWidget::delModel()
 }
 
 void QModelTreeWidget::calConnectVolumn()
-{
-
-}
-
-void QModelTreeWidget::itemClick(QTreeWidgetItem* item, int index)
 {
 
 }

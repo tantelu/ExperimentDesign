@@ -7,6 +7,12 @@ void Layer::initBase()
 		auto temp = make_shared<FacieGeode>();
 		basegeos.insert({ facie,temp });
 	}
+	for (auto kv : basegeos)
+	{
+		kv.second->setFacieVertexArray(this->vecArray.get());
+		kv.second->setColor(defaultColors.find(kv.first)->second);
+		basesw->addChild(kv.second.get(), false);
+	}
 	int vicount = getModel()->getIcount() + 1;
 	int vjcount = getModel()->getJcount() + 1;
 	int vijcount = vicount * vjcount;
@@ -49,11 +55,6 @@ void Layer::initBase()
 			}
 		}
 	}
-	for (auto kv : basegeos)
-	{
-		kv.second->setVertexArray(this->vecArray.get());
-		basesw->addChild(kv.second.get(), false);
-	}
 }
 
 Layer::Layer(const string& url) :Layer()
@@ -88,7 +89,7 @@ FacieGeode* Layer::getGeodeByFacie(int facie)
 {
 	auto res = facieGeos.find(facie);
 	if (res != facieGeos.end()) {
-		res->second.get();
+		return res->second.get();
 	}
 	else {
 		return nullptr;
@@ -122,7 +123,7 @@ void Layer::setVisibleFilter(const set<int>& filter)
 		}
 		for (auto kv : facieGeos)
 		{
-			kv.second->setVertexArray(this->vecArray.get());
+			kv.second->setFacieVertexArray(this->vecArray.get());
 			faciesw->addChild(kv.second.get(), false);
 		}
 		int vicount = getModel()->getIcount() + 1;

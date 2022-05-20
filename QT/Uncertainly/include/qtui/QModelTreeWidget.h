@@ -18,19 +18,18 @@ public:
 	QMenu* getItemMenu();
 
 	QModelTreeWidget(QWidget* parent = nullptr);
-public Q_SLOTS:
-	 
-	void previewScenes();
 
+Q_SIGNALS:
+	void previewScenes(QModelTreeWidget* widget);
+
+public Q_SLOTS:
 	void addRoot();
 
-    void addModel();
+	void addModel();
 
 	void delModel();
 
 	void calConnectVolumn();
-
-	void itemClick(QTreeWidgetItem* item, int index);
 
 	void showTreeRightMenu(QPoint pos);
 };

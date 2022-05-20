@@ -8,6 +8,7 @@
 #include "QDebug"
 using namespace std;
 
+class OsgScene;
 class DiscreteLayer
 {
 private:
@@ -16,8 +17,9 @@ private:
 	osg::ref_ptr<osg::Switch> sw;
 	osg::ref_ptr<osg::Vec3Array> vecArray;
 	map<int, osg::Vec4> colorS;
-	set<int> allFacies;
+	
 public:
+	set<int> allFacies;
 	DiscreteLayer(const string& url);
 
 	void setVisible(bool checked);
@@ -29,6 +31,8 @@ public:
 	void closeVisibleFilter() { setVisibleFilter(allFacies); }
 
 	osg::Switch* getSwitch();
+
+	void setSecens(OsgScene* secen);
 
 	const GslibModel<int>* getModel() { return model.get(); }
 

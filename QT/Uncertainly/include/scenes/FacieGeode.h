@@ -23,7 +23,7 @@ public:
 
 	void clear();
 
-	void setVertexArray(Array* array) { geometry->setVertexArray(array); }
+	void setFacieVertexArray(Array* array) { geometry.get()->setVertexArray(array); }
 
 	void addDrawElementsUInt(const GLuint& value);
 

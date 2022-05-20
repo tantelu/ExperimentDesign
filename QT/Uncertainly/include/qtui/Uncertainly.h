@@ -10,7 +10,6 @@ QT_CHARTS_USE_NAMESPACE
 #pragma comment(lib,"Qt5Charts.lib") //Release
 #endif 
 
-#include <QtWidgets/QMainWindow>
 #include "qtui/QWorkWidget.h"
 
 class Uncertainly : public QWidget

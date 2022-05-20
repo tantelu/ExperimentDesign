@@ -1,9 +1,8 @@
 #pragma once
 #pragma execution_character_set("utf-8")
-
 #include <QWidget>
 #include <qdockwidget.h>
-#include <QTreeWidget>
+#include "qtui/QModelTreeWidget.h"
 #include <QMenu>
 
 class SolutionDockWidget :
@@ -14,7 +13,7 @@ public:
 
 	SolutionDockWidget(QWidget* parent = nullptr);
 
-	QTreeWidget* treeWidget() { return dynamic_cast<QTreeWidget*>(widget()); }
+	QModelTreeWidget* treeWidget() { return dynamic_cast<QModelTreeWidget*>(widget()); }
 
 public Q_SLOTS:
 	

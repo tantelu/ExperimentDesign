@@ -1,6 +1,7 @@
 #pragma once
 #pragma execution_character_set("utf-8")  
-#include "scenes/Layer.h"
+#include "layer/DiscreteLayer.h"
+#include <osg/Group>
 
 class OsgScene
 {
@@ -9,15 +10,15 @@ private:
 
 	osg::ref_ptr<osg::Node> node;
 
-	map<int, shared_ptr<Layer>> layers;
+	map<int, shared_ptr<DiscreteLayer>> layers;
 
 public:
-	OsgScene() { root = new Group; getRoot()->setName("Root"); }
+	OsgScene() { root = new osg::Group; getRoot()->setName("Root"); }
 
 	int addLayer(const string& url);
 
-	Layer* GetLayer(int index);
+	DiscreteLayer* GetLayer(int index);
 
-	Group* getRoot() { return root.get(); }
+	osg::Group* getRoot() { return root.get(); }
 };
 

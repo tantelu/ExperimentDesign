@@ -1,6 +1,7 @@
 #include "layer/DiscreteLayer.h"
 #include "evaluation/cc3d.hpp"
 #include <osg/Material>
+#include <scenes/OsgScene.h>
 
 int getvalue(int i, int j, int k, const GslibModel<int>* model, uint32_t* label) {
 	auto pos = i + j * model->getIcount() + k * model->getJcount() * model->getIcount();
@@ -249,4 +250,9 @@ void DiscreteLayer::showConnect()
 osg::Switch* DiscreteLayer::getSwitch()
 {
 	return sw;
+}
+
+void DiscreteLayer::setSecens(OsgScene* secen)
+{
+	secen->getRoot()->addChild(sw.get());
 }
