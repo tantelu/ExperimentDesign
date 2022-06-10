@@ -23,7 +23,7 @@ unique_ptr<vector<int>> gslibfile::readfilei(const std::string& file)
 	return unique_ptr<vector<int>>(data);
 }
 
-void gslibfile::readijk(const std::string& url,int& icount,int&jcount,int& kcount)
+void gslibfile::readijk(const std::string& url, int& icount, int& jcount, int& kcount)
 {
 	ifstream infile;
 	infile.open(url, ios::in);

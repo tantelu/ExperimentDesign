@@ -301,5 +301,11 @@ namespace ExperimentDesign
             MultiRegressionForm form = new MultiRegressionForm();
             form.Show();
         }
+
+        private void 抽稀验证ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SparseValidForm form = new SparseValidForm();
+            form.Show();
+        }
     }
 }

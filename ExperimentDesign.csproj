@@ -195,6 +195,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Uncertainty\SparseValidForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uncertainty\SparseValidForm.Designer.cs">
+      <DependentUpon>SparseValidForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uncertainty\VariableData.cs" />
     <Compile Include="WorkList\Base\EditorForm.cs">
       <SubType>Form</SubType>
@@ -326,11 +332,20 @@
     <Compile Include="WorkList\Base\WorkSelectForm.Designer.cs">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkList\Volume\ConnectVolumnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkList\Volume\ConnectVolumnForm.Designer.cs">
+      <DependentUpon>ConnectVolumnForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkList\Volume\VolumeCalForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WorkList\Volume\VolumeCalForm.Designer.cs">
       <DependentUpon>VolumeCalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkList\Volume\ConnectVolumnWorkControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkList\Volume\VolumeCalWorkControl.cs">
       <SubType>UserControl</SubType>
@@ -382,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Statistic\MultiRegressionForm.resx">
       <DependentUpon>MultiRegressionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uncertainty\SparseValidForm.resx">
+      <DependentUpon>SparseValidForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\DirectAssign\DirectAssginUserControl.resx">
       <DependentUpon>DirectAssginUserControl.cs</DependentUpon>
@@ -438,6 +456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Base\WorkSelectForm.resx">
       <DependentUpon>WorkSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkList\Volume\ConnectVolumnForm.resx">
+      <DependentUpon>ConnectVolumnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkList\Volume\VolumeCalForm.resx">
       <DependentUpon>VolumeCalForm.cs</DependentUpon>

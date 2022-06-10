@@ -36,6 +36,7 @@ namespace ExperimentDesign
             this.方差分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.多元回归分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.抽稀验证ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
@@ -46,6 +47,7 @@ namespace ExperimentDesign
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.不确定分析ToolStripMenuItem,
+            this.抽稀验证ToolStripMenuItem,
             this.模型显示ToolStripMenuItem,
             this.模型分析ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -99,6 +101,13 @@ namespace ExperimentDesign
             this.panelControl1.Size = new System.Drawing.Size(1170, 620);
             this.panelControl1.TabIndex = 1;
             // 
+            // 抽稀验证ToolStripMenuItem
+            // 
+            this.抽稀验证ToolStripMenuItem.Name = "抽稀验证ToolStripMenuItem";
+            this.抽稀验证ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.抽稀验证ToolStripMenuItem.Text = "抽稀验证";
+            this.抽稀验证ToolStripMenuItem.Click += new System.EventHandler(this.抽稀验证ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -129,6 +138,7 @@ namespace ExperimentDesign
         private System.Windows.Forms.ToolStripMenuItem 模型分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 方差分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 多元回归分析ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 抽稀验证ToolStripMenuItem;
     }
 }
 
