@@ -69,7 +69,6 @@ namespace ExperimentDesign
                         }
                         //把条件数据文件生成出来 然后构造一个变量字典（适配工作流）
                         //条件数据就是一个Gslib文件，这里做个测试
-
                         IReadOnlyDictionary<string, string> harddata = new Dictionary<string, string>();
                         //foreach (var item in workControls)
                         //{
