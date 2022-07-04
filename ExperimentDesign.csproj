@@ -140,6 +140,7 @@
     <Compile Include="General\Gslib.cs" />
     <Compile Include="General\KrigType.cs" />
     <Compile Include="General\PointSet.cs" />
+    <Compile Include="General\SparseValidCompare.cs" />
     <Compile Include="GridPopForm\MinMaxPopForm.cs">
       <SubType>Form</SubType>
     </Compile>

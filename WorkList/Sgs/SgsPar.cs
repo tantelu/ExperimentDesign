@@ -210,7 +210,7 @@ namespace ExperimentDesign.WorkList.Sgs
             int xcount = 0;
             int ycount = 0;
             int zcount = 0;
-            var sgs = Gslib.ReadGislib(_out, out xcount, out ycount, out zcount);
+            var sgs = Gslib.ReadGslib(_out, out xcount, out ycount, out zcount);
             return sgs;
         }
     }

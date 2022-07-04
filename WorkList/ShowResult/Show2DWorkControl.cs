@@ -34,7 +34,7 @@ namespace ExperimentDesign.WorkList.ShowResult
                 int xcount = 0;
                 int ycount = 0;
                 int zcount = 0;
-                var gslib = Gslib.ReadGislib(file, out xcount, out ycount, out zcount);
+                var gslib = Gslib.ReadGslib(file, out xcount, out ycount, out zcount);
                 Bitmap map = new Bitmap(xcount, ycount);
                 var max = gslib.Max();
                 var min = gslib.Min();

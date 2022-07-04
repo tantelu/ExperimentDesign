@@ -6,6 +6,12 @@ namespace ExperimentDesign.WorkList.MPS
 {
     public class SnesimPar
     {
+        public string TIFile { get; set; }
+
+        public string ConditionFile { get; set; }
+
+        public WellIds IgnoreIds { get; set; }
+
         public string Save()
         {
             StringWriter sw = new StringWriter();
@@ -23,7 +29,6 @@ namespace ExperimentDesign.WorkList.MPS
             if (!string.IsNullOrEmpty(json))
             {
                 JObject jo = JObject.Parse(json);
-                
             }
         }
     }

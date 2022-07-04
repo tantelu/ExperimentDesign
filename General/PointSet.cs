@@ -4,7 +4,7 @@ namespace ExperimentDesign.General
 {
     public class PointSet
     {
-        public PointSet(int x, int y, int z, double v)
+        public PointSet(int x, int y, int z, int v)
         {
             this.X = x;
             this.Y = y;
@@ -12,7 +12,7 @@ namespace ExperimentDesign.General
             this.V = v;
         }
 
-        public PointSet(Grid3D grid, double xd, double yd, double zd, double v)
+        public PointSet(Grid3D grid, double xd, double yd, double zd, int v)
         {
             if (xd >= grid.Xmin && xd < grid.Xmax && yd >= grid.Ymin && xd < grid.Ymax && zd >= grid.Zmin && zd < grid.Zmax)
             {
@@ -35,6 +35,6 @@ namespace ExperimentDesign.General
 
         public int Z { get; private set; }
 
-        public double V { get; set; }
+        public int V { get; set; }
     }
 }

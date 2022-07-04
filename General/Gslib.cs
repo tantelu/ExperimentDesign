@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace ExperimentDesign.General
 {
     public static class Gslib
     {
-        public static float[] ReadGislib(string gslibfile, out int xcount, out int ycount, out int zcount)
+        public static float[] ReadGslib(string gslibfile, out int xcount, out int ycount, out int zcount)
         {
             using (FileStream fileStream = new FileStream(gslibfile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
@@ -36,7 +37,7 @@ namespace ExperimentDesign.General
             }
         }
 
-        public static void WriteGislib(string gslibfile, float[] values, int xcount, int ycount, int zcount)
+        public static void WriteGslib(string gslibfile, float[] values, int xcount, int ycount, int zcount)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("FacieCtrol SGSIM Realizations");
@@ -47,6 +48,55 @@ namespace ExperimentDesign.General
                 sb.AppendLine(values[i].ToString("f8"));
             }
             File.WriteAllText(gslibfile, sb.ToString(), Encoding.UTF8);
+        }
+
+        public static void WriteWellPoint(string file, IList<PointSet> sets)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("FacieCtrol SGSIM Realizations");
+            sb.AppendLine($"5");
+            sb.AppendLine($"x");
+            sb.AppendLine($"y");
+            sb.AppendLine($"z");
+            sb.AppendLine($"v");
+            sb.AppendLine($"id");
+            foreach (var item in sets)
+            {
+                sb.AppendLine($"{item.X} {item.Y} {item.Z} {item.V} {item.Id}");
+            }
+            File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
+        }
+
+        public static IList<PointSet> ReadWellPoint(string file)
+        {
+            List<PointSet> sets = new List<PointSet>();
+            using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                StreamReader reader = new StreamReader(fileStream);
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                var first = reader.ReadLine();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var strs = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    if (strs.Length == 5)
+                    {
+                        PointSet set = new PointSet(Convert.ToInt32(strs[0]), Convert.ToInt32(strs[1]),
+                            Convert.ToInt32(strs[2]), Convert.ToDouble(strs[3]));
+                        set.Id = Convert.ToInt32(strs[4]);
+                        sets.Add(set);
+                    }
+                }
+                reader.Close();
+                reader.Dispose();
+            }
+            return sets;
         }
     }
 }

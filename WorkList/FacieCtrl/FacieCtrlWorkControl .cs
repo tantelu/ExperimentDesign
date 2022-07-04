@@ -68,7 +68,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                     int xcount = 0;
                     int ycount = 0;
                     int zcount = 0;
-                    var gslib = Gslib.ReadGislib(faciemodel, out xcount, out ycount, out zcount);
+                    var gslib = Gslib.ReadGslib(faciemodel, out xcount, out ycount, out zcount);
                     var res = new float[gslib.Length];
                     foreach (var item in sgses)
                     {
@@ -81,7 +81,7 @@ namespace ExperimentDesign.WorkList.FacieCtrl
                             }
                         }
                     }
-                    Gslib.WriteGislib(Path.Combine(Main.GetWorkPath(), $"{index}", OutFileName), res, xcount, ycount, zcount);
+                    Gslib.WriteGslib(Path.Combine(Main.GetWorkPath(), $"{index}", OutFileName), res, xcount, ycount, zcount);
                 }
             }
             else
