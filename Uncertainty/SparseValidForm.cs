@@ -1,5 +1,4 @@
 ﻿using DevExpress.XtraEditors;
-using ExperimentDesign.GridPopForm;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,7 +11,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
-using ExperimentDesign.Uncertainty;
 using System.ComponentModel;
 
 namespace ExperimentDesign
@@ -32,78 +30,80 @@ namespace ExperimentDesign
             {
                 comboBoxEdit_exit.Properties.Items.AddRange(exits);
             }
-            var data = new List<SparseWellData>();
-            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            ids = ids.OrderBy(_ => Guid.NewGuid()).ToList();
-            for (int i = 0; i < 10; i++)
-            {
-                data.Add(new SparseWellData() { Serial = i + 1, Id = ids[i] });
-            }
-            this.gridControl1.DataSource = data;
+            this.gridControl1.DataSource = SparseMethod(0);
         }
 
         //运行工作流
         public void Run()
         {
-            //if (Current != null)
-            //{
-            //    DirectoryInfo info = new DirectoryInfo(((IWork)this).GetWorkPath());
-            //    if (info.GetDirectories().Length > 0)
-            //    {
-            //        var dialog = XtraMessageBox.Show("当前工作流已经运行过,运行会覆盖原有结果,是否继续？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            //        if (dialog == DialogResult.Yes)
-            //        {
-            //            foreach (var item in info.GetDirectories())
-            //            {
-            //                item.Delete(true);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            return;
-            //        }
-            //    }
-            //    int maxwait = 60000;
-            //    var workControls = this.workPanel.Controls;
-            //    var designTable = GetDesignDataTable();
-            //    if (designTable == null)
-            //    {
-            //        return;
-            //    }
-            //    for (int i = 0; i < designTable.Count; i++)
-            //    {
-            //        foreach (var item in workControls)
-            //        {
-            //            if (item is WorkControl ctrl)
-            //            {
-            //                ctrl.Run(i + 1, designTable[i]);
-            //                int curwait = 0;
-            //                while (!ctrl.GetRunState(i + 1))
-            //                {
-            //                    Thread.Sleep(1000);
-            //                    curwait += 1000;
-            //                    if (curwait > maxwait)
-            //                    {
-            //                        var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
-            //                        if (dia == DialogResult.Yes)
-            //                        {
-            //                            maxwait *= 2;
-            //                        }
-            //                        else
-            //                        {
-            //                            return;
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //    XtraMessageBox.Show($"工作流执行完成");
-            //}
-            //else
-            //{
-            //    XtraMessageBox.Show("请先设置当前工作流");
-            //}
+            if (Current != null)
+            {
+                if (textBox_name.Text.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                {
+                    XtraMessageBox.Show($"{textBox_name.Text} 不能作为文件名!");
+                    return;
+                }
+                if (File.Exists(SparseName()))
+                {
+                    var dialog = XtraMessageBox.Show("当前工作流存在存在抽稀验证结果,是否继续？", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        File.Delete(SparseName());
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                var workControls = this.workPanel.Controls;
+                var datas = this.gridControl1.DataSource as List<SparseWellData>;
+                if (datas.Count > 0)
+                {
+                    for (int i = 0; i < datas.Count; i++)
+                    {
+                        //生成一个
+                        var workpath = Path.Combine(GetWorkPath(), $"{i + 1}");
+                        if (!Directory.Exists(workpath))
+                        {
+                            Directory.CreateDirectory(workpath);
+                        }
+                        //把条件数据文件生成出来 然后构造一个变量字典（适配工作流）
+                        //条件数据就是一个Gslib文件，这里做个测试
+
+                        IReadOnlyDictionary<string, string> harddata = new Dictionary<string, string>();
+                        //foreach (var item in workControls)
+                        //{
+                        //    if (item is WorkControl ctrl)
+                        //    {
+                        //        ctrl.Run(i + 1, designTable[i]);
+                        //        int curwait = 0;
+                        //        while (!ctrl.GetRunState(i + 1))
+                        //        {
+                        //            Thread.Sleep(1000);
+                        //            curwait += 1000;
+                        //            if (curwait > maxwait)
+                        //            {
+                        //                var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
+                        //                if (dia == DialogResult.Yes)
+                        //                {
+                        //                    maxwait *= 2;
+                        //                }
+                        //                else
+                        //                {
+                        //                    return;
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                    }
+                }
+                XtraMessageBox.Show($"工作流执行完成");
+            }
+            else
+            {
+                XtraMessageBox.Show("请先设置当前工作流");
+            }
         }
         //删除某一工作流
         void IWork.Delete(WorkControl control)
@@ -242,6 +242,30 @@ namespace ExperimentDesign
             return Current.GetWorkPath();
         }
 
+        public string SparseName()
+        {
+            return Path.Combine(GetWorkPath(), $"{textBox_name.Text}.sparse");
+        }
+
+        public List<SparseWellData> SparseMethod(int index)
+        {
+            var data = new List<SparseWellData>();
+            if (index == 0)
+            {
+                List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                ids = ids.OrderBy(_ => Guid.NewGuid()).ToList();
+                for (int i = 0; i < 10; i++)
+                {
+                    data.Add(new SparseWellData() { Serial = i + 1, Id = WellIds.Build(ids[i]) });
+                }
+            }
+            else
+            {
+                //其他方案待实现
+            }
+            return data;
+        }
+
         //鼠标交互事件---------------------------------------------------------------------------------------------------------
         private void editworkflow_Click(object sender, System.EventArgs e)
         {
@@ -270,11 +294,6 @@ namespace ExperimentDesign
             }
         }
 
-        private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
-        {
-
-        }
-
         private void checkEdit2_CheckedChanged(object sender, System.EventArgs e)
         {
             checkEdit1.Checked = !checkEdit2.Checked;
@@ -289,85 +308,6 @@ namespace ExperimentDesign
             comboBoxEdit_exit.Enabled = checkEdit2.Checked;
             textEdit_new.Enabled = checkEdit1.Checked;
             Current = null;
-        }
-
-        private void gridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.Name)) ||
-                string.Equals(this.gridView1.FocusedColumn.FieldName, nameof(VariableData.ParDescription)))
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                e.Cancel = false;
-            }
-        }
-
-        private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
-        {
-            if (string.Equals(e.Column.FieldName, nameof(VariableData.Distribution)))
-            {
-                e.RepositoryItem = paramDistributed;
-            }
-            if (string.Equals(e.Column.FieldName, nameof(VariableData.Arguments)))
-            {
-                e.RepositoryItem = this.argumentRepositoryItem;
-            }
-        }
-
-        private void argumentRepositoryItem_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            var distribution = this.gridView1.GetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Distribution));
-            if (string.Equals(distribution, "均匀分布"))
-            {
-                using (MinMaxPopForm form = new MinMaxPopForm())
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
-                    }
-                }
-            }
-            else if (string.Equals(distribution, "集合"))
-            {
-                using (GridListPopForm form = new GridListPopForm())
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
-                    }
-                }
-            }
-            else if (string.Equals(distribution, "正态分布"))
-            {
-                using (NormalPopForm form = new NormalPopForm())
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
-                    }
-                }
-            }
-            else if (string.Equals(distribution, "三角分布"))
-            {
-                using (TrianglePopForm form = new TrianglePopForm())
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), form.Argument);
-                    }
-                }
-            }
-            else
-            {
-                XtraMessageBox.Show("请先选择参数分布");
-            }
-        }
-
-        private void paramDistributed_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.gridView1.SetRowCellValue(this.gridView1.FocusedRowHandle, nameof(VariableData.Arguments), null);
         }
 
         private void simpleButton1_Click(object sender, System.EventArgs e)
@@ -414,14 +354,52 @@ namespace ExperimentDesign
         {
             this.Close();
         }
+
+        private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SparseMethod(comboBoxEdit1.SelectedIndex);
+        }
     }
 
-    class SparseWellData
+    public class SparseWellData
     {
         [DisplayName("序号")]
         public int Serial { get; set; }
 
         [DisplayName("抽稀井Id")]
-        public int Id { get; set; }
+        public WellIds Id { get; set; }
+    }
+
+    public class WellIds
+    {
+        public static WellIds Build(params int[] ids)
+        {
+            WellIds wellid = new WellIds();
+            if (ids.Length > 0)
+            {
+                wellid.ids = ids.ToList();
+            }
+            return wellid;
+        }
+
+        public List<int> ids { get; set; }
+
+        public override string ToString()
+        {
+            if (ids?.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    sb.Append(ids[i]);
+                    sb.Append(',');
+                }
+                return sb.ToString(0, sb.Length - 1);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

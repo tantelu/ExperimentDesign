@@ -31,6 +31,7 @@ namespace ExperimentDesign.WorkList.Sgs
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.sgsUserControl1 = new ExperimentDesign.WorkList.Sgs.SgsUserControl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -38,7 +39,6 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.sgsUserControl1 = new ExperimentDesign.WorkList.Sgs.SgsUserControl();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -62,6 +62,14 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControl1.Size = new System.Drawing.Size(1030, 379);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // sgsUserControl1
+            // 
+            this.sgsUserControl1.Location = new System.Drawing.Point(18, 18);
+            this.sgsUserControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sgsUserControl1.Name = "sgsUserControl1";
+            this.sgsUserControl1.Size = new System.Drawing.Size(994, 305);
+            this.sgsUserControl1.TabIndex = 17;
             // 
             // simpleButton2
             // 
@@ -133,14 +141,6 @@ namespace ExperimentDesign.WorkList.Sgs
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(45, 38);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // sgsUserControl1
-            // 
-            this.sgsUserControl1.Location = new System.Drawing.Point(18, 18);
-            this.sgsUserControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.sgsUserControl1.Name = "sgsUserControl1";
-            this.sgsUserControl1.Size = new System.Drawing.Size(994, 305);
-            this.sgsUserControl1.TabIndex = 17;
             // 
             // layoutControlItem1
             // 

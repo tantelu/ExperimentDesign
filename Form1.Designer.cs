@@ -52,7 +52,7 @@ namespace ExperimentDesign
             this.模型分析ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1170, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(1170, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,9 +96,9 @@ namespace ExperimentDesign
             // panelControl1
             // 
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 32);
+            this.panelControl1.Location = new System.Drawing.Point(0, 36);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1170, 620);
+            this.panelControl1.Size = new System.Drawing.Size(1170, 616);
             this.panelControl1.TabIndex = 1;
             // 
             // 抽稀验证ToolStripMenuItem

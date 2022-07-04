@@ -46,8 +46,14 @@ namespace ExperimentDesign
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.paramDistributed = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.argumentRepositoryItem = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.tabNavigationPage3 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
+            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.comboBoxEdit_exit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
@@ -76,8 +82,14 @@ namespace ExperimentDesign
             this.tabNavigationPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.argumentRepositoryItem)).BeginInit();
+            this.tabNavigationPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
+            this.layoutControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
@@ -108,7 +120,7 @@ namespace ExperimentDesign
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1273, 549);
+            this.layoutControl1.Size = new System.Drawing.Size(1207, 549);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -116,7 +128,7 @@ namespace ExperimentDesign
             // 
             this.simpleButton_savework.Location = new System.Drawing.Point(8, 509);
             this.simpleButton_savework.Name = "simpleButton_savework";
-            this.simpleButton_savework.Size = new System.Drawing.Size(157, 32);
+            this.simpleButton_savework.Size = new System.Drawing.Size(148, 32);
             this.simpleButton_savework.StyleController = this.layoutControl1;
             this.simpleButton_savework.TabIndex = 11;
             this.simpleButton_savework.Text = "保存工作流";
@@ -124,9 +136,9 @@ namespace ExperimentDesign
             // 
             // simpleButton2
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(1069, 509);
+            this.simpleButton2.Location = new System.Drawing.Point(1014, 509);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(196, 32);
+            this.simpleButton2.Size = new System.Drawing.Size(185, 32);
             this.simpleButton2.StyleController = this.layoutControl1;
             this.simpleButton2.TabIndex = 10;
             this.simpleButton2.Text = "取消";
@@ -134,9 +146,9 @@ namespace ExperimentDesign
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(869, 509);
+            this.simpleButton1.Location = new System.Drawing.Point(824, 509);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(194, 32);
+            this.simpleButton1.Size = new System.Drawing.Size(184, 32);
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 9;
             this.simpleButton1.Text = "运行";
@@ -146,17 +158,18 @@ namespace ExperimentDesign
             // 
             this.tabPane1.Controls.Add(this.tabNavigationPage1);
             this.tabPane1.Controls.Add(this.tabNavigationPage2);
+            this.tabPane1.Controls.Add(this.tabNavigationPage3);
             this.tabPane1.Location = new System.Drawing.Point(8, 76);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabNavigationPage1,
-            this.tabNavigationPage2});
-            this.tabPane1.RegularSize = new System.Drawing.Size(1257, 427);
+            this.tabNavigationPage2,
+            this.tabNavigationPage3});
+            this.tabPane1.RegularSize = new System.Drawing.Size(1191, 427);
             this.tabPane1.SelectedPage = this.tabNavigationPage1;
-            this.tabPane1.Size = new System.Drawing.Size(1257, 427);
+            this.tabPane1.Size = new System.Drawing.Size(1191, 427);
             this.tabPane1.TabIndex = 8;
             this.tabPane1.Text = "tabPane1";
-            this.tabPane1.SelectedPageChanged += new DevExpress.XtraBars.Navigation.SelectedPageChangedEventHandler(this.tabPane1_SelectedPageChanged);
             // 
             // tabNavigationPage1
             // 
@@ -164,7 +177,7 @@ namespace ExperimentDesign
             this.tabNavigationPage1.Caption = "工作流";
             this.tabNavigationPage1.Controls.Add(this.layoutControl2);
             this.tabNavigationPage1.Name = "tabNavigationPage1";
-            this.tabNavigationPage1.Size = new System.Drawing.Size(1251, 376);
+            this.tabNavigationPage1.Size = new System.Drawing.Size(1185, 376);
             // 
             // layoutControl2
             // 
@@ -174,7 +187,7 @@ namespace ExperimentDesign
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1251, 376);
+            this.layoutControl2.Size = new System.Drawing.Size(1185, 376);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -184,14 +197,14 @@ namespace ExperimentDesign
             this.workPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.workPanel.Location = new System.Drawing.Point(8, 46);
             this.workPanel.Name = "workPanel";
-            this.workPanel.Size = new System.Drawing.Size(1235, 322);
+            this.workPanel.Size = new System.Drawing.Size(1169, 322);
             this.workPanel.TabIndex = 5;
             // 
             // editworkflow
             // 
-            this.editworkflow.Location = new System.Drawing.Point(1101, 8);
+            this.editworkflow.Location = new System.Drawing.Point(1043, 8);
             this.editworkflow.Name = "editworkflow";
-            this.editworkflow.Size = new System.Drawing.Size(142, 32);
+            this.editworkflow.Size = new System.Drawing.Size(134, 32);
             this.editworkflow.StyleController = this.layoutControl2;
             this.editworkflow.TabIndex = 4;
             this.editworkflow.Text = "添加工作流";
@@ -208,15 +221,15 @@ namespace ExperimentDesign
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1251, 376);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1185, 376);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.editworkflow;
-            this.layoutControlItem8.Location = new System.Drawing.Point(1093, 0);
+            this.layoutControlItem8.Location = new System.Drawing.Point(1035, 0);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(148, 38);
+            this.layoutControlItem8.Size = new System.Drawing.Size(140, 38);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -225,7 +238,7 @@ namespace ExperimentDesign
             this.emptySpaceItem3.AllowHotTrack = false;
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1093, 38);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1035, 38);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem12
@@ -233,14 +246,14 @@ namespace ExperimentDesign
             this.layoutControlItem12.Control = this.workPanel;
             this.layoutControlItem12.Location = new System.Drawing.Point(0, 38);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(1241, 328);
+            this.layoutControlItem12.Size = new System.Drawing.Size(1175, 328);
             this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem12.TextVisible = false;
             // 
             // tabNavigationPage2
             // 
             this.tabNavigationPage2.BackgroundPadding = new System.Windows.Forms.Padding(2);
-            this.tabNavigationPage2.Caption = "抽稀方案";
+            this.tabNavigationPage2.Caption = "抽稀方案表";
             this.tabNavigationPage2.Controls.Add(this.gridControl1);
             this.tabNavigationPage2.Name = "tabNavigationPage2";
             this.tabNavigationPage2.Size = new System.Drawing.Size(1251, 376);
@@ -251,9 +264,6 @@ namespace ExperimentDesign
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.paramDistributed,
-            this.argumentRepositoryItem});
             this.gridControl1.Size = new System.Drawing.Size(1251, 376);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -280,41 +290,101 @@ namespace ExperimentDesign
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
             this.gridView1.OptionsMenu.ShowAutoFilterRowItem = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEdit);
-            this.gridView1.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridView1_ShowingEditor);
             // 
-            // paramDistributed
+            // tabNavigationPage3
             // 
-            this.paramDistributed.AutoHeight = false;
-            this.paramDistributed.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.tabNavigationPage3.Caption = "方案设置";
+            this.tabNavigationPage3.Controls.Add(this.layoutControl3);
+            this.tabNavigationPage3.Name = "tabNavigationPage3";
+            this.tabNavigationPage3.Size = new System.Drawing.Size(1165, 356);
+            // 
+            // layoutControl3
+            // 
+            this.layoutControl3.Controls.Add(this.comboBoxEdit1);
+            this.layoutControl3.Controls.Add(this.textBox_name);
+            this.layoutControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl3.Name = "layoutControl3";
+            this.layoutControl3.Root = this.layoutControlGroup3;
+            this.layoutControl3.Size = new System.Drawing.Size(1165, 356);
+            this.layoutControl3.TabIndex = 0;
+            this.layoutControl3.Text = "layoutControl3";
+            // 
+            // comboBoxEdit1
+            // 
+            this.comboBoxEdit1.EditValue = "逐井抽稀";
+            this.comboBoxEdit1.Location = new System.Drawing.Point(100, 41);
+            this.comboBoxEdit1.Name = "comboBoxEdit1";
+            this.comboBoxEdit1.Properties.Appearance.Options.UseTextOptions = true;
+            this.comboBoxEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.paramDistributed.Items.AddRange(new object[] {
-            "均匀分布",
-            "集合",
-            "正态分布",
-            "三角分布"});
-            this.paramDistributed.Name = "paramDistributed";
-            this.paramDistributed.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.paramDistributed.SelectedIndexChanged += new System.EventHandler(this.paramDistributed_SelectedIndexChanged);
+            this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
+            "逐井抽稀",
+            "随机抽稀"});
+            this.comboBoxEdit1.Size = new System.Drawing.Size(1060, 28);
+            this.comboBoxEdit1.StyleController = this.layoutControl3;
+            this.comboBoxEdit1.TabIndex = 5;
+            this.comboBoxEdit1.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
             // 
-            // argumentRepositoryItem
+            // textBox_name
             // 
-            this.argumentRepositoryItem.AutoHeight = false;
-            this.argumentRepositoryItem.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.argumentRepositoryItem.Name = "argumentRepositoryItem";
-            this.argumentRepositoryItem.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.argumentRepositoryItem.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.argumentRepositoryItem_ButtonClick);
+            this.textBox_name.Location = new System.Drawing.Point(100, 5);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(1060, 30);
+            this.textBox_name.TabIndex = 4;
+            this.textBox_name.Text = "默认方案";
+            this.textBox_name.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // layoutControlGroup3
+            // 
+            this.layoutControlGroup3.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup3.GroupBordersVisible = false;
+            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem9,
+            this.emptySpaceItem2,
+            this.layoutControlItem10});
+            this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.OptionsItemText.TextToControlDistance = 5;
+            this.layoutControlGroup3.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1165, 356);
+            this.layoutControlGroup3.TextVisible = false;
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.textBox_name;
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(1161, 36);
+            this.layoutControlItem9.Text = "方案名称：";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(90, 22);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 70);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1161, 282);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem10
+            // 
+            this.layoutControlItem10.Control = this.comboBoxEdit1;
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 36);
+            this.layoutControlItem10.Name = "layoutControlItem10";
+            this.layoutControlItem10.Size = new System.Drawing.Size(1161, 34);
+            this.layoutControlItem10.Text = "抽稀方案：";
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(90, 22);
             // 
             // comboBoxEdit_exit
             // 
             this.comboBoxEdit_exit.Enabled = false;
-            this.comboBoxEdit_exit.Location = new System.Drawing.Point(206, 42);
+            this.comboBoxEdit_exit.Location = new System.Drawing.Point(196, 42);
             this.comboBoxEdit_exit.Name = "comboBoxEdit_exit";
             this.comboBoxEdit_exit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_exit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_exit.Size = new System.Drawing.Size(1059, 28);
+            this.comboBoxEdit_exit.Size = new System.Drawing.Size(1003, 28);
             this.comboBoxEdit_exit.StyleController = this.layoutControl1;
             this.comboBoxEdit_exit.TabIndex = 6;
             this.comboBoxEdit_exit.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit_exit_SelectedIndexChanged);
@@ -324,7 +394,7 @@ namespace ExperimentDesign
             this.checkEdit2.Location = new System.Drawing.Point(8, 42);
             this.checkEdit2.Name = "checkEdit2";
             this.checkEdit2.Properties.Caption = "编辑现有";
-            this.checkEdit2.Size = new System.Drawing.Size(192, 26);
+            this.checkEdit2.Size = new System.Drawing.Size(182, 26);
             this.checkEdit2.StyleController = this.layoutControl1;
             this.checkEdit2.TabIndex = 5;
             this.checkEdit2.CheckedChanged += new System.EventHandler(this.checkEdit2_CheckedChanged);
@@ -335,16 +405,16 @@ namespace ExperimentDesign
             this.checkEdit1.Location = new System.Drawing.Point(8, 8);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Caption = "新建";
-            this.checkEdit1.Size = new System.Drawing.Size(192, 26);
+            this.checkEdit1.Size = new System.Drawing.Size(182, 26);
             this.checkEdit1.StyleController = this.layoutControl1;
             this.checkEdit1.TabIndex = 4;
             this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
             // 
             // textEdit_new
             // 
-            this.textEdit_new.Location = new System.Drawing.Point(206, 8);
+            this.textEdit_new.Location = new System.Drawing.Point(196, 8);
             this.textEdit_new.Name = "textEdit_new";
-            this.textEdit_new.Size = new System.Drawing.Size(1059, 28);
+            this.textEdit_new.Size = new System.Drawing.Size(1003, 28);
             this.textEdit_new.StyleController = this.layoutControl1;
             this.textEdit_new.TabIndex = 7;
             // 
@@ -365,7 +435,7 @@ namespace ExperimentDesign
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1273, 549);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1207, 549);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -373,16 +443,16 @@ namespace ExperimentDesign
             this.layoutControlItem1.Control = this.checkEdit1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(198, 34);
+            this.layoutControlItem1.Size = new System.Drawing.Size(188, 34);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(163, 501);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(154, 501);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(698, 38);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(662, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -390,25 +460,25 @@ namespace ExperimentDesign
             this.layoutControlItem2.Control = this.checkEdit2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 34);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(198, 34);
+            this.layoutControlItem2.Size = new System.Drawing.Size(188, 34);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.comboBoxEdit_exit;
-            this.layoutControlItem3.Location = new System.Drawing.Point(198, 34);
+            this.layoutControlItem3.Location = new System.Drawing.Point(188, 34);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1065, 34);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1009, 34);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.textEdit_new;
-            this.layoutControlItem4.Location = new System.Drawing.Point(198, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(188, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(1065, 34);
+            this.layoutControlItem4.Size = new System.Drawing.Size(1009, 34);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -417,25 +487,25 @@ namespace ExperimentDesign
             this.layoutControlItem5.Control = this.tabPane1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 68);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1263, 433);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1197, 433);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.simpleButton1;
-            this.layoutControlItem6.Location = new System.Drawing.Point(861, 501);
+            this.layoutControlItem6.Location = new System.Drawing.Point(816, 501);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(200, 38);
+            this.layoutControlItem6.Size = new System.Drawing.Size(190, 38);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.simpleButton2;
-            this.layoutControlItem7.Location = new System.Drawing.Point(1061, 501);
+            this.layoutControlItem7.Location = new System.Drawing.Point(1006, 501);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(202, 38);
+            this.layoutControlItem7.Size = new System.Drawing.Size(191, 38);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -444,7 +514,7 @@ namespace ExperimentDesign
             this.layoutControlItem13.Control = this.simpleButton_savework;
             this.layoutControlItem13.Location = new System.Drawing.Point(0, 501);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(163, 38);
+            this.layoutControlItem13.Size = new System.Drawing.Size(154, 38);
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem13.TextVisible = false;
             // 
@@ -452,7 +522,7 @@ namespace ExperimentDesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1273, 549);
+            this.ClientSize = new System.Drawing.Size(1207, 549);
             this.Controls.Add(this.layoutControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SparseValidForm";
@@ -472,8 +542,14 @@ namespace ExperimentDesign
             this.tabNavigationPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paramDistributed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.argumentRepositoryItem)).EndInit();
+            this.tabNavigationPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
+            this.layoutControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
@@ -521,10 +597,16 @@ namespace ExperimentDesign
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.Panel workPanel;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox paramDistributed;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit argumentRepositoryItem;
         private DevExpress.XtraEditors.SimpleButton simpleButton_savework;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private DevExpress.XtraEditors.TextEdit textEdit_new;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tabNavigationPage3;
+        private DevExpress.XtraLayout.LayoutControl layoutControl3;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private System.Windows.Forms.TextBox textBox_name;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
     }
 }

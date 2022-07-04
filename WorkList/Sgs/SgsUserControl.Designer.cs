@@ -36,6 +36,9 @@ namespace ExperimentDesign.WorkList.Sgs
             this.variogramControl1 = new ExperimentDesign.WorkList.Base.VariogramControl();
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
+            this.MaxValue = new DevExpress.XtraEditors.TextEdit();
+            this.MinValue = new DevExpress.XtraEditors.TextEdit();
+            this.DataFile = new DevExpress.XtraEditors.ButtonEdit();
             this.SearchMinRadius = new DevExpress.XtraEditors.TextEdit();
             this.SearchMedRadius = new DevExpress.XtraEditors.TextEdit();
             this.SearchMaxRadius = new DevExpress.XtraEditors.TextEdit();
@@ -56,14 +59,11 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.DataFile = new DevExpress.XtraEditors.ButtonEdit();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.MinValue = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.MaxValue = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -72,6 +72,9 @@ namespace ExperimentDesign.WorkList.Sgs
             this.tabNavigationPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMinRadius.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMedRadius.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMaxRadius.Properties)).BeginInit();
@@ -91,14 +94,11 @@ namespace ExperimentDesign.WorkList.Sgs
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -178,6 +178,39 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControl2.Size = new System.Drawing.Size(915, 253);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
+            // 
+            // MaxValue
+            // 
+            this.MaxValue.EditValue = "1";
+            this.MaxValue.Location = new System.Drawing.Point(609, 39);
+            this.MaxValue.Name = "MaxValue";
+            this.MaxValue.Properties.Appearance.Options.UseTextOptions = true;
+            this.MaxValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.MaxValue.Size = new System.Drawing.Size(301, 28);
+            this.MaxValue.StyleController = this.layoutControl2;
+            this.MaxValue.TabIndex = 17;
+            // 
+            // MinValue
+            // 
+            this.MinValue.EditValue = "0";
+            this.MinValue.Location = new System.Drawing.Point(154, 39);
+            this.MinValue.Name = "MinValue";
+            this.MinValue.Properties.Appearance.Options.UseTextOptions = true;
+            this.MinValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.MinValue.Size = new System.Drawing.Size(300, 28);
+            this.MinValue.StyleController = this.layoutControl2;
+            this.MinValue.TabIndex = 16;
+            // 
+            // DataFile
+            // 
+            this.DataFile.Location = new System.Drawing.Point(154, 5);
+            this.DataFile.Name = "DataFile";
+            this.DataFile.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.DataFile.Size = new System.Drawing.Size(756, 28);
+            this.DataFile.StyleController = this.layoutControl2;
+            this.DataFile.TabIndex = 15;
+            this.DataFile.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.DataFile_ButtonClick);
             // 
             // SearchMinRadius
             // 
@@ -424,6 +457,33 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem19.TextSize = new System.Drawing.Size(103, 22);
             this.layoutControlItem19.TextToControlDistance = 5;
             // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.DataFile;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(911, 34);
+            this.layoutControlItem1.Text = "条件数据：";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(144, 22);
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.MinValue;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 34);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(455, 34);
+            this.layoutControlItem2.Text = "最小值：";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(144, 22);
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.MaxValue;
+            this.layoutControlItem4.Location = new System.Drawing.Point(455, 34);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(456, 34);
+            this.layoutControlItem4.Text = "最大值：";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(144, 22);
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -445,67 +505,6 @@ namespace ExperimentDesign.WorkList.Sgs
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
-            // DataFile
-            // 
-            this.DataFile.Location = new System.Drawing.Point(154, 5);
-            this.DataFile.Name = "DataFile";
-            this.DataFile.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.DataFile.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.DataFile.Size = new System.Drawing.Size(756, 28);
-            this.DataFile.StyleController = this.layoutControl2;
-            this.DataFile.TabIndex = 15;
-            this.DataFile.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.DataFile_ButtonClick);
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.DataFile;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(911, 34);
-            this.layoutControlItem1.Text = "条件数据：";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(144, 22);
-            // 
-            // MinValue
-            // 
-            this.MinValue.EditValue = "0";
-            this.MinValue.Location = new System.Drawing.Point(154, 39);
-            this.MinValue.Name = "MinValue";
-            this.MinValue.Properties.Appearance.Options.UseTextOptions = true;
-            this.MinValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.MinValue.Size = new System.Drawing.Size(300, 28);
-            this.MinValue.StyleController = this.layoutControl2;
-            this.MinValue.TabIndex = 16;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.MinValue;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 34);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(455, 34);
-            this.layoutControlItem2.Text = "最小值：";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(144, 22);
-            // 
-            // MaxValue
-            // 
-            this.MaxValue.EditValue = "1";
-            this.MaxValue.Location = new System.Drawing.Point(609, 39);
-            this.MaxValue.Name = "MaxValue";
-            this.MaxValue.Properties.Appearance.Options.UseTextOptions = true;
-            this.MaxValue.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.MaxValue.Size = new System.Drawing.Size(301, 28);
-            this.MaxValue.StyleController = this.layoutControl2;
-            this.MaxValue.TabIndex = 17;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.MaxValue;
-            this.layoutControlItem4.Location = new System.Drawing.Point(455, 34);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(456, 34);
-            this.layoutControlItem4.Text = "最大值：";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(144, 22);
-            // 
             // SgsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -522,6 +521,9 @@ namespace ExperimentDesign.WorkList.Sgs
             this.tabNavigationPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMinRadius.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMedRadius.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchMaxRadius.Properties)).EndInit();
@@ -541,14 +543,11 @@ namespace ExperimentDesign.WorkList.Sgs
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataFile.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MinValue.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxValue.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }

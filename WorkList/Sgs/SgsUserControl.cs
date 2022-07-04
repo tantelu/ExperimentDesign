@@ -16,7 +16,7 @@ namespace ExperimentDesign.WorkList.Sgs
         public SgsPar GetSgsPar()
         {
             SgsPar sgs = new SgsPar();
-            sgs.DataFileName = DataFile.Text;
+            sgs.DataFileName = Design<string>.GeneralDesign(DataFile.Tag, DataFile.Text);
             sgs.Variogram = this.variogramControl1.GetVariogram();
             sgs.MaxValue = Design<double>.GeneralDesign(MaxValue.Tag, MaxValue.Text);
             sgs.MinValue = Design<double>.GeneralDesign(MinValue.Tag, MinValue.Text);

@@ -16,7 +16,7 @@ namespace ExperimentDesign.WorkList.Sgs
     public class SgsPar : IFacieCtrlPar
     {
         [Description("条件数据绝对路径")]
-        public string DataFileName { get; set; }
+        public Design<string> DataFileName { get; set; }
 
         [Description("数据最小值")]
         public Design<double> MinValue { get; set; }
@@ -138,7 +138,7 @@ namespace ExperimentDesign.WorkList.Sgs
             writer.WritePropertyName(nameof(MinValue));
             writer.WriteValue(MinValue.Save());
             writer.WritePropertyName(nameof(DataFileName));
-            writer.WriteValue(DataFileName);
+            writer.WriteValue(DataFileName.Save());
             writer.WritePropertyName(nameof(Variogram));
             writer.WriteValue(Variogram.Save());
             writer.WriteEndObject();
@@ -159,7 +159,8 @@ namespace ExperimentDesign.WorkList.Sgs
                 MinValue.Open(jo[nameof(MinValue)]?.ToString());
                 MaxValue = new Design<double>();
                 MaxValue.Open(jo[nameof(MaxValue)]?.ToString());
-                DataFileName = jo[nameof(DataFileName)]?.ToString();
+                DataFileName = new Design<string>();
+                DataFileName.Open(jo[nameof(DataFileName)]?.ToString());
 
                 Rake = new Design<double>();
                 Rake.Open(jo[nameof(Rake)]?.ToString());

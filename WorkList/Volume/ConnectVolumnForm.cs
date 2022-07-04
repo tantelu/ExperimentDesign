@@ -1,5 +1,4 @@
 ﻿using DevExpress.XtraEditors;
-using ExperimentDesign.General;
 using System.Windows.Forms;
 
 namespace ExperimentDesign.WorkList.Volume
