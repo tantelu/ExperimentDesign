@@ -73,7 +73,7 @@ namespace ExperimentDesign.WorkList.Volume
                 int xcount;
                 int ycount;
                 int zcount;
-                var porosities = Gslib.ReadGslib(porosityFileName, out xcount, out ycount, out zcount);
+                var porosities = Gslib.ReadOut(porosityFileName, out xcount, out ycount, out zcount);
                 volumns = new float[xcount * ycount * zcount];
                 for (int i = 0; i < porosities.Length; i++)
                 {
@@ -90,7 +90,7 @@ namespace ExperimentDesign.WorkList.Volume
                 int xcount;
                 int ycount;
                 int zcount;
-                var penetrations = Gslib.ReadGslib(penetrationFilename, out xcount, out ycount, out zcount);
+                var penetrations = Gslib.ReadOut(penetrationFilename, out xcount, out ycount, out zcount);
                 for (int i = 0; i < penetrations.Length; i++)
                 {
                     volumns[i] = penetrations[i] > penetration ? volumns[i] : 0;

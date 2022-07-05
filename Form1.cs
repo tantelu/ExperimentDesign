@@ -307,5 +307,11 @@ namespace ExperimentDesign
             SparseValidForm form = new SparseValidForm();
             form.Show();
         }
+
+        private void 抽稀验证对比分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SparseValidAnalyzeForm form = new SparseValidAnalyzeForm();
+            form.Show();
+        }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows.Forms;
 using ExperimentDesign.WorkList.Base;
 using System.ComponentModel;
+using System.Threading;
 
 namespace ExperimentDesign
 {
@@ -30,7 +31,6 @@ namespace ExperimentDesign
             {
                 comboBoxEdit_exit.Properties.Items.AddRange(exits);
             }
-            this.gridControl1.DataSource = SparseMethod(0);
         }
 
         //运行工作流
@@ -38,6 +38,7 @@ namespace ExperimentDesign
         {
             if (Current != null)
             {
+                int maxwait = 60000;
                 if (textBox_name.Text.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 {
                     XtraMessageBox.Show($"{textBox_name.Text} 不能作为文件名!");
@@ -69,32 +70,32 @@ namespace ExperimentDesign
                         }
                         //把条件数据文件生成出来 然后构造一个变量字典（适配工作流）
                         //条件数据就是一个Gslib文件，这里做个测试
-                        IReadOnlyDictionary<string, string> harddata = new Dictionary<string, string>();
-                        //foreach (var item in workControls)
-                        //{
-                        //    if (item is WorkControl ctrl)
-                        //    {
-                        //        ctrl.Run(i + 1, designTable[i]);
-                        //        int curwait = 0;
-                        //        while (!ctrl.GetRunState(i + 1))
-                        //        {
-                        //            Thread.Sleep(1000);
-                        //            curwait += 1000;
-                        //            if (curwait > maxwait)
-                        //            {
-                        //                var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
-                        //                if (dia == DialogResult.Yes)
-                        //                {
-                        //                    maxwait *= 2;
-                        //                }
-                        //                else
-                        //                {
-                        //                    return;
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-                        //}
+                        IReadOnlyDictionary<string, object> harddata = new Dictionary<string, object>();
+                        foreach (var item in workControls)
+                        {
+                            if (item is WorkControl ctrl)
+                            {
+                                ctrl.Run(i + 1, harddata);
+                                int curwait = 0;
+                                while (!ctrl.GetRunState(i + 1))
+                                {
+                                    Thread.Sleep(1000);
+                                    curwait += 1000;
+                                    if (curwait > maxwait)
+                                    {
+                                        var dia = XtraMessageBox.Show($"单一工作流运行时间超出{maxwait / 1000.0}S,是否继续等待？", "提示", MessageBoxButtons.YesNo);
+                                        if (dia == DialogResult.Yes)
+                                        {
+                                            maxwait *= 2;
+                                        }
+                                        else
+                                        {
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 XtraMessageBox.Show($"工作流执行完成");
@@ -246,24 +247,7 @@ namespace ExperimentDesign
             return Path.Combine(GetWorkPath(), $"{textBox_name.Text}.sparse");
         }
 
-        public List<SparseWellData> SparseMethod(int index)
-        {
-            var data = new List<SparseWellData>();
-            if (index == 0)
-            {
-                List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-                ids = ids.OrderBy(_ => Guid.NewGuid()).ToList();
-                for (int i = 0; i < 10; i++)
-                {
-                    data.Add(new SparseWellData() { Serial = i + 1, Id = WellIds.Build(ids[i]) });
-                }
-            }
-            else
-            {
-                //其他方案待实现
-            }
-            return data;
-        }
+        
 
         //鼠标交互事件---------------------------------------------------------------------------------------------------------
         private void editworkflow_Click(object sender, System.EventArgs e)
@@ -356,7 +340,7 @@ namespace ExperimentDesign
 
         private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SparseMethod(comboBoxEdit1.SelectedIndex);
+            //SparseMethod(comboBoxEdit1.SelectedIndex);
         }
     }
 
@@ -365,7 +349,7 @@ namespace ExperimentDesign
         [DisplayName("序号")]
         public int Serial { get; set; }
 
-        [DisplayName("抽稀井Id")]
+        [DisplayName("抽稀井编码")]
         public WellIds Id { get; set; }
     }
 

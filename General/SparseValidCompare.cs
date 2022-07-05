@@ -7,7 +7,7 @@ namespace ExperimentDesign.General
     {
         //保证gslib文件里面对应的xyz与PointSet里面的一致  Gslib
         /// <summary>
-        /// 逐网格比较 1代表相同 -1代表不同
+        /// 逐网格比较 1代表相同 0代表不同
         /// </summary>
         /// <param name="gslib"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace ExperimentDesign.General
                 int xcount;
                 int ycount;
                 int zcount;
-                var vs = Gslib.ReadGslib(gslib, out xcount, out ycount, out zcount);
+                var vs = Gslib.ReadSgems(gslib, out xcount, out ycount, out zcount);
                 for (int i = 0; i < sets.Count; i++)
                 {
                     int index = sets[i].X + sets[i].Y * xcount + sets[i].Z * xcount * ycount;
@@ -30,7 +30,7 @@ namespace ExperimentDesign.General
                     }
                     else
                     {
-                        compare.Add(-1);
+                        compare.Add(0);
                     }
                 }
             }
@@ -38,7 +38,7 @@ namespace ExperimentDesign.General
         }
 
         /// <summary>
-        /// 比较相比例
+        /// 比较相比例 Item1井的相比例 Item2模型的相比例
         /// </summary>
         /// <param name="sets"></param>
         /// <param name="gslib"></param>
@@ -52,7 +52,7 @@ namespace ExperimentDesign.General
                 int xcount;
                 int ycount;
                 int zcount;
-                var vs = Gslib.ReadGslib(gslib, out xcount, out ycount, out zcount);
+                var vs = Gslib.ReadSgems(gslib, out xcount, out ycount, out zcount);
                 for (int i = 0; i < sets.Count; i++)
                 {
                     int index = sets[i].X + sets[i].Y * xcount + sets[i].Z * xcount * ycount;
@@ -75,56 +75,54 @@ namespace ExperimentDesign.General
                     }
                 }
             }
-            return new Tuple<Dictionary<int, int>, Dictionary<int, int>>(compare1,compare2);
+            return new Tuple<Dictionary<int, int>, Dictionary<int, int>>(compare1, compare2);
         }
 
         /// <summary>
-        /// sets只为一口井 且默认Z连续
+        /// sets只为一口井 且默认Z连续  layergridnum多少个网格作为一层(gslib文件没有层的概念)
         /// </summary>
         /// <param name="sets"></param>
         /// <param name="gslib"></param>
-        /// <returns></returns>
-        public static Tuple<List<int>, List<int>> ThickAndLayerComparison(IList<PointSet> sets, string gslib)
+        /// <returns>List.Count对应层数  Item1为井上厚度 Item2为模型厚度</returns>
+        public static List<Tuple<int, int>> ThickAndLayerComparison(IList<PointSet> sets, string gslib, int layergridnum, int code)
         {
-            List<int> compare1 = new List<int>();
-            List<int> compare2 = new List<int>();
-            int last1 = -99;
-            int cur1 = 0;
-            int last2 = -99;
-            int cur2 = 0;
+            var res = new List<Tuple<int, int>>();
             if (sets?.Count > 0)
             {
                 int xcount;
                 int ycount;
                 int zcount;
-                var vs = Gslib.ReadGslib(gslib, out xcount, out ycount, out zcount);
+                var vs = Gslib.ReadSgems(gslib, out xcount, out ycount, out zcount);
+                int cur = 0;
+                int thick_well = 0;
+                int thick_model = 0;
                 for (int i = 0; i < sets.Count; i++)
                 {
+                    cur++;
+                    if (cur > layergridnum)
+                    {
+                        res.Add(new Tuple<int, int>(thick_well, thick_model));
+                        cur = 0;
+                        thick_well = 0;
+                        thick_model = 0;
+                    }
                     int index = sets[i].X + sets[i].Y * xcount + sets[i].Z * xcount * ycount;
-                    if (sets[i].V==last1)
+                    if (sets[i].V == code)
                     {
-                        cur1++;
+                        thick_well++;
                     }
-                    else
-                    {
-                        compare1.Add(cur1);
-                        cur1 = 1;
-                    }
-                    last1 = sets[i].V;
                     int facie = (int)Math.Round(vs[index]);
-                    if (facie==last2)
+                    if (facie == code)
                     {
-                        cur2++;
+                        thick_model++;
                     }
-                    else
-                    {
-                        compare2.Add(cur2);
-                        cur2 = 1;
-                    }
-                    last2 = facie;
+                }
+                if (cur > 0)
+                {
+                    res.Add(new Tuple<int, int>(thick_well, thick_model));
                 }
             }
-            return new Tuple<List<int>, List<int>>(compare1, compare2);
+            return res;
         }
     }
 }

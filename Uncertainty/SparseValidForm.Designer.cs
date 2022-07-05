@@ -256,7 +256,7 @@ namespace ExperimentDesign
             this.tabNavigationPage2.Caption = "抽稀方案表";
             this.tabNavigationPage2.Controls.Add(this.gridControl1);
             this.tabNavigationPage2.Name = "tabNavigationPage2";
-            this.tabNavigationPage2.Size = new System.Drawing.Size(1251, 376);
+            this.tabNavigationPage2.Size = new System.Drawing.Size(1185, 376);
             // 
             // gridControl1
             // 
@@ -264,7 +264,7 @@ namespace ExperimentDesign
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1251, 376);
+            this.gridControl1.Size = new System.Drawing.Size(1185, 376);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});

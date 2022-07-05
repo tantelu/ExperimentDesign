@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ExperimentDesign.General;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace ExperimentDesign.WorkList.MPS
 
         public string ConditionFile { get; set; }
 
-        public WellIds IgnoreIds { get; set; }
+        public int MaxHardData { get; set; }
 
         public string Save()
         {

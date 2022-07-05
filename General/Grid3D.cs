@@ -35,6 +35,30 @@ namespace ExperimentDesign.General
         [Description("Z方向网格大小")]
         public double Zsize { get; set; }
 
+        public int Xcount
+        {
+            get
+            {
+                return (int)((Xmax - Xmin) / Xsize);
+            }
+        }
+
+        public int Ycount
+        {
+            get
+            {
+                return (int)((Ymax - Ymin) / Ysize);
+            }
+        }
+
+        public int Zcount
+        {
+            get
+            {
+                return (int)((Zmax - Zmin) / Zsize);
+            }
+        }
+
         public void Open(string file)
         {
             var jsonText = File.ReadAllText(file, Encoding.UTF8);

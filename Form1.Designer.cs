@@ -31,12 +31,13 @@ namespace ExperimentDesign
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.不确定分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.抽稀验证ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模型显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.模型分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.方差分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.多元回归分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.抽稀验证对比分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.抽稀验证ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
@@ -49,10 +50,11 @@ namespace ExperimentDesign
             this.不确定分析ToolStripMenuItem,
             this.抽稀验证ToolStripMenuItem,
             this.模型显示ToolStripMenuItem,
-            this.模型分析ToolStripMenuItem});
+            this.模型分析ToolStripMenuItem,
+            this.抽稀验证对比分析ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1170, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1170, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -62,6 +64,13 @@ namespace ExperimentDesign
             this.不确定分析ToolStripMenuItem.Size = new System.Drawing.Size(116, 28);
             this.不确定分析ToolStripMenuItem.Text = "不确定分析";
             this.不确定分析ToolStripMenuItem.Click += new System.EventHandler(this.不确定分析ToolStripMenuItem_Click);
+            // 
+            // 抽稀验证ToolStripMenuItem
+            // 
+            this.抽稀验证ToolStripMenuItem.Name = "抽稀验证ToolStripMenuItem";
+            this.抽稀验证ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.抽稀验证ToolStripMenuItem.Text = "抽稀验证";
+            this.抽稀验证ToolStripMenuItem.Click += new System.EventHandler(this.抽稀验证ToolStripMenuItem_Click);
             // 
             // 模型显示ToolStripMenuItem
             // 
@@ -93,20 +102,20 @@ namespace ExperimentDesign
             this.多元回归分析ToolStripMenuItem.Text = "多元回归分析";
             this.多元回归分析ToolStripMenuItem.Click += new System.EventHandler(this.多元回归分析ToolStripMenuItem_Click);
             // 
+            // 抽稀验证对比分析ToolStripMenuItem
+            // 
+            this.抽稀验证对比分析ToolStripMenuItem.Name = "抽稀验证对比分析ToolStripMenuItem";
+            this.抽稀验证对比分析ToolStripMenuItem.Size = new System.Drawing.Size(170, 28);
+            this.抽稀验证对比分析ToolStripMenuItem.Text = "抽稀验证对比分析";
+            this.抽稀验证对比分析ToolStripMenuItem.Click += new System.EventHandler(this.抽稀验证对比分析ToolStripMenuItem_Click);
+            // 
             // panelControl1
             // 
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 36);
+            this.panelControl1.Location = new System.Drawing.Point(0, 32);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1170, 616);
+            this.panelControl1.Size = new System.Drawing.Size(1170, 620);
             this.panelControl1.TabIndex = 1;
-            // 
-            // 抽稀验证ToolStripMenuItem
-            // 
-            this.抽稀验证ToolStripMenuItem.Name = "抽稀验证ToolStripMenuItem";
-            this.抽稀验证ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
-            this.抽稀验证ToolStripMenuItem.Text = "抽稀验证";
-            this.抽稀验证ToolStripMenuItem.Click += new System.EventHandler(this.抽稀验证ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -139,6 +148,7 @@ namespace ExperimentDesign
         private System.Windows.Forms.ToolStripMenuItem 方差分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 多元回归分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 抽稀验证ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 抽稀验证对比分析ToolStripMenuItem;
     }
 }
 
