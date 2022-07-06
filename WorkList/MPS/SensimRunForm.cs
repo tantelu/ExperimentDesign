@@ -61,17 +61,5 @@ namespace ExperimentDesign.WorkList.MPS
                 this.buttonEdit2.Text = string.Empty;
             }
         }
-
-        private void checkEdit1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkEdit1.Checked)
-            {
-                buttonEdit2.Enabled = false;
-            }
-            else
-            {
-                buttonEdit2.Enabled = true;
-            }
-        }
     }
 }

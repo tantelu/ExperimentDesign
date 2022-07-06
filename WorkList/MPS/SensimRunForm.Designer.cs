@@ -30,6 +30,9 @@ namespace ExperimentDesign.WorkList.MPS
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.spinEdit3 = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit2 = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.buttonEdit2 = new DevExpress.XtraEditors.ButtonEdit();
             this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
@@ -39,16 +42,14 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.spinEdit2 = new DevExpress.XtraEditors.SpinEdit();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.spinEdit3 = new DevExpress.XtraEditors.SpinEdit();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
@@ -57,19 +58,13 @@ namespace ExperimentDesign.WorkList.MPS
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.checkEdit1);
             this.layoutControl1.Controls.Add(this.spinEdit3);
             this.layoutControl1.Controls.Add(this.spinEdit2);
             this.layoutControl1.Controls.Add(this.spinEdit1);
@@ -80,15 +75,60 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(795, 282);
+            this.layoutControl1.Size = new System.Drawing.Size(795, 236);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // spinEdit3
+            // 
+            this.spinEdit3.EditValue = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.spinEdit3.Location = new System.Drawing.Point(175, 110);
+            this.spinEdit3.Name = "spinEdit3";
+            this.spinEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit3.Size = new System.Drawing.Size(612, 28);
+            this.spinEdit3.StyleController = this.layoutControl1;
+            this.spinEdit3.TabIndex = 10;
+            // 
+            // spinEdit2
+            // 
+            this.spinEdit2.EditValue = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.spinEdit2.Location = new System.Drawing.Point(582, 76);
+            this.spinEdit2.Name = "spinEdit2";
+            this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit2.Size = new System.Drawing.Size(205, 28);
+            this.spinEdit2.StyleController = this.layoutControl1;
+            this.spinEdit2.TabIndex = 9;
+            // 
+            // spinEdit1
+            // 
+            this.spinEdit1.EditValue = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.spinEdit1.Location = new System.Drawing.Point(175, 76);
+            this.spinEdit1.Name = "spinEdit1";
+            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit1.Size = new System.Drawing.Size(234, 28);
+            this.spinEdit1.StyleController = this.layoutControl1;
+            this.spinEdit1.TabIndex = 8;
+            // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(658, 242);
+            this.simpleButton1.Location = new System.Drawing.Point(649, 196);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(129, 32);
+            this.simpleButton1.Size = new System.Drawing.Size(138, 32);
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 7;
             this.simpleButton1.Text = "确定";
@@ -96,12 +136,15 @@ namespace ExperimentDesign.WorkList.MPS
             // 
             // buttonEdit2
             // 
+            this.buttonEdit2.EditValue = "filter.txt";
             this.buttonEdit2.Location = new System.Drawing.Point(175, 42);
             this.buttonEdit2.Name = "buttonEdit2";
+            this.buttonEdit2.Properties.Appearance.Options.UseTextOptions = true;
+            this.buttonEdit2.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.buttonEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.buttonEdit2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.buttonEdit2.Size = new System.Drawing.Size(476, 28);
+            this.buttonEdit2.Size = new System.Drawing.Size(612, 28);
             this.buttonEdit2.StyleController = this.layoutControl1;
             this.buttonEdit2.TabIndex = 5;
             this.buttonEdit2.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit2_ButtonClick);
@@ -124,18 +167,17 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
-            this.emptySpaceItem1,
             this.layoutControlItem2,
             this.layoutControlItem4,
-            this.emptySpaceItem2,
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.layoutControlItem3});
+            this.emptySpaceItem1,
+            this.emptySpaceItem2});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(795, 282);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(795, 236);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -150,9 +192,9 @@ namespace ExperimentDesign.WorkList.MPS
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 136);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 188);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(785, 98);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(641, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -160,41 +202,26 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlItem2.Control = this.buttonEdit2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 34);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(649, 34);
+            this.layoutControlItem2.Size = new System.Drawing.Size(785, 34);
             this.layoutControlItem2.Text = "条件数据：";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(162, 22);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.simpleButton1;
-            this.layoutControlItem4.Location = new System.Drawing.Point(650, 234);
+            this.layoutControlItem4.Location = new System.Drawing.Point(641, 188);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(135, 38);
+            this.layoutControlItem4.Size = new System.Drawing.Size(144, 38);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 234);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 136);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(650, 38);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(785, 52);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // spinEdit1
-            // 
-            this.spinEdit1.EditValue = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.spinEdit1.Location = new System.Drawing.Point(175, 76);
-            this.spinEdit1.Name = "spinEdit1";
-            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit1.Size = new System.Drawing.Size(234, 28);
-            this.spinEdit1.StyleController = this.layoutControl1;
-            this.spinEdit1.TabIndex = 8;
             // 
             // layoutControlItem5
             // 
@@ -205,21 +232,6 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlItem5.Text = "最小重复数：";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(162, 22);
             // 
-            // spinEdit2
-            // 
-            this.spinEdit2.EditValue = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.spinEdit2.Location = new System.Drawing.Point(582, 76);
-            this.spinEdit2.Name = "spinEdit2";
-            this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit2.Size = new System.Drawing.Size(205, 28);
-            this.spinEdit2.StyleController = this.layoutControl1;
-            this.spinEdit2.TabIndex = 9;
-            // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.spinEdit2;
@@ -228,21 +240,6 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlItem6.Size = new System.Drawing.Size(378, 34);
             this.layoutControlItem6.Text = "多重网格：";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(162, 22);
-            // 
-            // spinEdit3
-            // 
-            this.spinEdit3.EditValue = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
-            this.spinEdit3.Location = new System.Drawing.Point(175, 110);
-            this.spinEdit3.Name = "spinEdit3";
-            this.spinEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit3.Size = new System.Drawing.Size(612, 28);
-            this.spinEdit3.StyleController = this.layoutControl1;
-            this.spinEdit3.TabIndex = 10;
             // 
             // layoutControlItem7
             // 
@@ -253,29 +250,9 @@ namespace ExperimentDesign.WorkList.MPS
             this.layoutControlItem7.Text = "条件数据最大数量：";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(162, 22);
             // 
-            // checkEdit1
-            // 
-            this.checkEdit1.Location = new System.Drawing.Point(657, 43);
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Caption = "从工作流获取";
-            this.checkEdit1.Size = new System.Drawing.Size(130, 26);
-            this.checkEdit1.StyleController = this.layoutControl1;
-            this.checkEdit1.TabIndex = 11;
-            this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.checkEdit1;
-            this.layoutControlItem3.Location = new System.Drawing.Point(649, 34);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(136, 34);
-            this.layoutControlItem3.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 1, 0);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
-            // 
             // SensimRunForm
             // 
-            this.ClientSize = new System.Drawing.Size(795, 282);
+            this.ClientSize = new System.Drawing.Size(795, 236);
             this.Controls.Add(this.layoutControl1);
             this.MaximizeBox = false;
             this.Name = "SensimRunForm";
@@ -284,6 +261,9 @@ namespace ExperimentDesign.WorkList.MPS
             this.Text = "Snesim算法";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
@@ -292,14 +272,9 @@ namespace ExperimentDesign.WorkList.MPS
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -321,7 +296,5 @@ namespace ExperimentDesign.WorkList.MPS
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraEditors.SpinEdit spinEdit3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private DevExpress.XtraEditors.CheckEdit checkEdit1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     }
 }

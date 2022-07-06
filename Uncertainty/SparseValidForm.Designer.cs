@@ -29,6 +29,11 @@ namespace ExperimentDesign
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SparseValidForm));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.simpleButton_savework = new DevExpress.XtraEditors.SimpleButton();
@@ -43,17 +48,22 @@ namespace ExperimentDesign
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tabNavigationPage3 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
+            this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.spinEdit_times = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit_sparsenum = new DevExpress.XtraEditors.SpinEdit();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             this.comboBoxEdit_exit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
@@ -79,17 +89,22 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
-            this.tabNavigationPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.tabNavigationPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_times.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_sparsenum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
@@ -157,13 +172,11 @@ namespace ExperimentDesign
             // tabPane1
             // 
             this.tabPane1.Controls.Add(this.tabNavigationPage1);
-            this.tabPane1.Controls.Add(this.tabNavigationPage2);
             this.tabPane1.Controls.Add(this.tabNavigationPage3);
             this.tabPane1.Location = new System.Drawing.Point(8, 76);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabNavigationPage1,
-            this.tabNavigationPage2,
             this.tabNavigationPage3});
             this.tabPane1.RegularSize = new System.Drawing.Size(1191, 427);
             this.tabPane1.SelectedPage = this.tabNavigationPage1;
@@ -250,22 +263,49 @@ namespace ExperimentDesign
             this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem12.TextVisible = false;
             // 
-            // tabNavigationPage2
+            // tabNavigationPage3
             // 
-            this.tabNavigationPage2.BackgroundPadding = new System.Windows.Forms.Padding(2);
-            this.tabNavigationPage2.Caption = "抽稀方案表";
-            this.tabNavigationPage2.Controls.Add(this.gridControl1);
-            this.tabNavigationPage2.Name = "tabNavigationPage2";
-            this.tabNavigationPage2.Size = new System.Drawing.Size(1185, 376);
+            this.tabNavigationPage3.Caption = "方案设置";
+            this.tabNavigationPage3.Controls.Add(this.layoutControl3);
+            this.tabNavigationPage3.Name = "tabNavigationPage3";
+            this.tabNavigationPage3.Size = new System.Drawing.Size(1165, 356);
+            // 
+            // layoutControl3
+            // 
+            this.layoutControl3.Controls.Add(this.buttonEdit1);
+            this.layoutControl3.Controls.Add(this.gridControl1);
+            this.layoutControl3.Controls.Add(this.spinEdit_times);
+            this.layoutControl3.Controls.Add(this.spinEdit_sparsenum);
+            this.layoutControl3.Controls.Add(this.comboBoxEdit1);
+            this.layoutControl3.Controls.Add(this.textBox_name);
+            this.layoutControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl3.Name = "layoutControl3";
+            this.layoutControl3.Root = this.layoutControlGroup3;
+            this.layoutControl3.Size = new System.Drawing.Size(1165, 356);
+            this.layoutControl3.TabIndex = 0;
+            this.layoutControl3.Text = "layoutControl3";
+            // 
+            // buttonEdit1
+            // 
+            this.buttonEdit1.Location = new System.Drawing.Point(1104, 75);
+            this.buttonEdit1.Name = "buttonEdit1";
+            editorButtonImageOptions1.Image = global::ExperimentDesign.Properties.Resources.Run;
+            this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.buttonEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.buttonEdit1.Size = new System.Drawing.Size(56, 26);
+            this.buttonEdit1.StyleController = this.layoutControl3;
+            this.buttonEdit1.TabIndex = 9;
+            this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
             // 
             // gridControl1
             // 
-            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 0);
+            this.gridControl1.Location = new System.Drawing.Point(5, 109);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1185, 376);
-            this.gridControl1.TabIndex = 0;
+            this.gridControl1.Size = new System.Drawing.Size(1155, 242);
+            this.gridControl1.TabIndex = 8;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -279,36 +319,59 @@ namespace ExperimentDesign
             this.gridView1.Appearance.Row.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsCustomization.AllowColumnMoving = false;
-            this.gridView1.OptionsCustomization.AllowColumnResizing = false;
-            this.gridView1.OptionsCustomization.AllowFilter = false;
-            this.gridView1.OptionsCustomization.AllowGroup = false;
-            this.gridView1.OptionsCustomization.AllowQuickHideColumns = false;
-            this.gridView1.OptionsCustomization.AllowSort = false;
-            this.gridView1.OptionsMenu.EnableColumnMenu = false;
-            this.gridView1.OptionsMenu.EnableFooterMenu = false;
-            this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
-            this.gridView1.OptionsMenu.ShowAutoFilterRowItem = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
-            // tabNavigationPage3
+            // spinEdit_times
             // 
-            this.tabNavigationPage3.Caption = "方案设置";
-            this.tabNavigationPage3.Controls.Add(this.layoutControl3);
-            this.tabNavigationPage3.Name = "tabNavigationPage3";
-            this.tabNavigationPage3.Size = new System.Drawing.Size(1165, 356);
+            this.spinEdit_times.EditValue = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.spinEdit_times.Enabled = false;
+            this.spinEdit_times.Location = new System.Drawing.Point(100, 75);
+            this.spinEdit_times.Name = "spinEdit_times";
+            this.spinEdit_times.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit_times.Properties.MaxValue = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.spinEdit_times.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.spinEdit_times.Size = new System.Drawing.Size(461, 28);
+            this.spinEdit_times.StyleController = this.layoutControl3;
+            this.spinEdit_times.TabIndex = 7;
             // 
-            // layoutControl3
+            // spinEdit_sparsenum
             // 
-            this.layoutControl3.Controls.Add(this.comboBoxEdit1);
-            this.layoutControl3.Controls.Add(this.textBox_name);
-            this.layoutControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutControl3.Location = new System.Drawing.Point(0, 0);
-            this.layoutControl3.Name = "layoutControl3";
-            this.layoutControl3.Root = this.layoutControlGroup3;
-            this.layoutControl3.Size = new System.Drawing.Size(1165, 356);
-            this.layoutControl3.TabIndex = 0;
-            this.layoutControl3.Text = "layoutControl3";
+            this.spinEdit_sparsenum.EditValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.spinEdit_sparsenum.Enabled = false;
+            this.spinEdit_sparsenum.Location = new System.Drawing.Point(662, 75);
+            this.spinEdit_sparsenum.Name = "spinEdit_sparsenum";
+            this.spinEdit_sparsenum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit_sparsenum.Properties.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.spinEdit_sparsenum.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.spinEdit_sparsenum.Size = new System.Drawing.Size(436, 28);
+            this.spinEdit_sparsenum.StyleController = this.layoutControl3;
+            this.spinEdit_sparsenum.TabIndex = 6;
             // 
             // comboBoxEdit1
             // 
@@ -321,7 +384,9 @@ namespace ExperimentDesign
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
             "逐井抽稀",
-            "随机抽稀"});
+            "随机抽稀",
+            "手动输入"});
+            this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comboBoxEdit1.Size = new System.Drawing.Size(1060, 28);
             this.comboBoxEdit1.StyleController = this.layoutControl3;
             this.comboBoxEdit1.TabIndex = 5;
@@ -342,8 +407,11 @@ namespace ExperimentDesign
             this.layoutControlGroup3.GroupBordersVisible = false;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem9,
-            this.emptySpaceItem2,
-            this.layoutControlItem10});
+            this.layoutControlItem10,
+            this.layoutControlItem11,
+            this.layoutControlItem14,
+            this.layoutControlItem15,
+            this.layoutControlItem16});
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup3.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
@@ -359,14 +427,6 @@ namespace ExperimentDesign
             this.layoutControlItem9.Text = "方案名称：";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(90, 22);
             // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 70);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1161, 282);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.comboBoxEdit1;
@@ -375,6 +435,42 @@ namespace ExperimentDesign
             this.layoutControlItem10.Size = new System.Drawing.Size(1161, 34);
             this.layoutControlItem10.Text = "抽稀方案：";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(90, 22);
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.spinEdit_sparsenum;
+            this.layoutControlItem11.Location = new System.Drawing.Point(562, 70);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(537, 34);
+            this.layoutControlItem11.Text = "抽稀数量：";
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(90, 22);
+            // 
+            // layoutControlItem14
+            // 
+            this.layoutControlItem14.Control = this.spinEdit_times;
+            this.layoutControlItem14.Location = new System.Drawing.Point(0, 70);
+            this.layoutControlItem14.Name = "layoutControlItem14";
+            this.layoutControlItem14.Size = new System.Drawing.Size(562, 34);
+            this.layoutControlItem14.Text = "模拟次数：";
+            this.layoutControlItem14.TextSize = new System.Drawing.Size(90, 22);
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.Control = this.gridControl1;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 104);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(1161, 248);
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem15.TextVisible = false;
+            // 
+            // layoutControlItem16
+            // 
+            this.layoutControlItem16.Control = this.buttonEdit1;
+            this.layoutControlItem16.Location = new System.Drawing.Point(1099, 70);
+            this.layoutControlItem16.Name = "layoutControlItem16";
+            this.layoutControlItem16.Size = new System.Drawing.Size(62, 34);
+            this.layoutControlItem16.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem16.TextVisible = false;
             // 
             // comboBoxEdit_exit
             // 
@@ -539,17 +635,22 @@ namespace ExperimentDesign
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
-            this.tabNavigationPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.tabNavigationPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_times.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_sparsenum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_exit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
@@ -584,7 +685,6 @@ namespace ExperimentDesign
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraBars.Navigation.TabPane tabPane1;
         private DevExpress.XtraBars.Navigation.TabNavigationPage tabNavigationPage1;
-        private DevExpress.XtraBars.Navigation.TabNavigationPage tabNavigationPage2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
@@ -593,8 +693,6 @@ namespace ExperimentDesign
         private DevExpress.XtraEditors.SimpleButton editworkflow;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.Panel workPanel;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraEditors.SimpleButton simpleButton_savework;
@@ -605,8 +703,16 @@ namespace ExperimentDesign
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private System.Windows.Forms.TextBox textBox_name;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_sparsenum;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_times;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
     }
 }

@@ -29,17 +29,21 @@ namespace ExperimentDesign.Statistic
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle2 = new DevExpress.XtraCharts.ChartTitle();
-            DevExpress.XtraCharts.ChartTitle chartTitle3 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle7 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle8 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.ChartTitle chartTitle9 = new DevExpress.XtraCharts.ChartTitle();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            this.chartControl_grid = new DevExpress.XtraCharts.ChartControl();
+            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            this.chartControl_facieratio = new DevExpress.XtraCharts.ChartControl();
+            this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.chartControl_layerthick = new DevExpress.XtraCharts.ChartControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.comboBoxEdit_model = new DevExpress.XtraEditors.ComboBoxEdit();
             this.comboBoxEdit_well = new DevExpress.XtraEditors.ComboBoxEdit();
             this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
-            this.chartControl_grid = new DevExpress.XtraCharts.ChartControl();
-            this.chartControl_facieratio = new DevExpress.XtraCharts.ChartControl();
-            this.chartControl_layerthick = new DevExpress.XtraCharts.ChartControl();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -48,19 +52,20 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
+            this.xtraTabControl1.SuspendLayout();
+            this.xtraTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_grid)).BeginInit();
+            this.xtraTabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_facieratio)).BeginInit();
+            this.xtraTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_layerthick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_model.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_well.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_grid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_facieratio)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_layerthick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -69,12 +74,7 @@ namespace ExperimentDesign.Statistic
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            this.xtraTabPage1.SuspendLayout();
-            this.xtraTabPage2.SuspendLayout();
-            this.xtraTabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -93,6 +93,79 @@ namespace ExperimentDesign.Statistic
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // xtraTabControl1
+            // 
+            this.xtraTabControl1.Location = new System.Drawing.Point(18, 120);
+            this.xtraTabControl1.Name = "xtraTabControl1";
+            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
+            this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.False;
+            this.xtraTabControl1.Size = new System.Drawing.Size(1023, 274);
+            this.xtraTabControl1.TabIndex = 10;
+            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPage1,
+            this.xtraTabPage2,
+            this.xtraTabPage3});
+            // 
+            // xtraTabPage1
+            // 
+            this.xtraTabPage1.Controls.Add(this.chartControl_grid);
+            this.xtraTabPage1.Name = "xtraTabPage1";
+            this.xtraTabPage1.Size = new System.Drawing.Size(1013, 264);
+            this.xtraTabPage1.Text = "xtraTabPage1";
+            // 
+            // chartControl_grid
+            // 
+            this.chartControl_grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl_grid.Legend.Name = "Default Legend";
+            this.chartControl_grid.Location = new System.Drawing.Point(0, 0);
+            this.chartControl_grid.Name = "chartControl_grid";
+            this.chartControl_grid.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl_grid.Size = new System.Drawing.Size(1013, 264);
+            this.chartControl_grid.TabIndex = 0;
+            chartTitle7.Text = "逐网格对比";
+            this.chartControl_grid.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle7});
+            // 
+            // xtraTabPage2
+            // 
+            this.xtraTabPage2.Controls.Add(this.chartControl_facieratio);
+            this.xtraTabPage2.Name = "xtraTabPage2";
+            this.xtraTabPage2.Size = new System.Drawing.Size(1013, 264);
+            this.xtraTabPage2.Text = "xtraTabPage2";
+            // 
+            // chartControl_facieratio
+            // 
+            this.chartControl_facieratio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl_facieratio.Legend.Name = "Default Legend";
+            this.chartControl_facieratio.Location = new System.Drawing.Point(0, 0);
+            this.chartControl_facieratio.Name = "chartControl_facieratio";
+            this.chartControl_facieratio.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl_facieratio.Size = new System.Drawing.Size(1013, 264);
+            this.chartControl_facieratio.TabIndex = 0;
+            chartTitle8.Text = "相比例";
+            this.chartControl_facieratio.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle8});
+            // 
+            // xtraTabPage3
+            // 
+            this.xtraTabPage3.Controls.Add(this.chartControl_layerthick);
+            this.xtraTabPage3.Name = "xtraTabPage3";
+            this.xtraTabPage3.Size = new System.Drawing.Size(1013, 264);
+            this.xtraTabPage3.Text = "xtraTabPage3";
+            // 
+            // chartControl_layerthick
+            // 
+            this.chartControl_layerthick.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl_layerthick.Legend.Name = "Default Legend";
+            this.chartControl_layerthick.Location = new System.Drawing.Point(0, 0);
+            this.chartControl_layerthick.Name = "chartControl_layerthick";
+            this.chartControl_layerthick.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl_layerthick.Size = new System.Drawing.Size(1013, 264);
+            this.chartControl_layerthick.TabIndex = 0;
+            chartTitle9.Text = "分层厚度对比";
+            this.chartControl_layerthick.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle9});
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Location = new System.Drawing.Point(914, 400);
@@ -105,94 +178,55 @@ namespace ExperimentDesign.Statistic
             // 
             // comboBoxEdit_model
             // 
-            this.comboBoxEdit_model.Location = new System.Drawing.Point(679, 86);
+            this.comboBoxEdit_model.Location = new System.Drawing.Point(661, 86);
             this.comboBoxEdit_model.Name = "comboBoxEdit_model";
             this.comboBoxEdit_model.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_model.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_model.Size = new System.Drawing.Size(362, 28);
+            this.comboBoxEdit_model.Size = new System.Drawing.Size(380, 28);
             this.comboBoxEdit_model.StyleController = this.layoutControl1;
             this.comboBoxEdit_model.TabIndex = 8;
             // 
             // comboBoxEdit_well
             // 
-            this.comboBoxEdit_well.Location = new System.Drawing.Point(149, 86);
+            this.comboBoxEdit_well.Location = new System.Drawing.Point(131, 86);
             this.comboBoxEdit_well.Name = "comboBoxEdit_well";
             this.comboBoxEdit_well.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_well.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_well.Size = new System.Drawing.Size(393, 28);
+            this.comboBoxEdit_well.Size = new System.Drawing.Size(411, 28);
             this.comboBoxEdit_well.StyleController = this.layoutControl1;
             this.comboBoxEdit_well.TabIndex = 7;
             // 
             // buttonEdit1
             // 
-            this.buttonEdit1.Location = new System.Drawing.Point(149, 52);
+            this.buttonEdit1.Location = new System.Drawing.Point(131, 52);
             this.buttonEdit1.Name = "buttonEdit1";
             this.buttonEdit1.Properties.Appearance.Options.UseTextOptions = true;
             this.buttonEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.buttonEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.buttonEdit1.Size = new System.Drawing.Size(892, 28);
+            this.buttonEdit1.Size = new System.Drawing.Size(910, 28);
             this.buttonEdit1.StyleController = this.layoutControl1;
             this.buttonEdit1.TabIndex = 6;
             this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
             // 
-            // chartControl_grid
-            // 
-            this.chartControl_grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartControl_grid.Legend.Name = "Default Legend";
-            this.chartControl_grid.Location = new System.Drawing.Point(0, 0);
-            this.chartControl_grid.Name = "chartControl_grid";
-            this.chartControl_grid.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl_grid.Size = new System.Drawing.Size(1013, 264);
-            this.chartControl_grid.TabIndex = 0;
-            chartTitle1.Text = "逐网格比较";
-            this.chartControl_grid.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle1});
-            // 
-            // chartControl_facieratio
-            // 
-            this.chartControl_facieratio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartControl_facieratio.Legend.Name = "Default Legend";
-            this.chartControl_facieratio.Location = new System.Drawing.Point(0, 0);
-            this.chartControl_facieratio.Name = "chartControl_facieratio";
-            this.chartControl_facieratio.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl_facieratio.Size = new System.Drawing.Size(1013, 86);
-            this.chartControl_facieratio.TabIndex = 0;
-            chartTitle2.Text = "相比例";
-            this.chartControl_facieratio.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle2});
-            // 
-            // chartControl_layerthick
-            // 
-            this.chartControl_layerthick.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartControl_layerthick.Legend.Name = "Default Legend";
-            this.chartControl_layerthick.Location = new System.Drawing.Point(0, 0);
-            this.chartControl_layerthick.Name = "chartControl_layerthick";
-            this.chartControl_layerthick.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl_layerthick.Size = new System.Drawing.Size(1013, 229);
-            this.chartControl_layerthick.TabIndex = 0;
-            chartTitle3.Text = "分层厚度对比";
-            this.chartControl_layerthick.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle3});
-            // 
             // comboBoxEdit1
             // 
-            this.comboBoxEdit1.EditValue = "逐网格比较";
-            this.comboBoxEdit1.Location = new System.Drawing.Point(149, 18);
+            this.comboBoxEdit1.EditValue = "逐网格对比";
+            this.comboBoxEdit1.Location = new System.Drawing.Point(131, 18);
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Appearance.Options.UseTextOptions = true;
             this.comboBoxEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
-            "逐网格比较",
+            "逐网格对比",
             "相比例",
             "分层厚度对比"});
             this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit1.Size = new System.Drawing.Size(892, 28);
+            this.comboBoxEdit1.Size = new System.Drawing.Size(910, 28);
             this.comboBoxEdit1.StyleController = this.layoutControl1;
             this.comboBoxEdit1.TabIndex = 4;
             this.comboBoxEdit1.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
@@ -221,7 +255,7 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(1029, 34);
             this.layoutControlItem1.Text = "对比方法：";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(126, 22);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(108, 22);
             // 
             // layoutControlItem3
             // 
@@ -230,16 +264,17 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(1029, 34);
             this.layoutControlItem3.Text = "数据路径：";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(126, 22);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(108, 22);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.comboBoxEdit_well;
+            this.layoutControlItem4.CustomizationFormText = "抽稀井编码：";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 68);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(530, 34);
-            this.layoutControlItem4.Text = "抽稀的井数据：";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(126, 22);
+            this.layoutControlItem4.Text = "抽稀井编码：";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(108, 22);
             // 
             // layoutControlItem5
             // 
@@ -248,7 +283,7 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(499, 34);
             this.layoutControlItem5.Text = "模型：";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(126, 22);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(108, 22);
             // 
             // emptySpaceItem1
             // 
@@ -267,19 +302,6 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
-            // xtraTabControl1
-            // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(18, 120);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.False;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1023, 274);
-            this.xtraTabControl1.TabIndex = 10;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage1,
-            this.xtraTabPage2,
-            this.xtraTabPage3});
-            // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.xtraTabControl1;
@@ -288,27 +310,6 @@ namespace ExperimentDesign.Statistic
             this.layoutControlItem7.Size = new System.Drawing.Size(1029, 280);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
-            // 
-            // xtraTabPage1
-            // 
-            this.xtraTabPage1.Controls.Add(this.chartControl_grid);
-            this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1013, 264);
-            this.xtraTabPage1.Text = "xtraTabPage1";
-            // 
-            // xtraTabPage2
-            // 
-            this.xtraTabPage2.Controls.Add(this.chartControl_facieratio);
-            this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1013, 86);
-            this.xtraTabPage2.Text = "xtraTabPage2";
-            // 
-            // xtraTabPage3
-            // 
-            this.xtraTabPage3.Controls.Add(this.chartControl_layerthick);
-            this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1013, 229);
-            this.xtraTabPage3.Text = "xtraTabPage3";
             // 
             // SparseValidAnalyzeForm
             // 
@@ -322,12 +323,17 @@ namespace ExperimentDesign.Statistic
             this.Text = "抽稀井对比分析";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
+            this.xtraTabControl1.ResumeLayout(false);
+            this.xtraTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_grid)).EndInit();
+            this.xtraTabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_facieratio)).EndInit();
+            this.xtraTabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl_layerthick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_model.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_well.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_grid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_facieratio)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl_layerthick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -336,12 +342,7 @@ namespace ExperimentDesign.Statistic
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            this.xtraTabPage1.ResumeLayout(false);
-            this.xtraTabPage2.ResumeLayout(false);
-            this.xtraTabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

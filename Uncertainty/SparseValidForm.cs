@@ -57,7 +57,7 @@ namespace ExperimentDesign
                     }
                 }
                 var workControls = this.workPanel.Controls;
-                var datas = this.gridControl1.DataSource as List<SparseWellData>;
+                var datas = new List<SparseWellData>(); /*this.gridControl1.DataSource as List<SparseWellData>;*/
                 if (datas.Count > 0)
                 {
                     for (int i = 0; i < datas.Count; i++)
@@ -247,8 +247,6 @@ namespace ExperimentDesign
             return Path.Combine(GetWorkPath(), $"{textBox_name.Text}.sparse");
         }
 
-        
-
         //鼠标交互事件---------------------------------------------------------------------------------------------------------
         private void editworkflow_Click(object sender, System.EventArgs e)
         {
@@ -340,17 +338,84 @@ namespace ExperimentDesign
 
         private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //SparseMethod(comboBoxEdit1.SelectedIndex);
+            if (comboBoxEdit1.SelectedIndex == 0)
+            {
+                this.spinEdit_sparsenum.Enabled = false;
+                spinEdit_times.Enabled = false;
+                this.spinEdit_sparsenum.Value = 1;
+                this.spinEdit_times.Value = 9;
+                this.gridView1.OptionsBehavior.Editable = false;
+            }
+            else if (comboBoxEdit1.SelectedIndex == 1)
+            {
+                this.spinEdit_sparsenum.Enabled = true;
+                spinEdit_times.Enabled = true;
+                this.gridView1.OptionsBehavior.Editable = false;
+            }
+            else
+            {
+                this.spinEdit_sparsenum.Enabled = false;
+                spinEdit_times.Enabled = true;
+                this.gridView1.OptionsBehavior.Editable = true;
+            }
+        }
+
+        public List<SparseWellData> SparseMethod(int index)
+        {
+            var data = new List<SparseWellData>();
+            if (index == 0)
+            {
+                List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                ids = ids.OrderBy(_ => Guid.NewGuid()).ToList();
+                for (int i = 0; i < 9; i++)
+                {
+                    data.Add(new SparseWellData() { Serial = i + 1, Id = ids[i].ToString() });
+                }
+            }
+            else if (index == 1)
+            {
+                List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                int times = (int)spinEdit_times.Value;
+                int sparsenum = (int)spinEdit_sparsenum.Value;
+                for (int i = 0; i < times; i++)
+                {
+                    ids = ids.OrderBy(_ => Guid.NewGuid()).ToList();
+                    var select = ids.Take(sparsenum);
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var item in select)
+                    {
+                        sb.Append(item.ToString());
+                        sb.Append(",");
+                    }
+                    data.Add(new SparseWellData() { Serial = i + 1, Id = sb.ToString(0, sb.Length - 1) });
+                }
+            }
+            else
+            {
+                int times = (int)spinEdit_times.Value;
+                for (int i = 0; i < times; i++)
+                {
+                    data.Add(new SparseWellData() { Serial = i + 1, Id = string.Empty });
+                }
+            }
+            this.gridControl1.DataSource = data;
+            this.gridControl1.RefreshDataSource();
+            return data;
+        }
+
+        private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            SparseMethod(comboBoxEdit1.SelectedIndex);
         }
     }
 
     public class SparseWellData
     {
-        [DisplayName("序号")]
+        [DisplayName("执行序号")]
         public int Serial { get; set; }
 
         [DisplayName("抽稀井编码")]
-        public WellIds Id { get; set; }
+        public string Id { get; set; }
     }
 
     public class WellIds

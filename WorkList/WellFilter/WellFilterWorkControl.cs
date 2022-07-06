@@ -8,7 +8,7 @@ namespace ExperimentDesign.WorkList.WellFilter
     {
         public WellFilterWorkControl()
         {
-
+            UpdateText("$*");
         }
 
         protected override string WorkName => "井数据筛选";

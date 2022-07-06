@@ -49,7 +49,6 @@ namespace ExperimentDesign.WorkList.Base
             StringBuilder sb = new StringBuilder();
             if (param?.Count > 0)
             {
-                
                 foreach (var item in param)
                 {
                     if (item.Name.ToString().Contains("$"))
@@ -67,6 +66,11 @@ namespace ExperimentDesign.WorkList.Base
             {
                 this.textEdit2.Text = string.Empty;
             }
+        }
+
+        protected void UpdateText(string text)
+        {
+            this.textEdit2.Text = text;
         }
 
         public virtual void Run(int index, IReadOnlyDictionary<string, object> designVaribles) { }
